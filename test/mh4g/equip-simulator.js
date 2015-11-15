@@ -2,7 +2,6 @@
 const assert = require('power-assert');
 const Simulator = require('../../lib/equip/simulator');
 const Context = require('../../lib/context');
-const data = require('../../lib/data');
 const myapp = require('../support/lib/driver-myapp');
 
 describe('mh4g/equip-simulator', () => {
@@ -24,7 +23,6 @@ describe('mh4g/equip-simulator', () => {
                 myapp.equip('waist', 'シルバーソルコイル')
             ];
             equips.leg   = [ myapp.equip('leg', 'ユクモノハカマ・天') ];
-            data.equips = equips;
             context.init(myapp.data);
 
             let got = simu.simulate([ '斬れ味レベル+1', '砥石使用高速化' ]);
