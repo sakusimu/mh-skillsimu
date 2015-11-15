@@ -1,10 +1,13 @@
 'use strict';
 const assert = require('power-assert');
 const Normalizer = require('../../lib/equip/normalizer');
-const data = require('../../lib/data');
+const Context = require('../../lib/context');
 const myapp = require('../support/lib/driver-myapp');
 
 describe('mh4g/equip-normalizer', () => {
+    let context = new Context();
+    let n = new Normalizer(context);
+
     beforeEach(() => { myapp.initialize(); });
 
     function summary(bulks) {
@@ -14,14 +17,12 @@ describe('mh4g/equip-normalizer', () => {
     }
 
     describe('normalize: selected equips', () => {
-        let n = new Normalizer();
-
         it('should normalize if contain a fixed equip', () => {
             // スキルポイントがマイナスの装備で固定
-            data.equips.body = [
+            myapp.data.equips.body = [
                 myapp.equip('body', 'アカムトウルンテ') // 斬れ味-2, スロ1
             ];
-            n.initialize();
+            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);
             let got = bulksSet.body;
@@ -37,12 +38,12 @@ describe('mh4g/equip-normalizer', () => {
 
         it('should normalize if contain selected equips', () => {
             // スキルポイントがマイナスの装備が複数
-            data.equips.body = [
+            myapp.data.equips.body = [
                 myapp.equip('body', 'ブナハＳスーツ'),   // 攻撃-2, スロ0
                 myapp.equip('body', 'リベリオンメイル'), // 攻撃-4, スロ1
                 myapp.equip('body', 'アカムトウルンテ')  // 斬れ味-2, スロ1
             ];
-            n.initialize();
+            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);
             let got = summary(bulksSet);
@@ -52,11 +53,9 @@ describe('mh4g/equip-normalizer', () => {
     });
 
     describe('normalize: weapon slot', () => {
-        let n = new Normalizer();
-
         it('should normalize if contain a slot0 weapon', () => {
             myapp.setup({ weaponSlot: 0 });
-            n.initialize();
+            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);
             let got = bulksSet.weapon;
@@ -68,7 +67,7 @@ describe('mh4g/equip-normalizer', () => {
 
         it('should normalize if contain a slot3 weapon', () => {
             myapp.setup({ weaponSlot: 3 });
-            n.initialize();
+            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);
             let got = bulksSet.weapon;
@@ -83,8 +82,6 @@ describe('mh4g/equip-normalizer', () => {
     });
 
     describe('normalize: oma', () => {
-        let n = new Normalizer();
-
         it('should normalize if contain omas', () => {
             myapp.setup({
                 hunter: { hr: 1, vs: 6 },
@@ -94,7 +91,7 @@ describe('mh4g/equip-normalizer', () => {
                     [ '龍の護石',3,'痛撃',4 ]
                 ]
             });
-            n.initialize();
+            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '斬れ味レベル+1', '攻撃力UP【中】', '耳栓' ]);
             let got = bulksSet.oma;
@@ -123,8 +120,6 @@ describe('mh4g/equip-normalizer', () => {
     });
 
     describe('normalize: dig', () => {
-        let n = new Normalizer();
-
         it('should normalize if contain dig equips', () => {
             myapp.setup({
                 omas: [
@@ -134,7 +129,7 @@ describe('mh4g/equip-normalizer', () => {
                 ],
                 dig: true
             });
-            n.initialize();
+            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '真打', '集中', '弱点特効', '耳栓' ]);
             let got = bulksSet.weapon;
@@ -157,7 +152,7 @@ describe('mh4g/equip-normalizer', () => {
     });
 
     describe('normalize: summary', () => {
-        let n = new Normalizer();
+        beforeEach(() => { context.init(myapp.data); });
 
         it('[ "攻撃力UP【大】", "業物" ]', () => {
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);

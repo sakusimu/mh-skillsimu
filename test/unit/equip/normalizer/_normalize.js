@@ -1,10 +1,12 @@
 'use strict';
 const assert = require('power-assert');
 const Normalizer = require('../../../../lib/equip/normalizer');
-const data = require('../../../../lib/data');
+const Context = require('../../../../lib/context');
 const myapp = require('../../../support/lib/driver-myapp');
 
 describe('equip/normalizer/normalize', () => {
+    let context = new Context();
+
     beforeEach(() => { myapp.initialize(); });
 
     function joinSkillComb(skillComb) {
@@ -20,10 +22,10 @@ describe('equip/normalizer/normalize', () => {
     }
 
     describe('normalize()', () => {
-        let n = new Normalizer();
+        let n = new Normalizer(context);
 
         it('should normalize', () => {
-            data.equips.head = [
+            myapp.data.equips.head = [
                 { name: 'ランポスヘルム', slot: 1, skillComb: { '攻撃': 2 } },
                 { name: 'バトルヘルム', slot: 2, skillComb: { '攻撃': 2, '研ぎ師': 1 } },
                 { name: 'レックスヘルム', slot: 1, skillComb: { '攻撃': 3, '研ぎ師': -2 } },
@@ -34,7 +36,7 @@ describe('equip/normalizer/normalize', () => {
                 { name: 'slot2', slot: 2, skillComb: {} },
                 { name: 'slot3', slot: 3, skillComb: {} }
             ];
-            n.initialize();
+            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);
             let got = sorter(bulksSet.head);
@@ -70,7 +72,7 @@ describe('equip/normalizer/normalize', () => {
         });
 
         it('should normalize if contain torsoUp', () => {
-            data.equips.leg = [
+            myapp.data.equips.leg = [
                 { name: 'マギュルヴルツェル', slot: 0, skillComb: { '溜め短縮': 3 } },
                 { name: 'クシャナハディ', slot: 2, skillComb: { '溜め短縮': 2 } },
                 { name: 'シルバーソルレギンス', slot: 0, skillComb: { '痛撃': 2 } },
@@ -81,7 +83,7 @@ describe('equip/normalizer/normalize', () => {
                 { name: 'slot3', slot: 3, skillComb: {} },
                 { name: 'torsoUp', slot: 0, skillComb: { '胴系統倍加': 1 } }
             ];
-            n.initialize();
+            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '集中', '弱点特効' ]);
             let got = sorter(bulksSet.leg);

@@ -1,24 +1,26 @@
 'use strict';
 const assert = require('power-assert');
 const Assembler = require('../../lib/equip/assembler');
+const Context = require('../../lib/context');
 const Normalizer = require('../../lib/equip/normalizer');
 const Combinator = require('../../lib/equip/combinator');
 const myapp = require('../support/lib/driver-myapp');
 
 describe('mh4g/equip-assembler', () => {
+    let context = new Context();
+    let n = new Normalizer(context);
+    let c = new Combinator();
+    let a = new Assembler();
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('assemble: weapon slot', () => {
-        let n = new Normalizer();
-        let c = new Combinator();
-        let a = new Assembler();
-
         it('should assemble if contain a slot2 weapon', () => {
             myapp.setup({
                 hunter: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
                 weaponSlot: 2
             });
-            n.initialize();
+            context.init(myapp.data);
 
             let skills = [ '斬れ味レベル+1', '集中' ];
             let bulksSet = n.normalize(skills);
@@ -30,10 +32,6 @@ describe('mh4g/equip-assembler', () => {
     });
 
     describe('assemble: oma', () => {
-        let n = new Normalizer();
-        let c = new Combinator();
-        let a = new Assembler();
-
         it('should combine if contain omas', () => {
             myapp.setup({
                 hunter: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
@@ -44,7 +42,7 @@ describe('mh4g/equip-assembler', () => {
                     [ '龍の護石',3,'痛撃',4 ]
                 ]
             });
-            n.initialize();
+            context.init(myapp.data);
 
             let skills = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
             let bulksSet = n.normalize(skills);
@@ -64,7 +62,7 @@ describe('mh4g/equip-assembler', () => {
                     [ '龍の護石',3,'痛撃',4 ]
                 ]
             });
-            n.initialize();
+            context.init(myapp.data);
 
             let skills = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
             let bulksSet = n.normalize(skills);
@@ -76,10 +74,6 @@ describe('mh4g/equip-assembler', () => {
     });
 
     describe('assemble: dig', () => {
-        let n = new Normalizer();
-        let c = new Combinator();
-        let a = new Assembler();
-
         it('should assemble if contain dig equips', () => {
             myapp.setup({
                 omas: [
@@ -89,7 +83,7 @@ describe('mh4g/equip-assembler', () => {
                 ],
                 dig: true
             });
-            n.initialize();
+            context.init(myapp.data);
 
             let skills = [ '真打', '集中', '弱点特効', '耳栓' ];
             let bulksSet = n.normalize(skills);
@@ -101,9 +95,7 @@ describe('mh4g/equip-assembler', () => {
     });
 
     describe('assemble: summary', () => {
-        let n = new Normalizer();
-        let c = new Combinator();
-        let a = new Assembler();
+        beforeEach(() => { context.init(myapp.data); });
 
         it('[ "攻撃力UP【大】", "業物" ]', () => {
             let skills = [ '攻撃力UP【大】', '業物' ];
