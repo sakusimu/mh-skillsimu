@@ -1,13 +1,17 @@
 'use strict';
 const assert = require('power-assert');
 const Combinator = require('../../../../lib/equip/combinator');
-const myapp = require('../../../support/lib/driver-myapp');
+const Context = require('../../../../lib/context');
 
 describe('equip/combinator/_combineUsedSp0', () => {
-    beforeEach(() => { myapp.initialize(); });
+    const SKILLS = {
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '業物': { name: '業物', tree: '斬れ味', point: 10 }
+    };
+    let context = new Context({ skills: SKILLS });
 
     describe('_makeBulksSetWithSp0()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should make', () => {
             let bulks = c._sortBulks([
@@ -56,7 +60,7 @@ describe('equip/combinator/_combineUsedSp0', () => {
     });
 
     describe('_combineUsedSp0()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should combine', () => {
             let skillNames = [ '攻撃力UP【大】', '業物' ];

@@ -1,14 +1,18 @@
 'use strict';
 const assert = require('power-assert');
 const Combinator = require('../../../../lib/deco/combinator');
+const Context = require('../../../../lib/context');
 const BorderLine = require('../../../../lib/util').BorderLine;
-const myapp = require('../../../support/lib/driver-myapp');
 
 describe('deco/combinator/_combine', () => {
-    beforeEach(() => { myapp.initialize(); });
+    const SKILLS = {
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '業物': { name: '業物', tree: '斬れ味', point: 10 }
+    };
+    let context = new Context({ skills: SKILLS });
 
     describe('_compress()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should compress', () => {
             let combs = [
@@ -41,7 +45,7 @@ describe('deco/combinator/_combine', () => {
     });
 
     describe('_filter()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should filter', () => {
             let combs = [
@@ -68,7 +72,7 @@ describe('deco/combinator/_combine', () => {
     });
 
     describe('_combine()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should combine', () => {
             let skillNames = [ '攻撃力UP【大】', '業物' ];
@@ -91,7 +95,7 @@ describe('deco/combinator/_combine', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let got = c._combine(bulksSet, borderLine);
             let exp = [
                 {
@@ -139,7 +143,7 @@ describe('deco/combinator/_combine', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let got = c._combine(bulksSet, borderLine);
             let exp = [
                 {
@@ -186,7 +190,7 @@ describe('deco/combinator/_combine', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 20, '斬れ味': 10 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let got = c._combine(bulksSet, borderLine);
             let exp = [ { decombs: [], sumSC: {} } ];
             assert.deepEqual(got, exp);

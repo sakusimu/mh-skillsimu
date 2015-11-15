@@ -2,7 +2,7 @@
 const assert = require('power-assert');
 const model = require('../lib/driver-model');
 const data = require('../lib/driver-data');
-const Context = require('../lib/driver-context');
+const Hunter = require('../lib/driver-hunter');
 
 describe('test-driver/model', () => {
     describe('model.make()', () => {
@@ -97,7 +97,7 @@ describe('test-driver/model', () => {
 
     describe('Equip#isEnabled()', () => {
         it('should return true if equip is enabled', () => {
-            let ctx = new Context();
+            let hunter = new Hunter();
 
             // ID,名前,"性別(0=両,1=男,2=女)","タイプ(0=両方,1=剣士,2=ガンナー)",レア度,スロット数,入手時期／HR（99=集会場入手不可）,入手時期／村★（99=村入手不可）
             let equips = [
@@ -114,20 +114,20 @@ describe('test-driver/model', () => {
                 [ '女/ガ/r/s/HR3/★6','2','2','4','0','3','6' ]
             ].map(list => new model.Equip(list));
 
-            ctx.initialize({ sex: 'm', type: 'k' });
-            let got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ sex: 'm', type: 'k' });
+            let got = equips.map(e => e.isEnabled(hunter));
             let exp = [ true,true,false, true,true,false, false,false,false ];
             assert.deepEqual(got, exp, 'm k');
-            ctx.initialize({ sex: 'm', type: 'g' });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ sex: 'm', type: 'g' });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,false,true, true,false,true, false,false,false ];
             assert.deepEqual(got, exp, 'm g');
-            ctx.initialize({ sex: 'w', type: 'k' });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ sex: 'w', type: 'k' });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,false, false,false,false, true,true,false ];
             assert.deepEqual(got, exp, 'w k');
-            ctx.initialize({ sex: 'w', type: 'g' });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ sex: 'w', type: 'g' });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,false,true, false,false,false, true,false,true ];
             assert.deepEqual(got, exp, 'w g');
 
@@ -145,68 +145,68 @@ describe('test-driver/model', () => {
                 [ '両/両/r/s/HR99/★99','0','0','4','0','99','99' ]
             ].map(list => new model.Equip(list));
 
-            ctx.initialize({ hr: 1, vs: 1 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 1, vs: 1 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,false,false, true,false,false ];
             assert.deepEqual(got, exp, 'hr=1, vs=1');
-            ctx.initialize({ hr: 1, vs: 5 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 1, vs: 5 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,false,false, true,false,false ];
             assert.deepEqual(got, exp, 'hr=1, vs=5');
-            ctx.initialize({ hr: 1, vs: 6 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 1, vs: 6 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,false, true,true,false ];
             assert.deepEqual(got, exp, 'hr=1, vs=6');
-            ctx.initialize({ hr: 1, vs: 7 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 1, vs: 7 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,false, true,true,false ];
             assert.deepEqual(got, exp, 'hr=1, vs=7');
-            ctx.initialize({ hr: 5, vs: 1 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 5, vs: 1 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,false,false, true,false,false ];
             assert.deepEqual(got, exp, 'hr=5, vs=1');
-            ctx.initialize({ hr: 5, vs: 5 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 5, vs: 5 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,false,false, true,false,false ];
             assert.deepEqual(got, exp, 'hr=5, vs=5');
-            ctx.initialize({ hr: 5, vs: 6 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 5, vs: 6 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,false, true,true,false ];
             assert.deepEqual(got, exp, 'hr=5, vs=6');
-            ctx.initialize({ hr: 5, vs: 7 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 5, vs: 7 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,false, true,true,false ];
             assert.deepEqual(got, exp, 'hr=5, vs=7');
-            ctx.initialize({ hr: 6, vs: 1 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 6, vs: 1 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,true, true,false,false ];
             assert.deepEqual(got, exp, 'hr=6, vs=1');
-            ctx.initialize({ hr: 6, vs: 5 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 6, vs: 5 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,true, true,false,false ];
             assert.deepEqual(got, exp, 'hr=6, vs=5');
-            ctx.initialize({ hr: 6, vs: 6 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 6, vs: 6 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,true, true,true,false ];
             assert.deepEqual(got, exp, 'hr=6, vs=6');
-            ctx.initialize({ hr: 6, vs: 7 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 6, vs: 7 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,true, true,true,false ];
             assert.deepEqual(got, exp, 'hr=6, vs=7');
-            ctx.initialize({ hr: 7, vs: 1 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 7, vs: 1 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,true, true,false,false ];
             assert.deepEqual(got, exp, 'hr=7, vs=1');
-            ctx.initialize({ hr: 7, vs: 5 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 7, vs: 5 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,true, true,false,false ];
             assert.deepEqual(got, exp, 'hr=7, vs=5');
-            ctx.initialize({ hr: 7, vs: 6 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 7, vs: 6 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,true, true,true,false ];
             assert.deepEqual(got, exp, 'hr=7, vs=6');
-            ctx.initialize({ hr: 7, vs: 7 });
-            got = equips.map(e => e.isEnabled(ctx));
+            hunter.init({ hr: 7, vs: 7 });
+            got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,true,true, true,true,true, true,true,false ];
             assert.deepEqual(got, exp, 'hr=7, vs=7');
         });
@@ -229,7 +229,7 @@ describe('test-driver/model', () => {
 
     describe('Equip#enabled()', () => {
         it('should return enabled equips', () => {
-            let ctx = new Context();
+            let hunter = new Hunter();
 
             data.equips.head = [
                 [ '両/両/r/s/HR3/★6','0','0','4','0','3','6' ],
@@ -245,7 +245,7 @@ describe('test-driver/model', () => {
                 [ '女/ガ/r/s/HR3/★6','2','2','4','0','3','6' ]
             ];
             model.equips.initialize();
-            let equips = model.equips.enabled('head', ctx);
+            let equips = model.equips.enabled('head', hunter);
             let got = equips.map(e => e.name);
             let exp = [
                 '両/両/r/s/HR3/★6',
@@ -257,7 +257,7 @@ describe('test-driver/model', () => {
 
             data.equips.body = [];
             model.equips.initialize();
-            got = model.equips.enabled('body', ctx);
+            got = model.equips.enabled('body', hunter);
             assert.deepEqual(got, []);
 
             data.initialize();
@@ -359,7 +359,7 @@ describe('test-driver/model', () => {
 
     describe('Deco#isEnabled()', () => {
         it('should return true if deco is enabled', () => {
-            let ctx = new Context();
+            let hunter = new Hunter();
 
             // 名前,レア度,スロット,入手時期／HR,入手時期／村★
             let decos = [
@@ -368,20 +368,20 @@ describe('test-driver/model', () => {
                 [ '攻撃珠【３】', '4', '3', '5', '99' ]
             ].map(list => new model.Deco(list));
 
-            ctx.initialize({ hr: 1, vs: 1 });
-            let got = decos.map(d => d.isEnabled(ctx));
+            hunter.init({ hr: 1, vs: 1 });
+            let got = decos.map(d => d.isEnabled(hunter));
             let exp = [ true, false, false ];
             assert.deepEqual(got, exp, 'hr=1, vs=1');
-            ctx.initialize({ hr: 1, vs: 6 });
-            got = decos.map(d => d.isEnabled(ctx));
+            hunter.init({ hr: 1, vs: 6 });
+            got = decos.map(d => d.isEnabled(hunter));
             exp = [ true, true, false ];
             assert.deepEqual(got, exp, 'hr=1, vs=6');
-            ctx.initialize({ hr: 3, vs: 1 });
-            got = decos.map(d => d.isEnabled(ctx));
+            hunter.init({ hr: 3, vs: 1 });
+            got = decos.map(d => d.isEnabled(hunter));
             exp = [ true, true, false ];
             assert.deepEqual(got, exp, 'hr=3, vs=1');
-            ctx.initialize({ hr: 6, vs: 6 });
-            got = decos.map(d => d.isEnabled(ctx));
+            hunter.init({ hr: 6, vs: 6 });
+            got = decos.map(d => d.isEnabled(hunter));
             exp = [ true, true, true ];
             assert.deepEqual(got, exp, 'hr=6, vs=6');
         });
@@ -404,7 +404,7 @@ describe('test-driver/model', () => {
 
     describe('Deco#enabled()', () => {
         it('should return enabled decos', () => {
-            let ctx = new Context({ hr: 1, vs: 6 });
+            let hunter = new Hunter({ hr: 1, vs: 6 });
 
             data.decos = [
                 [ '攻撃珠【１】', '4', '1', '1', '2' ],
@@ -412,7 +412,7 @@ describe('test-driver/model', () => {
                 [ '攻撃珠【３】', '4', '3', '5', '99' ]
             ];
             model.decos.initialize();
-            let decos = model.decos.enabled(ctx);
+            let decos = model.decos.enabled(hunter);
             let got = decos.map(d => d.name);
             let exp = [ '攻撃珠【１】', '攻撃珠【２】' ];
             assert.deepEqual(got, exp);

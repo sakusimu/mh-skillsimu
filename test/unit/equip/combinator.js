@@ -1,20 +1,30 @@
 'use strict';
 const assert = require('power-assert');
 const Combinator = require('../../../lib/equip/combinator');
+const Context = require('../../../lib/context');
 const myapp = require('../../support/lib/driver-myapp');
 
 describe('equip/combinator', () => {
+    let context = new Context();
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('constructor()', () => {
         it('should create combinator', () => {
-            let c = new Combinator();
+            let c = new Combinator(context);
             assert(c);
+            assert(c.context === context);
+        });
+
+        it('should throw exception if no arguments', () => {
+            let got;
+            try { new Combinator(); } catch (e) { got = e.message; }
+            assert(got === 'context is required');
         });
     });
 
     describe('_sortBulks()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should sort', () => {
             let bulks = [
@@ -68,7 +78,7 @@ describe('equip/combinator', () => {
     });
 
     describe('_brushUp()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should brush up', () => {
             let combs = [
@@ -136,7 +146,7 @@ describe('equip/combinator', () => {
     });
 
     describe('combine()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should combine if null or etc', () => {
             assert.deepEqual(c.combine(), []);

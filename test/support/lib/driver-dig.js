@@ -30,12 +30,12 @@ class Dig {
         return this.name;
     }
 
-    isEnabled(context) {
-        let c = context;
+    isEnabled(hunter) {
+        let h = hunter;
 
         // タイプ(0=両方,1=剣士,2=ガンナー): k=[01], g=[02]
-        if (c.type === 'k' && +this.type !== 0 && +this.type !== 1) return false;
-        if (c.type === 'g' && +this.type !== 0 && +this.type !== 2) return false;
+        if (h.type === 'k' && +this.type !== 0 && +this.type !== 1) return false;
+        if (h.type === 'g' && +this.type !== 0 && +this.type !== 2) return false;
 
         return true;
     }
@@ -65,7 +65,7 @@ class Digs {
         this.data.leg  = armors;
     }
 
-    enabled(part, context) {
+    enabled(part, hunter) {
         if (part == null) throw new Error('part is required');
         let digs = this.data[part];
         if (digs == null) throw new Error('unknown part: ' + part);
@@ -73,7 +73,7 @@ class Digs {
         let ret = [];
         for (let id in digs) {
             let dig = digs[id];
-            if(dig.isEnabled(context)) ret.push(dig);
+            if(dig.isEnabled(hunter)) ret.push(dig);
         }
         return ret;
     }

@@ -1,13 +1,16 @@
 'use strict';
 const assert = require('power-assert');
 const Normalizer = require('../../../../lib/equip/normalizer');
+const Context = require('../../../../lib/context');
 const myapp = require('../../../support/lib/driver-myapp');
 
 describe('equip/normalizer/normalize3', () => {
+    let context = new Context();
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('_normalize3()', () => {
-        let n = new Normalizer();
+        let n = new Normalizer(context);
 
         it('should do normalize3', () => {
             let combs = {

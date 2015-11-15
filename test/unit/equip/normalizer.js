@@ -1,26 +1,30 @@
 'use strict';
 const assert = require('power-assert');
 const Normalizer = require('../../../lib/equip/normalizer');
-const data = require('../../../lib/data');
+const Context = require('../../../lib/context');
 const myapp = require('../../support/lib/driver-myapp');
 
 describe('equip/normalizer', () => {
+    let context = new Context();
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('constructor()', () => {
         it('should create normalizer', () => {
-            let n = new Normalizer();
+            let n = new Normalizer(context);
             assert(n);
+            assert(n.context === context);
+        });
 
-            assert(n.equips === data.equips);
-            assert(n.equips.body === data.equips.body);
-            assert.deepEqual(n.equips.weapon, []);
-            assert.deepEqual(n.equips.oma, []);
+        it('should throw exception if no arguments', () => {
+            let got;
+            try { new Normalizer(); } catch (e) { got = e.message; }
+            assert(got === 'context is required');
         });
     });
 
     describe('_compareAny()', () => {
-        let n = new Normalizer();
+        let n = new Normalizer(context);
         let src, dst;
 
         it('should compare correctly', () => {
@@ -72,7 +76,7 @@ describe('equip/normalizer', () => {
     });
 
     describe('_collectMaxSkill()', () => {
-        let n = new Normalizer();
+        let n = new Normalizer(context);
 
         it('should collect max skill', () => {
             let combs = [ { a: 1 } ];

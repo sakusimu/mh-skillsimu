@@ -1,11 +1,19 @@
 'use strict';
 const assert = require('power-assert');
 const Combinator = require('../../lib/deco/combinator');
+const Context = require('../../lib/context');
 const Normalizer = require('../../lib/deco/normalizer');
 const myapp = require('../support/lib/driver-myapp');
 
 describe('mh4g/deco-combinator', () => {
-    beforeEach(() => { myapp.initialize(); });
+    let context = new Context();
+    let n = new Normalizer(context);
+    let c = new Combinator(context);
+
+    beforeEach(() => {
+        myapp.initialize();
+        context.init(myapp.data);
+    });
 
     // 頑シミュさんの装飾品検索の結果と比較しやすくする
     function simplify(decombs) {
@@ -26,9 +34,6 @@ describe('mh4g/deco-combinator', () => {
     }
 
     describe('combine', () => {
-        let n = new Normalizer();
-        let c = new Combinator();
-
         it('should combine if equips contain torsoUp, weaponSlot, oma', () => {
             let skills = [ '斬れ味レベル+1', '高級耳栓' ];
             let equip = {

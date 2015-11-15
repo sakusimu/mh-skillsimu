@@ -65,19 +65,19 @@ class Equip {
         return this.name;
     }
 
-    isEnabled(context) {
-        let c = context;
+    isEnabled(hunter) {
+        let h = hunter;
 
         // 性別(0=両,1=男,2=女): m=[01], w=[02]
-        if (c.sex === 'm' && +this.sex !== 0 && +this.sex !== 1) return false;
-        if (c.sex === 'w' && +this.sex !== 0 && +this.sex !== 2) return false;
+        if (h.sex === 'm' && +this.sex !== 0 && +this.sex !== 1) return false;
+        if (h.sex === 'w' && +this.sex !== 0 && +this.sex !== 2) return false;
 
         // タイプ(0=両方,1=剣士,2=ガンナー): k=[01], g=[02]
-        if (c.type === 'k' && +this.type !== 0 && +this.type !== 1) return false;
-        if (c.type === 'g' && +this.type !== 0 && +this.type !== 2) return false;
+        if (h.type === 'k' && +this.type !== 0 && +this.type !== 1) return false;
+        if (h.type === 'g' && +this.type !== 0 && +this.type !== 2) return false;
 
         // 入手時期／HR（99=集会場入手不可）,入手時期／村☆（99=村入手不可）
-        if (this.availableHR > +c.hr && this.availableVS > +c.vs) return false;
+        if (this.availableHR > +h.hr && this.availableVS > +h.vs) return false;
 
         return true;
     }
@@ -110,10 +110,10 @@ class Equips {
     }
 
     /**
-     * コンテキスト(性別やタイプなど)をふまえた、装備データを返す。
+     * ハンター(性別やタイプなど)をふまえた、装備データを返す。
      * (例えば、女の剣士なら性別は 0 or 2 でタイプは 0 or 1 の装備の集まりとなる)
      */
-    enabled(part, context) {
+    enabled(part, hunter) {
         if (part == null) throw new Error('part is required');
         let equips = this.data[part];
         if (equips == null) throw new Error('unknown part: ' + part);
@@ -121,7 +121,7 @@ class Equips {
         let ret = [];
         for (let id in equips) {
             let eq = equips[id];
-            if(eq.isEnabled(context)) ret.push(eq);
+            if(eq.isEnabled(hunter)) ret.push(eq);
         }
         return ret;
     }
@@ -163,11 +163,11 @@ class Deco {
         return this.name;
     }
 
-    isEnabled(context) {
-        let c = context;
+    isEnabled(hunter) {
+        let h = hunter;
 
         // 入手時期／HR（99=集会場入手不可）,入手時期／村☆（99=村入手不可）
-        if (this.availableHR > +c.hr && this.availableVS > +c.vs) return false;
+        if (this.availableHR > +h.hr && this.availableVS > +h.vs) return false;
 
         return true;
     }
@@ -197,13 +197,13 @@ class Decos {
     }
 
     /**
-     * コンテキスト(HRなど)をふまえた、装飾品データを返す。
+     * ハンター(HRなど)をふまえた、装飾品データを返す。
      */
-    enabled(context) {
+    enabled(hunter) {
         let ret = [];
         for (let name in this.data) {
             let deco = this.data[name];
-            if(deco.isEnabled(context)) ret.push(deco);
+            if(deco.isEnabled(hunter)) ret.push(deco);
         }
         return ret;
     }

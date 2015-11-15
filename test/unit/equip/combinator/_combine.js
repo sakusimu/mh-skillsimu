@@ -1,13 +1,18 @@
 'use strict';
 const assert = require('power-assert');
 const Combinator = require('../../../../lib/equip/combinator');
-const myapp = require('../../../support/lib/driver-myapp');
+const Context = require('../../../../lib/context');
 
 describe('equip/combinator/_combine', () => {
-    beforeEach(() => { myapp.initialize(); });
+    const SKILLS = {
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '耳栓': { name: '耳栓', tree: '聴覚保護', point: 10 },
+        '斬れ味レベル+1': { name: '斬れ味レベル+1', tree: '匠', point: 10 }
+    };
+    let context = new Context({ skills: SKILLS });
 
     describe('_compress()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should compress', () => {
             let combs = [
@@ -40,7 +45,7 @@ describe('equip/combinator/_combine', () => {
     });
 
     describe('_sortCombs()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should sort', () => {
             let combs = [
@@ -65,7 +70,7 @@ describe('equip/combinator/_combine', () => {
     });
 
     describe('_combine()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should combine', () => {
             let skillNames = [ '攻撃力UP【大】', '斬れ味レベル+1', '耳栓' ];

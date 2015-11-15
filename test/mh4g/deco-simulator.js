@@ -1,14 +1,16 @@
 'use strict';
 const assert = require('power-assert');
 const Simulator = require('../../lib/deco/simulator');
+const Context = require('../../lib/context');
 const myapp = require('../support/lib/driver-myapp');
 
 describe('mh4g/deco-simulator', () => {
+    let context = new Context();
+    let simu = new Simulator(context);
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('simulate', () => {
-        let simu = new Simulator();
-
         function sorter(assems) {
             return assems.map(assem => {
                 let sorted = {};
@@ -21,6 +23,8 @@ describe('mh4g/deco-simulator', () => {
         }
 
         it('should simulate if contain torsoUp, weaponSlot, oma', () => {
+            context.init(myapp.data);
+
             let equip = {
                 head  : { name: 'ユクモノカサ・天', slot: 2,
                           skillComb: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } },
@@ -73,6 +77,8 @@ describe('mh4g/deco-simulator', () => {
         });
 
         it('should simulate if all equips are slot3', () => {
+            context.init(myapp.data);
+
             // ALL三眼, 武器スロ3, お守り(匠4,スロ3)
             let equip = {
                 head  : { name: '三眼のピアス', slot: 3, skillComb: {} },
@@ -112,7 +118,9 @@ describe('mh4g/deco-simulator', () => {
 
         it('should simulate if find 1 assem', () => {
             // 1つだけ見つかるケース
-            myapp.setup({ context: { hr: 1, vs: 6 } }); // 装飾品を村のみにしぼる
+            myapp.setup({ hunter: { hr: 1, vs: 6 } }); // 装飾品を村のみにしぼる
+            context.init(myapp.data);
+
             let skills = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
             let equip = {
                 head  : { name: 'ガララキャップ', slot: 2,

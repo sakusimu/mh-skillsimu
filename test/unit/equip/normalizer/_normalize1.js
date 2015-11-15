@@ -1,14 +1,19 @@
 'use strict';
 const assert = require('power-assert');
 const Normalizer = require('../../../../lib/equip/normalizer');
-const data = require('../../../../lib/data');
+const Context = require('../../../../lib/context');
 const myapp = require('../../../support/lib/driver-myapp');
 
 describe('equip/normalizer/normalize1', () => {
-    beforeEach(() => { myapp.initialize(); });
+    let context = new Context();
+
+    beforeEach(() => {
+        myapp.initialize();
+        context.init(myapp.data);
+    });
 
     describe('_normalize1()', () => {
-        let n = new Normalizer();
+        let n = new Normalizer(context);
 
         it('should do normalize1', () => {
             let equips = [
@@ -66,7 +71,7 @@ describe('equip/normalizer/normalize1', () => {
         });
 
         it('should do normalize1 if none deco', () => {
-            data.decos = []; // 装飾品なし
+            context.decos = []; // 装飾品なし
 
             let equips = [
                 { name: 'slot1', slot: 1, skillComb: {} },
