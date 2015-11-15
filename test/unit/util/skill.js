@@ -1,11 +1,8 @@
 'use strict';
 const assert = require('power-assert');
 const util = require('../../../lib/util/skill');
-const myapp = require('../../support/lib/driver-myapp');
 
 describe('util/skill', () => {
-    beforeEach(() => { myapp.initialize(); });
-
     describe('isTorsoUp()', () => {
         it('should return true or false correctly', () => {
             assert(util.isTorsoUp('胴系統倍加'));
@@ -247,16 +244,30 @@ describe('util/skill', () => {
     });
 
     describe('trees()', () => {
+        let skills = {
+            'a+10': { name: 'a+10', tree: 'A', point: 10 },
+            'a+15': { name: 'a+15', tree: 'A', point: 15 },
+            'b+10': { name: 'b+10', tree: 'B', point: 10 },
+            'c+10': { name: 'c+10', tree: 'C', point: 10 },
+            'c-10': { name: 'a-10', tree: 'C', point: -10 }
+        };
+
         it('should return trees', () => {
-            let got = util.trees([ '攻撃力UP【大】', '斬れ味レベル+1', '耳栓' ]);
-            let exp = [ '攻撃', '匠', '聴覚保護' ];
+            let got = util.trees(skills, [ 'a+15', 'b+10', 'c+10' ]);
+            let exp = [ 'A', 'B', 'C' ];
+            assert.deepEqual(got, exp);
+        });
+
+        it('should return trees if contain same tree', () => {
+            let got = util.trees(skills, [ 'a+15', 'c-10', 'a+10' ]);
+            let exp = [ 'A', 'C', 'A' ];
             assert.deepEqual(got, exp);
         });
 
         it('should throw exception if tree not found', () => {
             let got;
-            try { util.trees([ '攻撃大' ]); } catch (e) { got = e.message; }
-            assert(got === '攻撃大 is not found');
+            try { util.trees(skills, [ 'hoge' ]); } catch (e) { got = e.message; }
+            assert(got === 'hoge is not found');
         });
     });
 
