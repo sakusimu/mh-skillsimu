@@ -11,20 +11,20 @@ describe('simulator', () => {
             let simu = new Simulator();
             assert(simu);
 
+            assert(simu._context);
             assert(simu._equip);
             assert(simu._deco);
         });
     });
 
-    describe('initialize()', () => {
+    describe('init()', () => {
         it('should initialize', () => {
             let simu = new Simulator();
-            simu._equip = null;
-            simu._deco  = null;
 
-            simu.initialize();
-            assert(simu._equip);
-            assert(simu._deco);
+            assert(simu._context.equips.head.length === 0);
+
+            simu.init(myapp.data);
+            assert(simu._context.equips.head.length > 0);
         });
     });
 
