@@ -10,7 +10,7 @@ describe('mh4g/equip-assembler', () => {
     let context = new Context();
     let n = new Normalizer(context);
     let c = new Combinator(context);
-    let a = new Assembler();
+    let a = new Assembler(context);
 
     beforeEach(() => { myapp.initialize(); });
 

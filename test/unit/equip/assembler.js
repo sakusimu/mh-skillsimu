@@ -1,15 +1,27 @@
 'use strict';
 const assert = require('power-assert');
 const Assembler = require('../../../lib/equip/assembler');
+const Context = require('../../../lib/context');
 
 describe('equip/assembler', () => {
+    let context = new Context();
+
     describe('constructor()', () => {
-        let a = new Assembler();
-        assert(a);
+        it('should create assembler', () => {
+            let a = new Assembler(context);
+            assert(a);
+            assert(a.context === context);
+        });
+
+        it('should throw exception if no arguments', () => {
+            let got;
+            try { new Assembler(); } catch (e) { got = e.message; }
+            assert(got === 'context is required');
+        });
     });
 
     describe('_assemble()', () => {
-        let a = new Assembler();
+        let a = new Assembler(context);
 
         it('should assemble', () => {
             let eqcomb = {
@@ -103,7 +115,7 @@ describe('equip/assembler', () => {
     });
 
     describe('assemble()', () => {
-        let a = new Assembler();
+        let a = new Assembler(context);
 
         it('should assemble', () => {
             let eqcombs = [
