@@ -3,12 +3,13 @@ const assert = require('power-assert');
 const Combinator = require('../../../../lib/equip/combinator');
 const Context = require('../../../../lib/context');
 const BorderLine = require('../../../../lib/util').BorderLine;
-const myapp = require('../../../support/lib/driver-myapp');
 
 describe('equip/combinator/_combineEquip', () => {
-    let context = new Context();
-
-    beforeEach(() => { myapp.initialize(); });
+    const SKILLS = {
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '業物': { name: '業物', tree: '斬れ味', point: 10 }
+    };
+    let context = new Context({ skills: SKILLS });
 
     describe('_newComb()', () => {
         let c = new Combinator(context);
@@ -124,7 +125,7 @@ describe('equip/combinator/_combineEquip', () => {
                     { skillComb: { '攻撃': 4, '斬れ味': 0 }, equips: [ '4,0' ] },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ '0,2' ] } ]
             };
-            let borderLine = new BorderLine(skillNames, bulksSet);
+            let borderLine = new BorderLine(context, skillNames, bulksSet);
             let comb = {
                 eqcombs: [
                     { head : [ '1,3' ],
@@ -197,7 +198,7 @@ describe('equip/combinator/_combineEquip', () => {
                     { skillComb: { '攻撃': 4, '斬れ味': 0 }, equips: [ '4,0' ] },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ '0,2' ] } ]
             };
-            let borderLine = new BorderLine(skillNames, bulksSet);
+            let borderLine = new BorderLine(context, skillNames, bulksSet);
             let comb = {
                 eqcombs: [
                     { head : [ '1,3' ],
@@ -265,7 +266,7 @@ describe('equip/combinator/_combineEquip', () => {
                     { skillComb: { '攻撃': 4, '斬れ味': 0 }, equips: [ '4,0' ] },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ '0,2' ] } ]
             };
-            let borderLine = new BorderLine(skillNames, bulksSet);
+            let borderLine = new BorderLine(context, skillNames, bulksSet);
             let comb = { eqcombs: [], sumSC: 0 };
             let bulks = [
                 { skillComb: { '攻撃': 6, '斬れ味': 0 }, equips: [ '6,0' ] },
@@ -303,7 +304,7 @@ describe('equip/combinator/_combineEquip', () => {
                     { skillComb: { '攻撃': 4, '斬れ味': 0 }, equips: [ '4,0' ] },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ '0,2' ] } ]
             };
-            let borderLine = new BorderLine(skillNames, bulksSet);
+            let borderLine = new BorderLine(context, skillNames, bulksSet);
             let comb = {
                 eqcombs: [
                     { head : [ '1,3' ],

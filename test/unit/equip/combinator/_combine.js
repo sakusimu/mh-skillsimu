@@ -2,12 +2,14 @@
 const assert = require('power-assert');
 const Combinator = require('../../../../lib/equip/combinator');
 const Context = require('../../../../lib/context');
-const myapp = require('../../../support/lib/driver-myapp');
 
 describe('equip/combinator/_combine', () => {
-    let context = new Context();
-
-    beforeEach(() => { myapp.initialize(); });
+    const SKILLS = {
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '耳栓': { name: '耳栓', tree: '聴覚保護', point: 10 },
+        '斬れ味レベル+1': { name: '斬れ味レベル+1', tree: '匠', point: 10 }
+    };
+    let context = new Context({ skills: SKILLS });
 
     describe('_compress()', () => {
         let c = new Combinator(context);

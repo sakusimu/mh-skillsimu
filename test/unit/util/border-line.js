@@ -1,22 +1,29 @@
 'use strict';
 const assert = require('power-assert');
 const BorderLine = require('../../../lib/util/border-line');
-const myapp = require('../../support/lib/driver-myapp');
+const Context = require('../../../lib/context');
 
 describe('util/border-line', () => {
-    beforeEach(() => {
-        myapp.initialize();
-    });
+    const SKILLS = {
+        '攻撃力UP【小】': { name: '攻撃力UP【小】', tree: '攻撃', point: 10 },
+        '攻撃力UP【中】': { name: '攻撃力UP【中】', tree: '攻撃', point: 15 },
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '攻撃力UP【超】': { name: '攻撃力UP【超】', tree: '攻撃', point: 25 },
+        '業物': { name: '業物', tree: '斬れ味', point: 10 },
+        'なまくら': { name: 'なまくら', tree: '斬れ味', point: -10 }
+    };
+    let context = new Context({ skills: SKILLS });
 
     describe('constructor()', () => {
         it('should create borderLine', () => {
-            let bl = new BorderLine();
+            let bl = new BorderLine(context);
             assert(bl);
+            assert(bl.context === context);
         });
     });
 
     describe('_goal()', () => {
-        let bl = new BorderLine();
+        let bl = new BorderLine(context);
 
         it('should return goal', () => {
             let got = bl._goal([ '攻撃力UP【大】', '業物' ]);
@@ -55,7 +62,7 @@ describe('util/border-line', () => {
     });
 
     describe('_calcMaxEachSkillPoint()', () => {
-        let bl = new BorderLine();
+        let bl = new BorderLine(context);
 
         it('should calc correctly', () => {
             let bulksSet = {
@@ -175,7 +182,7 @@ describe('util/border-line', () => {
     });
 
     describe('_calcMaxSumSkillPoint()', () => {
-        let bl = new BorderLine();
+        let bl = new BorderLine(context);
 
         it('should calc correctly', () => {
             let bulksSet = {
@@ -302,7 +309,7 @@ describe('util/border-line', () => {
                     { skillComb: { '攻撃': 4, '斬れ味': 0 } },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 } } ]
             };
-            let bl = new BorderLine(skillNames, bulksSet);
+            let bl = new BorderLine(context, skillNames, bulksSet);
             let sc = { '攻撃': 5+1+5, '斬れ味': 1+3+1 };
             let got = bl.calcEach('waist', sc);
             // 攻撃: 20 - (5+1+5) - (6+4), 斬れ味: 10 - (1+3+1) - (4+2)
@@ -338,7 +345,7 @@ describe('util/border-line', () => {
                     { skillComb: { '攻撃': 1, '斬れ味': 3 } },
                     { skillComb: { '攻撃': 4, '斬れ味': 1 } } ]
             };
-            let bl = new BorderLine(skillNames, bulksSet);
+            let bl = new BorderLine(context, skillNames, bulksSet);
             let sc = { '攻撃': (8+6), '斬れ味': (4+6) };
             let got = bl.calcEach('arm', sc);
             // 攻撃: 20 - (8+6) - (6), 斬れ味: 10 - (4+6) - (4)
@@ -367,7 +374,7 @@ describe('util/border-line', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 4 } },
                     { skillComb: { '胴系統倍加': 1 } } ]
             };
-            let bl = new BorderLine(skillNames, bulksSet);
+            let bl = new BorderLine(context, skillNames, bulksSet);
             let sc = { '攻撃': (4+4+3), '斬れ味': (2+2+3) };
             let got = bl.calcEach('waist', sc);
             // 攻撃: 20 - (4+4+3) - (5), 斬れ味: 10 - (2+2+3) - (4)
@@ -396,7 +403,7 @@ describe('util/border-line', () => {
                 oma: [
                     { skillComb: { '攻撃': 4, '斬れ味': 3 } } ]
             };
-            let bl = new BorderLine(skillNames, bulksSet);
+            let bl = new BorderLine(context, skillNames, bulksSet);
             let sc = { '攻撃': (0+0+8), '斬れ味': (0+0+3) };
             let got = bl.calcEach('waist', sc);
             // 攻撃: 20 - (8) - (5+4), 斬れ味: 10 - (3) - (4+3)
@@ -428,7 +435,7 @@ describe('util/border-line', () => {
                     { skillComb: { '攻撃': 4, '斬れ味': 0 } },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 } } ]
             };
-            let bl = new BorderLine(skillNames, bulksSet);
+            let bl = new BorderLine(context, skillNames, bulksSet);
             let got = bl.calcEach('body', null);
             // 攻撃: 20 - (5+5+1+6+4), 斬れ味: 10 - (1+1+3+4+2)
             let exp = { '攻撃': -1, '斬れ味': -1 };
@@ -456,7 +463,7 @@ describe('util/border-line', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 4 } },
                     { skillComb: { '胴系統倍加': 1 } } ]
             };
-            let bl = new BorderLine(skillNames, bulksSet, subtracted);
+            let bl = new BorderLine(context, skillNames, bulksSet, subtracted);
             let sc = { '攻撃': (4+4+0), '斬れ味': (2+2+0) };
             let got = bl.calcEach('waist', sc);
             // 攻撃: (20-3) - (4+4+0) - (5), 斬れ味: (10-3) - (2+2+0) - (4)

@@ -3,12 +3,13 @@ const assert = require('power-assert');
 const Combinator = require('../../../lib/deco/combinator');
 const Context = require('../../../lib/context');
 const BorderLine = require('../../../lib/util').BorderLine;
-const myapp = require('../../support/lib/driver-myapp');
 
 describe('deco/combinator', () => {
-    let context = new Context();
-
-    beforeEach(() => { myapp.initialize(); });
+    const SKILLS = {
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '業物': { name: '業物', tree: '斬れ味', point: 10 }
+    };
+    let context = new Context({ skills: SKILLS });
 
     describe('constructor()', () => {
         it('should create combinator', () => {
@@ -48,7 +49,7 @@ describe('deco/combinator', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let comb = {
                 decombs: [
                     { head : bulksSet.head[0],

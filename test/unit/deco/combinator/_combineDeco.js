@@ -6,9 +6,11 @@ const BorderLine = require('../../../../lib/util').BorderLine;
 const myapp = require('../../../support/lib/driver-myapp');
 
 describe('deco/combinator/_combineDeco', () => {
-    let context = new Context();
-
-    beforeEach(() => { myapp.initialize(); });
+    const SKILLS = {
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '業物': { name: '業物', tree: '斬れ味', point: 10 }
+    };
+    let context = new Context({ skills: SKILLS });
 
     describe('_newComb()', () => {
         let c = new Combinator(context);
@@ -147,7 +149,7 @@ describe('deco/combinator/_combineDeco', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let comb = {
                 decombs: [
                     { head: bulksSet.head[0],
@@ -211,7 +213,7 @@ describe('deco/combinator/_combineDeco', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let comb = {
                 decombs: [
                     { head: bulksSet.head[0],
@@ -265,7 +267,7 @@ describe('deco/combinator/_combineDeco', () => {
                     { skillComb: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 7, '斬れ味': 4 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let comb = {
                 decombs: [
                     { head : bulksSet.head[0],
@@ -322,7 +324,7 @@ describe('deco/combinator/_combineDeco', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let comb = { decombs: [], sumSC: 0 };
             let bulks = bulksSet.body;
             let got = c._combineDeco(comb, bulks, borderLine, 'body');
@@ -363,7 +365,7 @@ describe('deco/combinator/_combineDeco', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 20, '斬れ味': 10 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let comb = { decombs: [], sumSC: {} };
             let bulks = bulksSet.body;
             let got = c._combineDeco(comb, bulks, borderLine, 'body');
@@ -395,7 +397,7 @@ describe('deco/combinator/_combineDeco', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(skillNames, bulksSet, equipSC);
+            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
             let comb = {
                 decombs: [
                     { head : bulksSet.head[0],
