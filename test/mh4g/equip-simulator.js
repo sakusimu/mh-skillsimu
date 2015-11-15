@@ -1,19 +1,20 @@
 'use strict';
 const assert = require('power-assert');
 const Simulator = require('../../lib/equip/simulator');
+const Context = require('../../lib/context');
 const data = require('../../lib/data');
 const myapp = require('../support/lib/driver-myapp');
 
 describe('mh4g/equip-simulator', () => {
+    let context = new Context();
+    let simu = new Simulator(context);
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('simulate', () => {
         it('should simulate torsoUp', () => {
-            let simu = new Simulator();
-
-            myapp.setup({ sex: 'w' });
-
-            let equips = data.equips;
+            myapp.setup({ hunter: { sex: 'w' } });
+            let equips = myapp.data.equips;
             equips.head  = [ myapp.equip('head', 'ユクモノカサ・天') ];
             equips.body  = [ myapp.equip('body', '三眼の首飾り') ];
             equips.arm   = [ myapp.equip('arm', 'ユクモノコテ・天') ];
@@ -23,6 +24,8 @@ describe('mh4g/equip-simulator', () => {
                 myapp.equip('waist', 'シルバーソルコイル')
             ];
             equips.leg   = [ myapp.equip('leg', 'ユクモノハカマ・天') ];
+            data.equips = equips;
+            context.init(myapp.data);
 
             let got = simu.simulate([ '斬れ味レベル+1', '砥石使用高速化' ]);
             let exp = [ { head  : 'ユクモノカサ・天',
@@ -36,8 +39,6 @@ describe('mh4g/equip-simulator', () => {
         });
 
         it('should simulate dig', () => {
-            let simu = new Simulator();
-
             myapp.setup({
                 omas: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],
@@ -46,6 +47,7 @@ describe('mh4g/equip-simulator', () => {
                 ],
                 dig: true
             });
+            context.init(myapp.data);
 
             let got = simu.simulate([ '真打', '集中', '弱点特効', '耳栓' ]).length;
             let exp = 157; // 頑シミュさんと同じ
@@ -54,7 +56,7 @@ describe('mh4g/equip-simulator', () => {
     });
 
     describe('simulate: summary', () => {
-        let simu = new Simulator();
+        beforeEach(() => { context.init(myapp.data); });
 
         it('[ "攻撃力UP【大】", "業物" ]', () => {
             let skills = [ '攻撃力UP【大】', '業物' ];
