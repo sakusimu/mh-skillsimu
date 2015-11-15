@@ -8,6 +8,25 @@ const myapp = require('../../support/lib/driver-myapp');
 describe('deco/normalizer', () => {
     let context = new Context();
 
+    const DECOS = [
+        { name: '耐絶珠【１】', slot: 1, skillComb: { '気絶': 1, '麻痺': -1 } },
+        { name: '制絶珠【１】', slot: 1, skillComb: { '気絶': 2 } },
+        { name: '攻撃珠【１】', slot: 1, skillComb: { '攻撃': 1, '防御': -1 } },
+        { name: '攻撃珠【２】', slot: 2, skillComb: { '攻撃': 3, '防御': -1 } },
+        { name: '攻撃珠【３】', slot: 3, skillComb: { '攻撃': 5, '防御': -1 } },
+        { name: '達人珠【１】', slot: 1, skillComb: { '達人': 1, '龍耐性': -1 } },
+        { name: '達人珠【２】', slot: 2, skillComb: { '達人': 3, '龍耐性': -1 } },
+        { name: '達人珠【３】', slot: 3, skillComb: { '達人': 5, '龍耐性': -1 } },
+        { name: '匠珠【２】', slot: 2, skillComb: { '匠': 1, '斬れ味': -1 } },
+        { name: '匠珠【３】', slot: 3, skillComb: { '匠': 2, '斬れ味': -2 } },
+        { name: '斬鉄珠【１】', slot: 1, skillComb: { '斬れ味': 1, '匠': -1 } },
+        { name: '斬鉄珠【３】', slot: 3, skillComb: { '斬れ味': 4, '匠': -2 } },
+        { name: '斬鉄珠【３】', slot: 3, skillComb: { '斬れ味': 4, '匠': -2 } },
+        { name: '研磨珠【１】', slot: 1, skillComb: { '研ぎ師': 2 } },
+        { name: '採取珠【１】', slot: 1, skillComb: { '採取': 2 } },
+        { name: '速集珠【１】', slot: 1, skillComb: { '高速収集': 2 } }
+    ];
+
     beforeEach(() => {
         myapp.initialize();
         context.init(myapp.data);
@@ -31,7 +50,7 @@ describe('deco/normalizer', () => {
         let n = new Normalizer(context);
 
         it('should normalize if slot0', () => {
-            let decoCombsBySlot = util.deco.combs([ '研ぎ師' ]);
+            let decoCombsBySlot = util.deco.combs(DECOS, [ '研ぎ師' ]);
             let equip = { name: 'slot0', slot: 0, skillComb: { '攻撃': 1, '斬れ味': 1 } };
             let got = n._normalize1(decoCombsBySlot, equip);
             let exp = [ { decos: [], slot: 0, skillComb: {} } ];
@@ -39,7 +58,7 @@ describe('deco/normalizer', () => {
         });
 
         it('should normalzie if slot1 and [ "研ぎ師" ]', () => {
-            let decoCombsBySlot = util.deco.combs([ '研ぎ師' ]);
+            let decoCombsBySlot = util.deco.combs(DECOS, [ '研ぎ師' ]);
             let equip = { name: 'slot1', slot: 1, skillComb: { '攻撃': 1, '斬れ味': 1 } };
             let got = n._normalize1(decoCombsBySlot, equip);
             let exp = [
@@ -50,7 +69,7 @@ describe('deco/normalizer', () => {
         });
 
         it('should normalzie if slot1 and [ "匠" ]', () => {
-            let decoCombsBySlot = util.deco.combs([ '匠' ]);
+            let decoCombsBySlot = util.deco.combs(DECOS, [ '匠' ]);
             let equip = { name: 'slot1', slot: 1, skillComb: { '攻撃': 1, '斬れ味': 1 } };
             let got = n._normalize1(decoCombsBySlot, equip);
             let exp = [ { decos: [], slot: 0, skillComb: {} } ];
@@ -58,7 +77,7 @@ describe('deco/normalizer', () => {
         });
 
         it('should normalize if slot3 and [ "匠", "研ぎ師" ]', () => {
-            let decoCombsBySlot = util.deco.combs([ '匠', '研ぎ師' ]);
+            let decoCombsBySlot = util.deco.combs(DECOS, [ '匠', '研ぎ師' ]);
             let equip = { name: 'slot3', slot: 3, skillComb: { '攻撃': 1, '斬れ味': 1 } };
             let got = n._normalize1(decoCombsBySlot, equip);
             let exp = [
@@ -77,7 +96,7 @@ describe('deco/normalizer', () => {
         });
 
         it('should normalize if slot3 and [ "匠" ]', () => {
-            let decoCombsBySlot = util.deco.combs([ '匠' ]);
+            let decoCombsBySlot = util.deco.combs(DECOS, [ '匠' ]);
             let equip = { name: 'slot3', slot: 3, skillComb: { '攻撃': 1, '斬れ味': 1 } };
             let got = n._normalize1(decoCombsBySlot, equip);
             let exp = [
@@ -90,7 +109,7 @@ describe('deco/normalizer', () => {
         });
 
         it('should normalize if contain torsoUp', () => {
-            let decoCombsBySlot = util.deco.combs([ '匠' ]);
+            let decoCombsBySlot = util.deco.combs(DECOS, [ '匠' ]);
             let equip = { name: 'torsoUp', slot: 0, skillComb: { '胴系統倍加': 1 } };
             let got = n._normalize1(decoCombsBySlot, equip);
             let exp = [ { decos: [], slot: 0, skillComb: { '胴系統倍加': 1 } } ];
@@ -98,14 +117,14 @@ describe('deco/normalizer', () => {
         });
 
         it('should normalize if equip is null', () => {
-            let decoCombsBySlot = util.deco.combs([ '匠' ]);
+            let decoCombsBySlot = util.deco.combs(DECOS, [ '匠' ]);
             let got = n._normalize1(decoCombsBySlot, null);
             let exp = [];
             assert.deepEqual(got, exp);
         });
 
         it('should normalize if equip.skillComb is {}', () => {
-            let decoCombsBySlot = util.deco.combs([ '匠' ]);
+            let decoCombsBySlot = util.deco.combs(DECOS, [ '匠' ]);
             let equip = { name: 'slot3', slot: 3, skillComb: {} };
             let got = n._normalize1(decoCombsBySlot, equip);
             let exp = [
