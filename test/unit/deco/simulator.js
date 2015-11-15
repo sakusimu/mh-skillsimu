@@ -1,14 +1,14 @@
 'use strict';
 const assert = require('power-assert');
 const Simulator = require('../../../lib/deco/simulator');
-const myapp = require('../../support/lib/driver-myapp');
+const Context = require('../../../lib/context');
 
 describe('deco/simulator', () => {
-    beforeEach(() => { myapp.initialize(); });
+    let context = new Context();
 
     describe('constructor()', () => {
         it('should create simulator', () => {
-            let simu = new Simulator();
+            let simu = new Simulator(context);
             assert(simu);
         });
     });
