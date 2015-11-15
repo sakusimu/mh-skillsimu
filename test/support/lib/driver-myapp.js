@@ -2,6 +2,7 @@
 const Hunter = require('./driver-hunter');
 const model = require('./driver-model');
 const data = require('../../../lib/data');
+const parts = require('../../../lib/util').parts;
 require('./driver-dig');
 
 /**
@@ -14,6 +15,7 @@ class MyApp {
     }
 
     initialize() {
+        this.data = {};
         this.hunter = new Hunter();
         this.setup();
     }
@@ -26,7 +28,7 @@ class MyApp {
         const simuData = obj => obj.simuData();
 
         let equips = {};
-        data.parts.forEach(part => equips[part] = []);
+        parts.forEach(part => equips[part] = []);
 
         let armors = [ 'head', 'body', 'arm', 'waist', 'leg' ];
         armors.forEach(part => {
@@ -62,11 +64,12 @@ class MyApp {
         let skills = {};
         model.skills.enabled().forEach(s => skills[s.name] = s.simuData());
 
-        data.set({
+        this.data = {
             equips: equips,
             decos : decos,
             skills: skills
-        });
+        };
+        data.set(this.data);
     }
 
     equip(part, name) {

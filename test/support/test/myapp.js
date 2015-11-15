@@ -7,6 +7,7 @@ describe('test-driver/myapp', () => {
     describe('export', () => {
         it('should export myapp', () => {
             assert(myapp);
+            assert(myapp.data);
             assert(myapp.hunter);
         });
     });
@@ -15,8 +16,12 @@ describe('test-driver/myapp', () => {
         it('should setup', () => {
             myapp.setup();
             assert(data.equips.head.length > 0);
+            assert(myapp.data.equips.head.length > 0);
             assert(data.decos.length > 0);
+            assert(myapp.data.decos.length > 0);
             let got = Object.keys(data.skills).length;
+            assert(got > 0);
+            got = Object.keys(myapp.data.skills).length;
             assert(got > 0);
 
             myapp.setup({
@@ -30,11 +35,15 @@ describe('test-driver/myapp', () => {
                 { name: 'slot2', slot: 2, skillComb: {} }
             ];
             assert.deepEqual(got, exp);
+            got = myapp.data.equips.weapon;
+            assert.deepEqual(got, exp);
             got = data.equips.oma;
             exp = [
                 { name: '龍の護石(スロ3,匠+4,氷耐性-5)',
                   slot: 3, skillComb: { '匠': 4, '氷耐性': -5 } }
             ];
+            assert.deepEqual(got, exp);
+            got = myapp.data.equips.oma;
             assert.deepEqual(got, exp);
         });
 
@@ -45,8 +54,12 @@ describe('test-driver/myapp', () => {
             let got = data.equips.head.filter(tousyo).map(eq => eq.name);
             let exp = [ '発掘(刀匠+2)', '発掘(刀匠+3)' ];
             assert.deepEqual(got, exp);
+            got = myapp.data.equips.head.filter(tousyo).map(eq => eq.name);
+            assert.deepEqual(got, exp);
             got = data.equips.weapon.filter(tousyo).map(eq => eq.name);
             exp = [ '発掘(刀匠+2)', '発掘(刀匠+3)', '発掘(刀匠+4)' ];
+            assert.deepEqual(got, exp);
+            got = myapp.data.equips.weapon.filter(tousyo).map(eq => eq.name);
             assert.deepEqual(got, exp);
         });
     });
