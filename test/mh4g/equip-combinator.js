@@ -8,7 +8,7 @@ const myapp = require('../support/lib/driver-myapp');
 describe('mh4g/equip-combinator', () => {
     let context = new Context();
     let n = new Normalizer(context);
-    let c = new Combinator();
+    let c = new Combinator(context);
 
     beforeEach(() => { myapp.initialize(); });
 

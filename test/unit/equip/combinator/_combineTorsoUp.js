@@ -1,14 +1,17 @@
 'use strict';
 const assert = require('power-assert');
 const Combinator = require('../../../../lib/equip/combinator');
+const Context = require('../../../../lib/context');
 const BorderLine = require('../../../../lib/util').BorderLine;
 const myapp = require('../../../support/lib/driver-myapp');
 
 describe('equip/combinator/_combineTorsoUp', () => {
+    let context = new Context();
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('_combineTorsoUp()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should combine', () => {
             let skillNames = [ '攻撃力UP【大】', '業物' ];
