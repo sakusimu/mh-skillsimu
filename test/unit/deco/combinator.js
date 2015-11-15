@@ -1,21 +1,31 @@
 'use strict';
 const assert = require('power-assert');
 const Combinator = require('../../../lib/deco/combinator');
+const Context = require('../../../lib/context');
 const BorderLine = require('../../../lib/util').BorderLine;
 const myapp = require('../../support/lib/driver-myapp');
 
 describe('deco/combinator', () => {
+    let context = new Context();
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('constructor()', () => {
         it('should create combinator', () => {
-            let c = new Combinator();
+            let c = new Combinator(context);
             assert(c);
+            assert(c.context === context);
+        });
+
+        it('should throw exception if no arguments', () => {
+            let got;
+            try { new Combinator(); } catch (e) { got = e.message; }
+            assert(got === 'context is required');
         });
     });
 
     describe('_combineTorsoUp()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should combine', () => {
             let skillNames = [ '攻撃力UP【大】', '業物' ];
@@ -81,7 +91,7 @@ describe('deco/combinator', () => {
     });
 
     describe('_brushUp()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should brush up', () => {
             let combs = [
@@ -148,7 +158,7 @@ describe('deco/combinator', () => {
     });
 
     describe('_removeOverlap()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should remove', () => {
             let decombs = [
@@ -225,7 +235,7 @@ describe('deco/combinator', () => {
     });
 
     describe('_calcTotalSlot()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should calc', () => {
             let equip = {
@@ -242,7 +252,7 @@ describe('deco/combinator', () => {
     });
 
     describe('_groupByFreeSlot()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should group by correctly', () => {
             let decombs = [
@@ -301,7 +311,7 @@ describe('deco/combinator', () => {
     });
 
     describe('_getJustActivated()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should return decombs just activated', () => {
             let goal = { '攻撃': 6, '斬れ味': 10 };
@@ -366,7 +376,7 @@ describe('deco/combinator', () => {
     });
 
     describe('_removePointOver()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should remove', () => {
             let goal = { '攻撃': 6, '斬れ味': 10 };
@@ -434,7 +444,7 @@ describe('deco/combinator', () => {
     });
 
     describe('combine()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should return [] if null or etc', () => {
             assert.deepEqual(c.combine(), []);

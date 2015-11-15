@@ -1,14 +1,17 @@
 'use strict';
 const assert = require('power-assert');
 const Combinator = require('../../../../lib/deco/combinator');
+const Context = require('../../../../lib/context');
 const BorderLine = require('../../../../lib/util').BorderLine;
 const myapp = require('../../../support/lib/driver-myapp');
 
 describe('deco/combinator/_combine', () => {
+    let context = new Context();
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('_compress()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should compress', () => {
             let combs = [
@@ -41,7 +44,7 @@ describe('deco/combinator/_combine', () => {
     });
 
     describe('_filter()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should filter', () => {
             let combs = [
@@ -68,7 +71,7 @@ describe('deco/combinator/_combine', () => {
     });
 
     describe('_combine()', () => {
-        let c = new Combinator();
+        let c = new Combinator(context);
 
         it('should combine', () => {
             let skillNames = [ '攻撃力UP【大】', '業物' ];
