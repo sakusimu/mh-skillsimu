@@ -7,7 +7,7 @@ describe('test-driver/myapp', () => {
     describe('export', () => {
         it('should export myapp', () => {
             assert(myapp);
-            assert(myapp.context);
+            assert(myapp.hunter);
         });
     });
 

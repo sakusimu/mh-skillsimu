@@ -87,7 +87,7 @@ describe('mh4g/equip-normalizer', () => {
 
         it('should normalize if contain omas', () => {
             myapp.setup({
-                context: { hr: 1, vs: 6 },
+                hunter: { hr: 1, vs: 6 },
                 omas: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],
                     [ '龍の護石',0,'溜め短縮',5,'攻撃',9 ],

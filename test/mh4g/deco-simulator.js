@@ -112,7 +112,7 @@ describe('mh4g/deco-simulator', () => {
 
         it('should simulate if find 1 assem', () => {
             // 1つだけ見つかるケース
-            myapp.setup({ context: { hr: 1, vs: 6 } }); // 装飾品を村のみにしぼる
+            myapp.setup({ hunter: { hr: 1, vs: 6 } }); // 装飾品を村のみにしぼる
             let skills = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
             let equip = {
                 head  : { name: 'ガララキャップ', slot: 2,

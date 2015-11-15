@@ -15,7 +15,7 @@ describe('mh4g/equip-assembler', () => {
 
         it('should assemble if contain a slot2 weapon', () => {
             myapp.setup({
-                context: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
+                hunter: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
                 weaponSlot: 2
             });
             n.initialize();
@@ -36,7 +36,7 @@ describe('mh4g/equip-assembler', () => {
 
         it('should combine if contain omas', () => {
             myapp.setup({
-                context: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
+                hunter: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
                 weaponSlot: 3,
                 omas: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],
@@ -56,7 +56,7 @@ describe('mh4g/equip-assembler', () => {
 
         it('should assemble if contain omas and slot0 weapon', () => {
             myapp.setup({
-                context: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
+                hunter: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
                 weaponSlot: 0,
                 omas: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],

@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('power-assert');
 const model = require('../lib/driver-dig');
-const Context = require('../lib/driver-context');
+const Hunter = require('../lib/driver-hunter');
 
 describe('test-driver/dig', () => {
     describe('constructor()', () => {
@@ -27,7 +27,7 @@ describe('test-driver/dig', () => {
 
     describe('isEnabled()', () => {
         it('should return true if equip is enabled', () => {
-            let ctx = new Context();
+            let hunter = new Hunter();
 
             // "性別(0=両,1=男,2=女)","タイプ(0=両方,1=剣士,2=ガンナー)",スキル系統1,スキル値1
             let digs = [
@@ -36,12 +36,12 @@ describe('test-driver/dig', () => {
                 [ '0','2','射手','4' ]
             ].map(list => new model.Dig(list));
 
-            ctx.initialize({ sex: 'm', type: 'k' });
-            let got = digs.map(d => d.isEnabled(ctx));
+            hunter.init({ sex: 'm', type: 'k' });
+            let got = digs.map(d => d.isEnabled(hunter));
             let exp = [ true,true,false ];
             assert.deepEqual(got, exp, 'm k');
-            ctx.initialize({ sex: 'w', type: 'g' });
-            got = digs.map(d => d.isEnabled(ctx));
+            hunter.init({ sex: 'w', type: 'g' });
+            got = digs.map(d => d.isEnabled(hunter));
             exp = [ true,false,true ];
             assert.deepEqual(got, exp, 'w g');
         });
@@ -71,14 +71,14 @@ describe('test-driver/dig', () => {
 
     describe('Digs#enabled()', () => {
         it('should return enabled digs', () => {
-            let ctx = new Context();
+            let hunter = new Hunter();
 
             const gunner = dig => dig.skillTree1 === '射手';
 
             model.digs.initialize();
-            let got = model.digs.enabled('head', ctx).filter(gunner).length;
+            let got = model.digs.enabled('head', hunter).filter(gunner).length;
             assert(got > 0);
-            got = model.digs.enabled('body', ctx).filter(gunner).length;
+            got = model.digs.enabled('body', hunter).filter(gunner).length;
             assert(got === 0);
         });
 
