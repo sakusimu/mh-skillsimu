@@ -8,7 +8,10 @@ const myapp = require('../../support/lib/driver-myapp');
 describe('deco/normalizer', () => {
     let context = new Context();
 
-    beforeEach(() => { myapp.initialize(); });
+    beforeEach(() => {
+        myapp.initialize();
+        context.init(myapp.data);
+    });
 
     describe('constructor()', () => {
         it('should create normalizer', () => {
