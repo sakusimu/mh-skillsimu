@@ -31,6 +31,7 @@ describe('simulator', () => {
     describe('simulateEquip()', () => {
         it('should simulate correctly', () => {
             let simu = new Simulator();
+            simu.init(myapp.data);
 
             let got = simu.simulateEquip([ '斬れ味レベル+1', '高級耳栓' ]).length;
             assert(got === 1737); // 頑シミュさんと同じ
@@ -40,6 +41,7 @@ describe('simulator', () => {
     describe('simulateDeco()', () => {
         it('should simulate correctly', () => {
             let simu = new Simulator();
+            simu.init(myapp.data);
 
             // 装備に胴系統倍加、武器スロ、お守りがある場合
             let equip = {
