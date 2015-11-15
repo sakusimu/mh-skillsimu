@@ -1,18 +1,23 @@
 'use strict';
 const assert = require('power-assert');
 const Assembler = require('../../lib/deco/assembler');
+const Context = require('../../lib/context');
 const Normalizer = require('../../lib/deco/normalizer');
 const Combinator = require('../../lib/deco/combinator');
 const myapp = require('../support/lib/driver-myapp');
 
 describe('mh4g/deco-assembler', () => {
-    beforeEach(() => { myapp.initialize(); });
+    let context = new Context();
+    let n = new Normalizer(context);
+    let c = new Combinator();
+    let a = new Assembler();
+
+    beforeEach(() => {
+        myapp.initialize();
+        context.init(myapp.data);
+    });
 
     describe('assemble', () => {
-        let n = new Normalizer();
-        let c = new Combinator();
-        let a = new Assembler();
-
         function sorter(assems) {
             return assems.map(assem => {
                 let sorted = {};

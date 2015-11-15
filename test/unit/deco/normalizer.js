@@ -1,19 +1,31 @@
 'use strict';
 const assert = require('power-assert');
 const Normalizer = require('../../../lib/deco/normalizer');
+const Context = require('../../../lib/context');
 const util = require('../../../lib/util');
 const myapp = require('../../support/lib/driver-myapp');
 
 describe('deco/normalizer', () => {
+    let context = new Context();
+
     beforeEach(() => { myapp.initialize(); });
 
     describe('constructor()', () => {
-        let n = new Normalizer();
-        assert(n);
+        it('should create normalizer', () => {
+            let n = new Normalizer(context);
+            assert(n);
+            assert(n.context === context);
+        });
+
+        it('should throw exception if no arguments', () => {
+            let got;
+            try { new Normalizer(); } catch (e) { got = e.message; }
+            assert(got === 'context is required');
+        });
     });
 
     describe('_normalize1()', () => {
-        let n = new Normalizer();
+        let n = new Normalizer(context);
 
         it('should normalize if slot0', () => {
             let decoCombsBySlot = util.deco.combs([ '研ぎ師' ]);
@@ -104,7 +116,7 @@ describe('deco/normalizer', () => {
     });
 
     describe('_normalize2()', () => {
-        let n = new Normalizer();
+        let n = new Normalizer(context);
 
         it('should normalize', () => {
             let bulks = [
@@ -137,7 +149,7 @@ describe('deco/normalizer', () => {
     });
 
     describe('normalize()', () => {
-        let n = new Normalizer();
+        let n = new Normalizer(context);
 
         it('should normalize', () => {
             let equip = {
