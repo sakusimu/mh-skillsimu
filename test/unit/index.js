@@ -7,7 +7,6 @@ describe('index', () => {
         it('should some properties', () => {
             assert(/\d+\.\d+\.\d+/.test(simu.VERSION));
             assert(typeof simu.Simulator === 'function');
-            assert(simu.data);
             assert(simu.util);
         });
     });
