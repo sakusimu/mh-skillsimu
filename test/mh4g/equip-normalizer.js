@@ -8,7 +8,10 @@ describe('mh4g/equip-normalizer', () => {
     let context = new Context();
     let n = new Normalizer(context);
 
-    beforeEach(() => { myapp.initialize(); });
+    beforeEach(() => {
+        myapp.initialize();
+        context.init(myapp.data);
+    });
 
     function summary(bulks) {
         let ret = {};

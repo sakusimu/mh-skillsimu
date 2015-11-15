@@ -10,7 +10,10 @@ describe('mh4g/equip-combinator', () => {
     let n = new Normalizer(context);
     let c = new Combinator(context);
 
-    beforeEach(() => { myapp.initialize(); });
+    beforeEach(() => {
+        myapp.initialize();
+        context.init(myapp.data);
+    });
 
     describe('combine: weapon slot', () => {
         it('should combine if contain a slot2 weapon', () => {
