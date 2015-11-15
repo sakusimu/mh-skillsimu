@@ -1,7 +1,6 @@
 'use strict';
 const Hunter = require('./driver-hunter');
 const model = require('./driver-model');
-const data = require('../../../lib/data');
 const parts = require('../../../lib/util').parts;
 require('./driver-dig');
 
@@ -69,7 +68,6 @@ class MyApp {
             decos : decos,
             skills: skills
         };
-        data.set(this.data);
     }
 
     equip(part, name) {
