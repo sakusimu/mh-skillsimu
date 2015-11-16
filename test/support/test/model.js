@@ -1,34 +1,73 @@
 'use strict';
 const assert = require('power-assert');
 const model = require('../lib/driver-model');
-const data = require('../lib/driver-data');
 const Hunter = require('../lib/driver-hunter');
 
 describe('test-driver/model', () => {
-    describe('model.make()', () => {
-        it('should make', () => {
-            let props = [ 'id', 'name', 'num' ];
-            let numProps = { num: true };
-            let list = [ 'ID', '名前', '0' ];
-            let m = model.make(list, props, numProps);
-            assert(m.id === 'ID');
-            assert(m.name === '名前');
-            assert(m.num === 0);
+    describe('model.makeObject()', () => {
+        it('should make object', () => {
+            let got = model.makeObject([ 'id', 'name' ], [ 'ID', '名前' ]);
+            let exp = { id: 'ID', name: '名前' };
+            assert.deepStrictEqual(got, exp);
         });
 
-        it('should throw exception if num prop is not number', () => {
-            let props = [ 'num' ];
+        it('should make object if specify numProps', () => {
+            let props = [ 'id', 'name', 'num' ];
+            let values = [ 'ID', '名前', '0' ];
             let numProps = { num: true };
-            let list = [ 'not a number' ];
+
+            let got = model.makeObject(props, values, numProps);
+            let exp = { id: 'ID', name: '名前', num: 0 };
+            assert.deepStrictEqual(got, exp);
+        });
+
+        it('should make object if values is undefined', () => {
+            let props = [ 'id', 'name', 'num' ];
+            let values;
+
+            let got = model.makeObject(props, values);
+            let exp = { id: null, name: null, num: null };
+            assert.deepStrictEqual(got, exp);
+
+            let numProps = { num: true };
+            got = model.makeObject(props, values, numProps);
+            exp = { id: null, name: null, num: 0 };
+            assert.deepStrictEqual(got, exp);
+        });
+
+        it('should throw exception if num prop is not a number', () => {
+            let props = [ 'num' ];
+            let values = [ 'not a number' ];
+            let numProps = { num: true };
             let got;
-            try { model.make(list, props, numProps); } catch (e) { got = e.message; }
+            try { model.makeObject(props, values, numProps); } catch (e) { got = e.message; }
             assert(got === 'num is NaN');
         });
     });
 
+    describe('model.makeSkillComb()', () => {
+        it('should make skillComb', () => {
+            let data = { id: 'ID', name: '名前',
+                         skillTree1: 'スキル系統1', skillPt1: 1 };
+
+            let got = model.makeSkillComb(data);
+            let exp = { 'スキル系統1': 1 };
+            assert.deepStrictEqual(got, exp);
+        });
+    });
+
+    function pick(/* obj, ...arg */) {
+        let args = Array.prototype.slice.apply(arguments);
+        let obj = args.shift();
+        let ret = {};
+        if (args.length === 1 && Array.isArray(args[0])) args = args[0];
+        args.forEach(prop => ret[prop] = obj[prop]);
+        return ret;
+    }
+
     describe('Equip#constructor()', () => {
         it('should create equip', () => {
-            let list = [
+            let data = [
                 '名前',0,1,'レア度',2,5,6,
                 '初期防御力','最終防御力','火耐性','水耐性','氷耐性','雷耐性','龍耐性',
                 'スキル系統1',21,'スキル系統2',22,'スキル系統3',23,
@@ -36,82 +75,57 @@ describe('test-driver/model', () => {
                 '生産素材1','個数','生産素材2','個数','生産素材3','個数','生産素材4','個数'
             ];
 
-            let eq = new model.Equip(list);
+            let eq = new model.Equip(data);
             assert(eq);
 
-            assert(eq.id === '名前,0,1');
-            assert(eq.name === '名前');
-            assert(eq.sex === 0);
-            assert(eq.type === 1);
-            assert(eq.rarity === 'レア度');
-            assert(eq.slot === 2);
-            assert(eq.availableHR === 5);
-            assert(eq.availableVS === 6);
-            // '初期防御力'
-            // '最終防御力'
-            // '火耐性'
-            // '水耐性'
-            // '氷耐性'
-            // '雷耐性'
-            // '龍耐性'
-            assert(eq.skillTree1 === 'スキル系統1');
-            assert(eq.skillPt1 === 21);
-            assert(eq.skillTree2 === 'スキル系統2');
-            assert(eq.skillPt2 === 22);
-            assert(eq.skillTree3 === 'スキル系統3');
-            assert(eq.skillPt3 === 23);
-            assert(eq.skillTree4 === 'スキル系統4');
-            assert(eq.skillPt4 === 24);
-            assert(eq.skillTree5 === 'スキル系統5');
-            assert(eq.skillPt5 === 25);
-            //QUnit.strictEqual('生産素材1');
-            //QUnit.strictEqual('個数');
-            //QUnit.strictEqual('生産素材2');
-            //QUnit.strictEqual('個数');
-            //QUnit.strictEqual('生産素材3');
-            //QUnit.strictEqual('個数');
-            //QUnit.strictEqual('生産素材4');
-            //QUnit.strictEqual('個数');
+            let got = pick(eq, model.Equip.props);
+            let exp = {
+                id: '名前,0,1', name: '名前', sex: 0, type: 1, rarity: 'レア度', slot: 2,
+                availableHR: 5, availableVS: 6,
+                skillTree1: 'スキル系統1', skillPt1: 21,
+                skillTree2: 'スキル系統2', skillPt2: 22,
+                skillTree3: 'スキル系統3', skillPt3: 23,
+                skillTree4: 'スキル系統4', skillPt4: 24,
+                skillTree5: 'スキル系統5', skillPt5: 25
+            };
+            assert.deepStrictEqual(got, exp);
         });
 
-        it('should create equip if null or etc', () => {
+        it('should create equip if no arguments', () => {
             let eq = new model.Equip();
-            assert(eq.name === null);
+            assert(eq);
 
-            eq = new model.Equip(null);
-            assert(eq.name === null);
-
-            eq = new model.Equip([]);
-            assert(eq.name === null);
-        });
-    });
-
-    describe('Equip#toString()', () => {
-        it('shoule return string', () => {
-            let list = ['ブレイブヘッド',0,0,1,1,1,1,1,55,2,0,0,0,1,'体力',-1,'回復速度',3,'乗り',2,null,null,null,null,'竜骨【小】',1,null,null,null,null,null,null];
-
-            let eq = new model.Equip(list);
-            assert(eq.toString() === 'ブレイブヘッド');
+            let got = pick(eq, model.Equip.props);
+            let exp = {
+                id: ',0,0', name: null, sex: 0, type: 0, rarity: null, slot: 0,
+                availableHR: 0, availableVS: 0,
+                skillTree1: null, skillPt1: 0,
+                skillTree2: null, skillPt2: 0,
+                skillTree3: null, skillPt3: 0,
+                skillTree4: null, skillPt4: 0,
+                skillTree5: null, skillPt5: 0
+            };
+            assert.deepStrictEqual(got, exp);
         });
     });
 
     describe('Equip#isEnabled()', () => {
-        it('should return true if equip is enabled', () => {
-            let hunter = new Hunter();
+        let hunter = new Hunter();
 
+        it('should return true or false correctly depend on sex and type', () => {
             // ID,名前,"性別(0=両,1=男,2=女)","タイプ(0=両方,1=剣士,2=ガンナー)",レア度,スロット数,入手時期／HR（99=集会場入手不可）,入手時期／村★（99=村入手不可）
             let equips = [
-                [ '両/両/r/s/HR3/★6','0','0','4','0','3','6' ],
-                [ '両/剣/r/s/HR3/★6','0','1','4','0','3','6' ],
-                [ '両/ガ/r/s/HR3/★6','0','2','4','0','3','6' ],
+                [ '両/両/r/s/HR3/★6',0,0,4,0,3,6 ],
+                [ '両/剣/r/s/HR3/★6',0,1,4,0,3,6 ],
+                [ '両/ガ/r/s/HR3/★6',0,2,4,0,3,6 ],
 
-                [ '男/両/r/s/HR3/★6','1','0','4','0','3','6' ],
-                [ '男/剣/r/s/HR3/★6','1','1','4','0','3','6' ],
-                [ '男/ガ/r/s/HR3/★6','1','2','4','0','3','6' ],
+                [ '男/両/r/s/HR3/★6',1,0,4,0,3,6 ],
+                [ '男/剣/r/s/HR3/★6',1,1,4,0,3,6 ],
+                [ '男/ガ/r/s/HR3/★6',1,2,4,0,3,6 ],
 
-                [ '女/両/r/s/HR3/★6','2','0','4','0','3','6' ],
-                [ '女/剣/r/s/HR3/★6','2','1','4','0','3','6' ],
-                [ '女/ガ/r/s/HR3/★6','2','2','4','0','3','6' ]
+                [ '女/両/r/s/HR3/★6',2,0,4,0,3,6 ],
+                [ '女/剣/r/s/HR3/★6',2,1,4,0,3,6 ],
+                [ '女/ガ/r/s/HR3/★6',2,2,4,0,3,6 ]
             ].map(list => new model.Equip(list));
 
             hunter.init({ sex: 'm', type: 'k' });
@@ -130,24 +144,26 @@ describe('test-driver/model', () => {
             got = equips.map(e => e.isEnabled(hunter));
             exp = [ true,false,true, false,false,false, true,false,true ];
             assert.deepEqual(got, exp, 'w g');
+        });
 
-            equips = [
-                [ '両/両/r/s/HR1/★1','0','0','4','0','1','1' ],
-                [ '両/両/r/s/HR1/★6','0','0','4','0','1','6' ],
-                [ '両/両/r/s/HR1/★99','0','0','4','0','1','99' ],
+        it('should return true or false correctly depend on hr and vs', () => {
+            let equips = [
+                [ '両/両/r/s/HR1/★1',0,0,4,0,1,1 ],
+                [ '両/両/r/s/HR1/★6',0,0,4,0,1,6 ],
+                [ '両/両/r/s/HR1/★99',0,0,4,0,1,99 ],
 
-                [ '両/両/r/s/HR6/★1','0','0','4','0','6','1' ],
-                [ '両/両/r/s/HR6/★6','0','0','4','0','6','6' ],
-                [ '両/両/r/s/HR6/★99','0','0','4','0','6','99' ],
+                [ '両/両/r/s/HR6/★1',0,0,4,0,6,1 ],
+                [ '両/両/r/s/HR6/★6',0,0,4,0,6,6 ],
+                [ '両/両/r/s/HR6/★99',0,0,4,0,6,99 ],
 
-                [ '両/両/r/s/HR99/★1','0','0','4','0','99','1' ],
-                [ '両/両/r/s/HR99/★6','0','0','4','0','99','6' ],
-                [ '両/両/r/s/HR99/★99','0','0','4','0','99','99' ]
+                [ '両/両/r/s/HR99/★1',0,0,4,0,99,1 ],
+                [ '両/両/r/s/HR99/★6',0,0,4,0,99,6 ],
+                [ '両/両/r/s/HR99/★99',0,0,4,0,99,99 ]
             ].map(list => new model.Equip(list));
 
             hunter.init({ hr: 1, vs: 1 });
-            got = equips.map(e => e.isEnabled(hunter));
-            exp = [ true,true,true, true,false,false, true,false,false ];
+            let got = equips.map(e => e.isEnabled(hunter));
+            let exp = [ true,true,true, true,false,false, true,false,false ];
             assert.deepEqual(got, exp, 'hr=1, vs=1');
             hunter.init({ hr: 1, vs: 5 });
             got = equips.map(e => e.isEnabled(hunter));
@@ -214,158 +230,64 @@ describe('test-driver/model', () => {
 
     describe('Equip#simuData()', () => {
         it('should return simuData', () => {
-            let list = ['ジンオウメイル',0,1,3,0,3,5,21,109,0,-2,2,-4,1,'本気',3,'雷属性攻撃',1,'気配',-2,null,null,null,null,'雷狼竜の帯電毛',1,'雷狼竜の甲殻',2,'雷狼竜の蓄電殻',2,'雷光虫',10];
+            let data = ['ジンオウメイル',0,1,3,0,3,5,21,109,0,-2,2,-4,1,'本気',3,'雷属性攻撃',1,'気配',-2,null,null,null,null,'雷狼竜の帯電毛',1,'雷狼竜の甲殻',2,'雷狼竜の蓄電殻',2,'雷光虫',10];
 
-            let equip = new model.Equip(list);
+            let equip = new model.Equip(data);
             let got = equip.simuData();
             let exp = {
                 name: 'ジンオウメイル',
                 slot: 0,
                 skillComb: { '本気': 3, '雷属性攻撃': 1, '気配': -2 }
             };
-            assert.deepEqual(got, exp);
-        });
-    });
-
-    describe('Equip#enabled()', () => {
-        it('should return enabled equips', () => {
-            let hunter = new Hunter();
-
-            data.equips.head = [
-                [ '両/両/r/s/HR3/★6','0','0','4','0','3','6' ],
-                [ '両/剣/r/s/HR3/★6','0','1','4','0','3','6' ],
-                [ '両/ガ/r/s/HR3/★6','0','2','4','0','3','6' ],
-
-                [ '男/両/r/s/HR3/★6','1','0','4','0','3','6' ],
-                [ '男/剣/r/s/HR3/★6','1','1','4','0','3','6' ],
-                [ '男/ガ/r/s/HR3/★6','1','2','4','0','3','6' ],
-
-                [ '女/両/r/s/HR3/★6','2','0','4','0','3','6' ],
-                [ '女/剣/r/s/HR3/★6','2','1','4','0','3','6' ],
-                [ '女/ガ/r/s/HR3/★6','2','2','4','0','3','6' ]
-            ];
-            model.equips.initialize();
-            let equips = model.equips.enabled('head', hunter);
-            let got = equips.map(e => e.name);
-            let exp = [
-                '両/両/r/s/HR3/★6',
-                '両/剣/r/s/HR3/★6',
-                '男/両/r/s/HR3/★6',
-                '男/剣/r/s/HR3/★6'
-            ];
-            assert.deepEqual(got, exp);
-
-            data.equips.body = [];
-            model.equips.initialize();
-            got = model.equips.enabled('body', hunter);
-            assert.deepEqual(got, []);
-
-            data.initialize();
-            model.equips.initialize();
-        });
-
-        it('should throw exception in some case', () => {
-            let got;
-            try { model.equips.enabled(); } catch (e) { got = e.message; }
-            assert(got === 'part is required');
-
-            try { model.equips.enabled('hoge'); } catch (e) { got = e.message; }
-            assert(got === 'unknown part: hoge');
-        });
-    });
-
-    describe('Equip#get()', () => {
-        it('should return equip', () => {
-            let eq = model.equips.get('head', 'シルバーソルヘルム,0,0');
-            assert(eq);
-            assert(eq.id === 'シルバーソルヘルム,0,0');
-        });
-
-        it('should return null in some case', () => {
-            let got = model.equips.get('head', null);
-            assert(got === null);
-
-            got = model.equips.get('head', 'nonexistent');
-            assert(got === null);
-        });
-        
-        it('should throw exception in some case', () => {
-            let got;
-            try { model.equips.get(); } catch (e) { got = e.message; }
-            assert(got === 'part is required');
-            try { model.equips.get('hoge'); } catch (e) { got = e.message; }
-            assert(got === 'unknown part: hoge');
+            assert.deepStrictEqual(got, exp);
         });
     });
 
     describe('Deco#constructor()', () => {
         it('should create deco', () => {
-            let list = [
+            let data = [
                 '名前','レア度',2,5,6,'スキル系統1',21,'スキル系統2',22,
                 '生産素材A1','個数','生産素材A2','個数','生産素材A3','個数','生産素材A4','個数',
                 '生産素材B1','個数','生産素材B2','個数','生産素材B3','個数','生産素材B4','個数'
             ];
 
-            let deco = new model.Deco(list);
+            let deco = new model.Deco(data);
             assert(deco);
 
-            assert(deco.name === '名前');
-            // レア度
-            assert(deco.slot === 2);
-            assert(deco.availableHR === 5);
-            assert(deco.availableVS === 6);
-            assert(deco.skillTree1 === 'スキル系統1');
-            assert(deco.skillPt1 === 21);
-            assert(deco.skillTree2 === 'スキル系統2');
-            assert(deco.skillPt2 === 22);
-            // 生産素材A1
-            // 個数
-            // 生産素材A2
-            // 個数
-            // 生産素材A3
-            // 個数
-            // 生産素材A4
-            // 個数
-            // 生産素材B1
-            // 個数
-            // 生産素材B2
-            // 個数
-            // 生産素材B3
-            // 個数
-            // 生産素材B4
-            // 個数
+            let got = pick(deco, model.Deco.props);
+            let exp = {
+                name: '名前', slot: 2,
+                availableHR: 5, availableVS: 6,
+                skillTree1: 'スキル系統1', skillPt1: 21,
+                skillTree2: 'スキル系統2', skillPt2: 22
+            };
+            assert.deepStrictEqual(got, exp);
         });
 
-        it('should create deco is null or etc', () => {
+        it('should create deco if no arguments', () => {
             let deco = new model.Deco();
-            assert(deco.name === null);
+            assert(deco);
 
-            deco = new model.Deco(null);
-            assert(deco.name === null);
-
-            deco = new model.Deco([]);
-            assert(deco.name === null);
-        });
-    });
-
-    describe('Deco#toString()', () => {
-        it('should return string', () => {
-            let list = ['攻撃珠【１】',4,1,2,2,'攻撃',1,'防御',-1,'水光原珠',1,'ジャギィの鱗',2,'怪力の種',1,null,null,null,null,null,null,null,null,null,null];
-
-            let deco = new model.Deco(list);
-            assert(deco.toString() === '攻撃珠【１】');
+            let got = pick(deco, model.Deco.props);
+            let exp = {
+                name: null, slot: 0,
+                availableHR: 0, availableVS: 0,
+                skillTree1: null, skillPt1: 0,
+                skillTree2: null, skillPt2: 0
+            };
+            assert.deepStrictEqual(got, exp);
         });
     });
 
     describe('Deco#isEnabled()', () => {
-        it('should return true if deco is enabled', () => {
-            let hunter = new Hunter();
+        let hunter = new Hunter();
 
+        it('should return true or false correctly depend on hr and vs', () => {
             // 名前,レア度,スロット,入手時期／HR,入手時期／村★
             let decos = [
-                [ '攻撃珠【１】', '4', '1', '1', '2' ],
-                [ '攻撃珠【２】', '6', '2', '2', '4' ],
-                [ '攻撃珠【３】', '4', '3', '5', '99' ]
+                [ '攻撃珠【１】', 4, 1, 1, 2 ],
+                [ '攻撃珠【２】', 6, 2, 2, 4 ],
+                [ '攻撃珠【３】', 4, 3, 5, 99 ]
             ].map(list => new model.Deco(list));
 
             hunter.init({ hr: 1, vs: 1 });
@@ -389,173 +311,106 @@ describe('test-driver/model', () => {
 
     describe('Deco#simuData()', () => {
         it('should return simuData', () => {
-            let list = ['攻撃珠【１】',4,1,2,2,'攻撃',1,'防御',-1,'水光原珠',1,'ジャギィの鱗',2,'怪力の種',1,null,null,null,null,null,null,null,null,null,null];
+            let data = ['攻撃珠【１】',4,1,2,2,'攻撃',1,'防御',-1,'水光原珠',1,'ジャギィの鱗',2,'怪力の種',1,null,null,null,null,null,null,null,null,null,null];
 
-            let deco = new model.Deco(list);
+            let deco = new model.Deco(data);
             let got = deco.simuData();
             let exp = {
                 name: '攻撃珠【１】',
                 slot: 1,
                 skillComb: { '攻撃': 1, '防御': -1 }
             };
-            assert.deepEqual(got, exp);
-        });
-    });
-
-    describe('Deco#enabled()', () => {
-        it('should return enabled decos', () => {
-            let hunter = new Hunter({ hr: 1, vs: 6 });
-
-            data.decos = [
-                [ '攻撃珠【１】', '4', '1', '1', '2' ],
-                [ '攻撃珠【２】', '6', '2', '2', '4' ],
-                [ '攻撃珠【３】', '4', '3', '5', '99' ]
-            ];
-            model.decos.initialize();
-            let decos = model.decos.enabled(hunter);
-            let got = decos.map(d => d.name);
-            let exp = [ '攻撃珠【１】', '攻撃珠【２】' ];
-            assert.deepEqual(got, exp);
-
-            data.initialize();
-            model.decos.initialize();
-        });
-    });
-
-    describe('Deco#get()', () => {
-        it('should return deco', () => {
-            let deco = model.decos.get('攻撃珠【１】');
-            assert(deco);
-            assert(deco.name === '攻撃珠【１】', 'name');
-        });
-
-        it('should return null in some case', () => {
-            let got = model.decos.get(null);
-            assert(got === null);
-
-            got = model.decos.get('nonexistent');
-            assert(got === null);
+            assert.deepStrictEqual(got, exp);
         });
     });
 
     describe('Skill#constructor()', () => {
         it('should create skill', () => {
-            let list = [ 'スキル', 'スキル系統', 0, 1 ];
+            let data = [ 'スキル', 'スキル系統', 0, 1 ];
 
-            let skill = new model.Skill(list);
+            let skill = new model.Skill(data);
             assert(skill);
 
-            assert(skill.name === 'スキル');
-            assert(skill.tree === 'スキル系統');
-            assert(skill.point === 0);
-            assert(skill.type === 1);
+            let got = pick(skill, model.Skill.props);
+            let exp = {
+                name: 'スキル',
+                tree: 'スキル系統', point: 0,
+                type: 1
+            };
         });
 
-        it('should create skill if null or etc', () => {
-            let skill = new model.Equip();
-            assert(skill.name === null);
+        it('should create skill if no arguments', () => {
+            let skill = new model.Skill();
+            assert(skill);
 
-            skill = new model.Equip(null);
-            assert(skill.name === null);
-
-            skill = new model.Equip([]);
-            assert(skill.name === null);
+            let got = pick(skill, model.Skill.props);
+            let exp = { name: null, tree: null, point: 0, type: 0 };
+            assert.deepStrictEqual(got, exp);
         });
     });
 
     describe('Skill#simuData()', () => {
         it('should return simuData', () => {
-            let list = ['攻撃力UP【大】','攻撃',20,0];
-
-            let skill = new model.Skill(list);
+            let skill = new model.Skill(['攻撃力UP【大】','攻撃',20,0]);
             let got = skill.simuData();
             let exp = {
                 name: '攻撃力UP【大】',
                 tree: '攻撃',
                 point: 20
             };
-            assert.deepEqual(got, exp);
-        });
-    });
-
-    describe('Skill#enabled()', () => {
-        it('should return enabled skills', () => {
-            data.skills = [
-                [ '攻撃力UP【小】', '攻撃', 10, 0 ],
-                [ '攻撃力UP【中】', '攻撃', 15, 0 ],
-                [ '攻撃力UP【大】', '攻撃', 20, 0 ]
-            ];
-            model.skills.initialize();
-            let skills = model.skills.enabled();
-            let got = skills.map(s => s.name);
-            let exp = [ '攻撃力UP【小】', '攻撃力UP【中】', '攻撃力UP【大】' ];
-            assert.deepEqual(got, exp);
-
-            data.initialize();
-            model.skills.initialize();
-        });
-    });
-
-    describe('Skill#get()', () => {
-        it('should return skill', () => {
-            let skill = model.skills.get('攻撃力UP【大】');
-            assert(skill);
-            assert(skill.name === '攻撃力UP【大】');
-            assert(skill.tree === '攻撃');
-            assert(skill.point === 20);
-            assert(skill.type === 0);
-        });
-
-        it('should return null if null or etc', () => {
-            let got = model.skills.get();
-            assert(got === null);
-
-            got = model.skills.get(null);
-            assert(got === null);
-
-            got = model.skills.get('nonexistent');
-            assert(got === null);
+            assert.deepStrictEqual(got, exp);
         });
     });
 
     describe('Oma#constructor()', () => {
         it('should create oma', () => {
-            let list = [ '龍の護石',3,'匠',4,'氷耐性',-5 ];
-            let oma = new model.Oma(list);
+            let data = [ '龍の護石',3,'匠',4,'氷耐性',-5 ];
+
+            let oma = new model.Oma(data);
             assert(oma);
 
-            assert(oma.name === '龍の護石');
-            assert(oma.slot === 3);
-            assert(oma.skillTree1 === '匠');
-            assert(oma.skillPt1 === 4);
-            assert(oma.skillTree2 === '氷耐性');
-            assert(oma.skillPt2 === -5);
+            let got = pick(oma, model.Oma.props);
+            let exp = {
+                name: '龍の護石',
+                slot: 3,
+                skillTree1: '匠', skillPt1: 4,
+                skillTree2: '氷耐性', skillPt2: -5
+            };
 
-            let got = oma.toString();
-            let exp = '龍の護石(スロ3,匠+4,氷耐性-5)';
+            got = oma.toString();
+            exp = '龍の護石(スロ3,匠+4,氷耐性-5)';
             assert(got === exp);
         });
 
         it('should create oma if skill2 is null', () => {
-            let list = [ '龍の護石','3','痛撃溜','4' ];
-            let oma = new model.Oma(list);
+            let oma = new model.Oma([ '龍の護石','3','痛撃','4' ]);
+            let got = pick(oma, model.Oma.props);
+            let exp = {
+                name: '龍の護石',
+                slot: 3,
+                skillTree1: '痛撃', skillPt1: 4,
+                skillTree2: null, skillPt2: 0
+            };
             assert(oma.skillTree2 === null);
             assert(oma.skillPt2 === 0);
 
-            let got = oma.toString();
-            let exp = '龍の護石(スロ3,痛撃溜+4)';
+            got = oma.toString();
+            exp = '龍の護石(スロ3,痛撃+4)';
             assert(got === exp);
         });
 
-        it('should create oma if null or etc', () => {
+        it('should create oma if no arguments', () => {
             let oma = new model.Oma();
-            assert(oma.name === null);
+            assert(oma);
 
-            oma = new model.Oma(null);
-            assert(oma.name === null);
-
-            oma = new model.Oma([]);
-            assert(oma.name === null);
+            let got = pick(oma, model.Oma.props);
+            let exp = {
+                name: null,
+                slot: 0,
+                skillTree1: null, skillPt1: 0,
+                skillTree2: null, skillPt2: 0
+            };
+            assert.deepStrictEqual(got, exp);
         });
     });
 
@@ -568,7 +423,175 @@ describe('test-driver/model', () => {
                 slot: 3,
                 skillComb: { '匠': 4, '氷耐性': -5 }
             };
+            assert.deepStrictEqual(got, exp);
+        });
+    });
+
+    describe('Equips#enabled()', () => {
+        let hunter = new Hunter();
+
+        it('should return enabled equips', () => {
+            let equips = new model.Equips({
+                head: [
+                    [ '両/両/r/s/HR3/★6',0,0,4,0,3,6 ],
+                    [ '両/剣/r/s/HR3/★6',0,1,4,0,3,6 ],
+                    [ '両/ガ/r/s/HR3/★6',0,2,4,0,3,6 ],
+
+                    [ '男/両/r/s/HR3/★6',1,0,4,0,3,6 ],
+                    [ '男/剣/r/s/HR3/★6',1,1,4,0,3,6 ],
+                    [ '男/ガ/r/s/HR3/★6',1,2,4,0,3,6 ],
+
+                    [ '女/両/r/s/HR3/★6',2,0,4,0,3,6 ],
+                    [ '女/剣/r/s/HR3/★6',2,1,4,0,3,6 ],
+                    [ '女/ガ/r/s/HR3/★6',2,2,4,0,3,6 ]
+                ]
+            });
+
+            let list = equips.enabled('head', hunter);
+            let got = list.map(eq => eq.name);
+            let exp = [
+                '両/両/r/s/HR3/★6',
+                '両/剣/r/s/HR3/★6',
+                '男/両/r/s/HR3/★6',
+                '男/剣/r/s/HR3/★6'
+            ];
             assert.deepEqual(got, exp);
+        });
+
+        it('should return [] if equips is empty', () => {
+            let equips = new model.Equips();
+            let got = equips.enabled('body', hunter);
+            assert.deepEqual(got, []);
+        });
+
+        it('should throw exception if no arguments', () => {
+            let equips = new model.Equips();
+            let got;
+            try { equips.enabled(); } catch (e) { got = e.message; }
+            assert(got === 'part is required');
+        });
+    });
+
+    describe('Equips#get()', () => {
+        let equips = new model.Equips({
+            head: [
+                ['レウスヘルム',0,0,3,0,3,5],
+                ['シルバーソルヘルム',0,0,7,1,7,10]
+            ]
+        });
+
+        it('should return equip', () => {
+            let eq = equips.get('head', 'シルバーソルヘルム,0,0');
+            assert(eq);
+            assert(eq.id === 'シルバーソルヘルム,0,0');
+        });
+
+        it('should return null in some case', () => {
+            let got = equips.get('hoge');
+            assert(got === null);
+
+            got = equips.get('head');
+            assert(got === null);
+            got = equips.get('head', null);
+            assert(got === null);
+            got = equips.get('head', 'nonexistent');
+            assert(got === null);
+        });
+
+        it('should throw exception if no arguments', () => {
+            let got;
+            try { equips.get(); } catch (e) { got = e.message; }
+            assert(got === 'part is required');
+        });
+    });
+
+    describe('Decos#enabled()', () => {
+        let hunter = new Hunter({ hr: 1, vs: 6 });
+
+        it('should return enabled decos', () => {
+            let decos = new model.Decos([
+                [ '攻撃珠【１】', 4, 1, 1, 2 ],
+                [ '攻撃珠【２】', 6, 2, 2, 4 ],
+                [ '攻撃珠【３】', 4, 3, 5, 99 ]
+            ]);
+
+            let list = decos.enabled(hunter);
+            let got = list.map(d => d.name);
+            let exp = [ '攻撃珠【１】', '攻撃珠【２】' ];
+            assert.deepEqual(got, exp);
+        });
+
+        it('should return [] if decos is empty', () => {
+            let decos = new model.Decos();
+            let got = decos.enabled(hunter);
+            assert.deepEqual(got, []);
+        });
+    });
+
+    describe('Decos#get()', () => {
+        let decos = new model.Decos([
+            ['攻撃珠【１】',4,1,2,2,'攻撃',1,'防御',-1],
+            ['攻撃珠【２】',5,2,2,4,'攻撃',3,'防御',-1],
+            ['攻撃珠【３】',6,3,5,99,'攻撃',5,'防御',-1]
+        ]);
+
+        it('should return deco', () => {
+            let deco = decos.get('攻撃珠【１】');
+            assert(deco);
+            assert(deco.name === '攻撃珠【１】', 'name');
+        });
+
+        it('should return null if null or etc', () => {
+            let got = decos.get();
+            assert(got === null);
+            got = decos.get(null);
+            assert(got === null);
+            got = decos.get('nonexistent');
+            assert(got === null);
+        });
+    });
+
+    describe('Skills#enabled()', () => {
+        it('should return enabled skills', () => {
+            let skills = new model.Skills([
+                [ '攻撃力UP【小】', '攻撃', 10, 0 ],
+                [ '攻撃力UP【中】', '攻撃', 15, 0 ],
+                [ '攻撃力UP【大】', '攻撃', 20, 0 ]
+            ]);
+
+            let list = skills.enabled();
+            let got = list.map(s => s.name);
+            let exp = [ '攻撃力UP【小】', '攻撃力UP【中】', '攻撃力UP【大】' ];
+            assert.deepEqual(got, exp);
+        });
+
+        it('should return [] if skills is empty', () => {
+            let skills = new model.Skills();
+            let got = skills.enabled();
+            assert.deepEqual(got, []);
+        });
+    });
+
+    describe('Skills#get()', () => {
+        let skills = new model.Skills([
+            [ '攻撃力UP【小】', '攻撃', 10, 0 ],
+            [ '攻撃力UP【中】', '攻撃', 15, 0 ],
+            [ '攻撃力UP【大】', '攻撃', 20, 0 ]
+        ]);
+
+        it('should return skill', () => {
+            let skill = skills.get('攻撃力UP【大】');
+            assert(skill);
+            assert(skill.name === '攻撃力UP【大】');
+        });
+
+        it('should return null if null or etc', () => {
+            let got = skills.get();
+            assert(got === null);
+            got = skills.get(null);
+            assert(got === null);
+            got = skills.get('nonexistent');
+            assert(got === null);
         });
     });
 });
