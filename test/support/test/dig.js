@@ -4,28 +4,37 @@ const model = require('../lib/driver-dig');
 const Hunter = require('../lib/driver-hunter');
 
 describe('test-driver/dig', () => {
-    describe('constructor()', () => {
+    describe('Dig#constructor()', () => {
         it('should create dig', () => {
-            let dig = new model.Dig([ 0, 1, '刀匠', 4 ]);
+            let data = [ 0, 1, '刀匠', 4 ];
+
+            let dig = new model.Dig(data);
             assert(dig);
 
-            assert(dig.name === '発掘(刀匠+4)');
-            assert(dig.sex === 0);
-            assert(dig.type === 1);
-            assert(dig.slot === 0);
-            assert(dig.skillTree1 === '刀匠');
-            assert(dig.skillPt1 === 4);
+            let got = {};
+            model.Dig.props.forEach(prop => got[prop] = dig[prop]);
+            let exp = {
+                name: '発掘(刀匠+4)', sex: 0, type: 1, slot: 0,
+                skillTree1: '刀匠', skillPt1: 4
+            };
+            assert.deepStrictEqual(got, exp);
+        });
+
+        it('should create equip if no arguments', () => {
+            let dig = new model.Dig();
+            assert(dig);
+
+            let got = {};
+            model.Dig.props.forEach(prop => got[prop] = dig[prop]);
+            let exp = {
+                name: '発掘(null+0)', sex: 0, type: 0, slot: 0,
+                skillTree1: null, skillPt1: 0
+            };
+            assert.deepStrictEqual(got, exp);
         });
     });
 
-    describe('toStirng()', () => {
-        it('should return string', () => {
-            let dig = new model.Dig([ 0, 1, '刀匠', 4 ]);
-            assert(dig.toString() === '発掘(刀匠+4)');
-        });
-    });
-
-    describe('isEnabled()', () => {
+    describe('Dig#isEnabled()', () => {
         it('should return true if equip is enabled', () => {
             let hunter = new Hunter();
 
@@ -34,7 +43,7 @@ describe('test-driver/dig', () => {
                 [ '0','0','強欲','6' ],
                 [ '0','1','刀匠','4' ],
                 [ '0','2','射手','4' ]
-            ].map(list => new model.Dig(list));
+            ].map(data => new model.Dig(data));
 
             hunter.init({ sex: 'm', type: 'k' });
             let got = digs.map(d => d.isEnabled(hunter));
@@ -47,7 +56,7 @@ describe('test-driver/dig', () => {
         });
     });
 
-    describe('simuData()', () => {
+    describe('Dig#simuData()', () => {
         it('should return simuData', () => {
             let dig = new model.Dig([ 0, 1, '刀匠', 4 ]);
             let got = dig.simuData();
@@ -56,63 +65,80 @@ describe('test-driver/dig', () => {
                 slot: 0,
                 skillComb: { '刀匠': 4 }
             };
-            assert.deepEqual(got, exp);
-        });
-    });
-
-    describe('digs.data', () => {
-        it('should have some properties', () => {
-            let got = Object.keys(model.digs.data.weapon).length;
-            assert(got === 24);
-            got = Object.keys(model.digs.data.head).length;
-            assert(got === 36);
+            assert.deepStrictEqual(got, exp);
         });
     });
 
     describe('Digs#enabled()', () => {
+        let hunter = new Hunter();
+
         it('should return enabled digs', () => {
-            let hunter = new Hunter();
+            let digs = new model.Digs({
+                body: [
+                    [ 0, 1, '刀匠', 2 ],
+                    [ 0, 1, '刀匠', 3 ],
+                    [ 0, 2, '射手', 2 ],
+                    [ 0, 2, '射手', 3 ]
+                ]
+            });
 
-            const gunner = dig => dig.skillTree1 === '射手';
-
-            model.digs.initialize();
-            let got = model.digs.enabled('head', hunter).filter(gunner).length;
-            assert(got > 0);
-            got = model.digs.enabled('body', hunter).filter(gunner).length;
-            assert(got === 0);
+            let list = digs.enabled('body', hunter);
+            let got = list.map(dig => dig.name);
+            let exp = [
+                '発掘(刀匠+2)',
+                '発掘(刀匠+3)'
+            ];
+            assert.deepEqual(got, exp);
         });
 
-        it('should throw exception in some case', () => {
-            let got;
-            try { model.digs.enabled(); } catch (e) { got = e.message; }
-            assert(got === 'part is required');
+        it('should return [] if digs is empty', () => {
+            let digs = new model.Digs();
+            let got = digs.enabled('body', hunter);
+            assert.deepEqual(got, []);
+        });
 
-            try { model.digs.enabled('hoge'); } catch (e) { got = e.message; }
-            assert(got === 'unknown part: hoge');
+        it('should throw exception if no arguments', () => {
+            let digs = new model.Digs();
+            let got;
+            try { digs.enabled(); } catch (e) { got = e.message; }
+            assert(got === 'part is required');
         });
     });
 
     describe('Digs#get()', () => {
+        let digs = new model.Digs({
+            body: [
+                [ 0, 1, '刀匠', 2 ],
+                [ 0, 1, '刀匠', 3 ],
+                [ 0, 2, '射手', 2 ],
+                [ 0, 2, '射手', 3 ]
+            ]
+        });
+
         it('should return dig', () => {
-            let got = model.digs.get('head', '発掘(刀匠+2)');
-            assert(got instanceof model.Dig);
-            assert(got.name === '発掘(刀匠+2)');
+            let dig = digs.get('body', '発掘(刀匠+2)');
+            assert(dig);
+            assert(dig.name === '発掘(刀匠+2)');
         });
 
         it('should return null in some case', () => {
-            let got = model.digs.get('head', null);
+            let got = digs.get('body');
+            assert(got === null);
+            got = digs.get('body', null);
+            assert(got === null);
+            got = digs.get('body', 'nonexistent');
             assert(got === null);
 
-            got = model.digs.get('head', 'nonexistent');
+            got = digs.get('head');
+            assert(got === null);
+            got = digs.get('head', 'nonexistent');
             assert(got === null);
         });
 
-        it('should throw exception in some case', () => {
+        it('should throw exception if no arguments', () => {
             let got;
-            try { model.digs.get(); } catch (e) { got = e.message; }
+            try { digs.get(); } catch (e) { got = e.message; }
             assert(got === 'part is required');
-            try { model.digs.get('hoge'); } catch (e) { got = e.message; }
-            assert(got === 'unknown part: hoge');
         });
     });
 });
