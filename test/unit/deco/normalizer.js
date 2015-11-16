@@ -3,14 +3,14 @@ const assert = require('power-assert');
 const Normalizer = require('../../../lib/deco/normalizer');
 const Context = require('../../../lib/context');
 const util = require('../../../lib/util');
-const myapp = require('../../support/lib/driver-myapp');
 
 describe('deco/normalizer', () => {
-    let context = new Context();
-
+    const SKILLS = {
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '斬れ味レベル+1': { name: '斬れ味レベル+1', tree: '匠', point: 10 },
+        '砥石使用高速化': { name: '砥石使用高速化', tree: '研ぎ師', point: 10 }
+    };
     const DECOS = [
-        { name: '耐絶珠【１】', slot: 1, skillComb: { '気絶': 1, '麻痺': -1 } },
-        { name: '制絶珠【１】', slot: 1, skillComb: { '気絶': 2 } },
         { name: '攻撃珠【１】', slot: 1, skillComb: { '攻撃': 1, '防御': -1 } },
         { name: '攻撃珠【２】', slot: 2, skillComb: { '攻撃': 3, '防御': -1 } },
         { name: '攻撃珠【３】', slot: 3, skillComb: { '攻撃': 5, '防御': -1 } },
@@ -26,11 +26,7 @@ describe('deco/normalizer', () => {
         { name: '採取珠【１】', slot: 1, skillComb: { '採取': 2 } },
         { name: '速集珠【１】', slot: 1, skillComb: { '高速収集': 2 } }
     ];
-
-    beforeEach(() => {
-        myapp.initialize();
-        context.init(myapp.data);
-    });
+    let context = new Context({ decos: DECOS, skills: SKILLS });
 
     describe('constructor()', () => {
         it('should create normalizer', () => {

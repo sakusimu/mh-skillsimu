@@ -2,11 +2,8 @@
 const assert = require('power-assert');
 const util = require('../../../lib/util/comb');
 const parts = require('../../../lib/util').parts;
-const myapp = require('../../support/lib/driver-myapp');
 
 describe('util/comb', () => {
-    beforeEach(() => { myapp.initialize(); });
-
     describe('parts', () => {
         it('should have parts', () => {
             let got = [].concat(util.parts).sort();

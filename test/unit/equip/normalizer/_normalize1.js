@@ -2,15 +2,18 @@
 const assert = require('power-assert');
 const Normalizer = require('../../../../lib/equip/normalizer');
 const Context = require('../../../../lib/context');
-const myapp = require('../../../support/lib/driver-myapp');
 
 describe('equip/normalizer/normalize1', () => {
+    const DECOS = [
+        { name: '攻撃珠【１】', slot: 1, skillComb: { '攻撃': 1, '防御': -1 } },
+        { name: '攻撃珠【２】', slot: 2, skillComb: { '攻撃': 3, '防御': -1 } },
+        { name: '攻撃珠【３】', slot: 3, skillComb: { '攻撃': 5, '防御': -1 } },
+        { name: '斬鉄珠【１】', slot: 1, skillComb: { '斬れ味': 1, '匠': -1 } },
+        { name: '斬鉄珠【３】', slot: 3, skillComb: { '斬れ味': 4, '匠': -2 } }
+    ];
     let context = new Context();
 
-    beforeEach(() => {
-        myapp.initialize();
-        context.init(myapp.data);
-    });
+    beforeEach(() => { context.init({ decos: DECOS }); });
 
     describe('_normalize1()', () => {
         let n = new Normalizer(context);

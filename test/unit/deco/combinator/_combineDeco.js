@@ -3,7 +3,6 @@ const assert = require('power-assert');
 const Combinator = require('../../../../lib/deco/combinator');
 const Context = require('../../../../lib/context');
 const BorderLine = require('../../../../lib/util').BorderLine;
-const myapp = require('../../../support/lib/driver-myapp');
 
 describe('deco/combinator/_combineDeco', () => {
     const SKILLS = {

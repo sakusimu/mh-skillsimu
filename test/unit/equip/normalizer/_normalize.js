@@ -2,12 +2,28 @@
 const assert = require('power-assert');
 const Normalizer = require('../../../../lib/equip/normalizer');
 const Context = require('../../../../lib/context');
-const myapp = require('../../../support/lib/driver-myapp');
 
 describe('equip/normalizer/normalize', () => {
+    const SKILLS = {
+        '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
+        '集中': { name: '集中', tree: '溜め短縮', point: 10 },
+        '弱点特効': { name: '弱点特効', tree: '痛撃', point: 10 },
+        '業物': { name: '業物', tree: '斬れ味', point: 10 }
+    };
+    const DECOS = [
+        { name: '攻撃珠【１】', slot: 1, skillComb: { '攻撃': 1, '防御': -1 } },
+        { name: '攻撃珠【２】', slot: 2, skillComb: { '攻撃': 3, '防御': -1 } },
+        { name: '攻撃珠【３】', slot: 3, skillComb: { '攻撃': 5, '防御': -1 } },
+        { name: '痛撃珠【１】', slot: 1, skillComb: { '痛撃': 1, '体力': -1 } },
+        { name: '痛撃珠【３】', slot: 3, skillComb: { '痛撃': 4, '体力': -2 } },
+        { name: '短縮珠【１】', slot: 1, skillComb: { '溜め短縮': 1, '体術': -1 } },
+        { name: '短縮珠【３】', slot: 3, skillComb: { '溜め短縮': 4, '体術': -2 } },
+        { name: '斬鉄珠【１】', slot: 1, skillComb: { '斬れ味': 1, '匠': -1 } },
+        { name: '斬鉄珠【３】', slot: 3, skillComb: { '斬れ味': 4, '匠': -2 } }
+    ];
     let context = new Context();
 
-    beforeEach(() => { myapp.initialize(); });
+    beforeEach(() => { context.init({ decos: DECOS, skills: SKILLS }); });
 
     function joinSkillComb(skillComb) {
         let skills = Object.keys(skillComb).sort().map(tree => {
@@ -25,7 +41,7 @@ describe('equip/normalizer/normalize', () => {
         let n = new Normalizer(context);
 
         it('should normalize', () => {
-            myapp.data.equips.head = [
+            context.equips.head = [
                 { name: 'ランポスヘルム', slot: 1, skillComb: { '攻撃': 2 } },
                 { name: 'バトルヘルム', slot: 2, skillComb: { '攻撃': 2, '研ぎ師': 1 } },
                 { name: 'レックスヘルム', slot: 1, skillComb: { '攻撃': 3, '研ぎ師': -2 } },
@@ -36,7 +52,6 @@ describe('equip/normalizer/normalize', () => {
                 { name: 'slot2', slot: 2, skillComb: {} },
                 { name: 'slot3', slot: 3, skillComb: {} }
             ];
-            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);
             let got = sorter(bulksSet.head);
@@ -72,7 +87,7 @@ describe('equip/normalizer/normalize', () => {
         });
 
         it('should normalize if contain torsoUp', () => {
-            myapp.data.equips.leg = [
+            context.equips.leg = [
                 { name: 'マギュルヴルツェル', slot: 0, skillComb: { '溜め短縮': 3 } },
                 { name: 'クシャナハディ', slot: 2, skillComb: { '溜め短縮': 2 } },
                 { name: 'シルバーソルレギンス', slot: 0, skillComb: { '痛撃': 2 } },
@@ -83,7 +98,6 @@ describe('equip/normalizer/normalize', () => {
                 { name: 'slot3', slot: 3, skillComb: {} },
                 { name: 'torsoUp', slot: 0, skillComb: { '胴系統倍加': 1 } }
             ];
-            context.init(myapp.data);
 
             let bulksSet = n.normalize([ '集中', '弱点特効' ]);
             let got = sorter(bulksSet.leg);

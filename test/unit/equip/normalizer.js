@@ -2,12 +2,9 @@
 const assert = require('power-assert');
 const Normalizer = require('../../../lib/equip/normalizer');
 const Context = require('../../../lib/context');
-const myapp = require('../../support/lib/driver-myapp');
 
 describe('equip/normalizer', () => {
     let context = new Context();
-
-    beforeEach(() => { myapp.initialize(); });
 
     describe('constructor()', () => {
         it('should create normalizer', () => {

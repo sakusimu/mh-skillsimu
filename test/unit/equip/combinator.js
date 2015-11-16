@@ -2,12 +2,9 @@
 const assert = require('power-assert');
 const Combinator = require('../../../lib/equip/combinator');
 const Context = require('../../../lib/context');
-const myapp = require('../../support/lib/driver-myapp');
 
 describe('equip/combinator', () => {
     let context = new Context();
-
-    beforeEach(() => { myapp.initialize(); });
 
     describe('constructor()', () => {
         it('should create combinator', () => {
