@@ -61,7 +61,7 @@ class Equip {
         if (h.type === 'g' && this.type !== 0 && this.type !== 2) return false;
 
         // 入手時期／HR（99=集会場入手不可）,入手時期／村☆（99=村入手不可）
-        if (this.availableHR > +h.hr && this.availableVS > +h.vs) return false;
+        if (this.availableHR > h.hr && this.availableVS > h.vs) return false;
 
         return true;
     }
