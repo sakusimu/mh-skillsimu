@@ -4,7 +4,7 @@ const Simulator = require('../../lib/simulator');
 const myapp = require('../support/lib/driver-myapp')('mh4g');
 
 describe('mh4g/simulator', () => {
-    beforeEach(() => { myapp.initialize(); });
+    beforeEach(() => { myapp.init(); });
 
     describe('init()', () => {
         it('should initialize', () => {

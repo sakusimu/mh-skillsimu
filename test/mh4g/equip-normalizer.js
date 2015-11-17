@@ -9,7 +9,7 @@ describe('mh4g/equip-normalizer', () => {
     let n = new Normalizer(context);
 
     beforeEach(() => {
-        myapp.initialize();
+        myapp.init();
         context.init(myapp.data);
     });
 

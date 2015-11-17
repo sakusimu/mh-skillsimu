@@ -13,7 +13,7 @@ describe('mh4g/deco-assembler', () => {
     let a = new Assembler(context);
 
     beforeEach(() => {
-        myapp.initialize();
+        myapp.init();
         context.init(myapp.data);
     });
 

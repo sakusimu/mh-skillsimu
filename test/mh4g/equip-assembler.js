@@ -12,7 +12,7 @@ describe('mh4g/equip-assembler', () => {
     let c = new Combinator(context);
     let a = new Assembler(context);
 
-    beforeEach(() => { myapp.initialize(); });
+    beforeEach(() => { myapp.init(); });
 
     describe('assemble: weapon slot', () => {
         it('should assemble if contain a slot2 weapon', () => {

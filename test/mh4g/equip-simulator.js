@@ -8,7 +8,7 @@ describe('mh4g/equip-simulator', () => {
     let context = new Context();
     let simu = new Simulator(context);
 
-    beforeEach(() => { myapp.initialize(); });
+    beforeEach(() => { myapp.init(); });
 
     describe('simulate', () => {
         it('should simulate torsoUp', () => {

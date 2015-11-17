@@ -11,7 +11,7 @@ describe('mh4g/equip-combinator', () => {
     let c = new Combinator(context);
 
     beforeEach(() => {
-        myapp.initialize();
+        myapp.init();
         context.init(myapp.data);
     });
 

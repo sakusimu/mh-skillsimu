@@ -21,10 +21,10 @@ class MyApp {
         this.rawdata = load(series);
         if (this.rawdata == null) throw new Error(`unknown series: ${series}`);
 
-        this.initialize.apply(this, arguments);
+        this.init.apply(this, arguments);
     }
 
-    initialize() {
+    init() {
         this.data = {};
         this.hunter = new Hunter();
         this.setup();

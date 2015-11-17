@@ -8,7 +8,7 @@ describe('mh4g/deco-simulator', () => {
     let context = new Context();
     let simu = new Simulator(context);
 
-    beforeEach(() => { myapp.initialize(); });
+    beforeEach(() => { myapp.init(); });
 
     describe('simulate', () => {
         function sorter(assems) {
