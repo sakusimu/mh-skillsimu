@@ -14,7 +14,8 @@ let testdata = {
             leg  : require(`${dataDir}/mh4g/equip_leg.json`)
         },
         decos: require(`${dataDir}/mh4g/deco.json`),
-        skills: require(`${dataDir}/mh4g/skill.json`)
+        skills: require(`${dataDir}/mh4g/skill.json`),
+        digs: require('./mh4-digs-builder')
     }
 };
 
