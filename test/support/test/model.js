@@ -427,6 +427,13 @@ describe('test-driver/model', () => {
         });
     });
 
+    describe('Equips#constructor()', () => {
+        it('should create equips if no arguments', () => {
+            let got = new model.Equips();
+            assert(got);
+        });
+    });
+
     describe('Equips#enabled()', () => {
         let hunter = new Hunter();
 
@@ -505,6 +512,13 @@ describe('test-driver/model', () => {
         });
     });
 
+    describe('Decos#constructor()', () => {
+        it('should create decos if no arguments', () => {
+            let got = new model.Decos();
+            assert(got);
+        });
+    });
+
     describe('Decos#enabled()', () => {
         let hunter = new Hunter({ hr: 1, vs: 6 });
 
@@ -548,6 +562,13 @@ describe('test-driver/model', () => {
             assert(got === null);
             got = decos.get('nonexistent');
             assert(got === null);
+        });
+    });
+
+    describe('Skills#constructor()', () => {
+        it('should create skills if no arguments', () => {
+            let got = new model.Skills();
+            assert(got);
         });
     });
 

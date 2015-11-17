@@ -69,6 +69,13 @@ describe('test-driver/dig', () => {
         });
     });
 
+    describe('Digs#constructor()', () => {
+        it('should create digs if no arguments', () => {
+            let got = new model.Digs();
+            assert(got);
+        });
+    });
+
     describe('Digs#enabled()', () => {
         let hunter = new Hunter();
 
