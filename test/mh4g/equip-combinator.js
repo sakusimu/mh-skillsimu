@@ -3,7 +3,7 @@ const assert = require('power-assert');
 const Combinator = require('../../lib/equip/combinator');
 const Context = require('../../lib/context');
 const Normalizer = require('../../lib/equip/normalizer');
-const myapp = require('../support/lib/driver-myapp');
+const myapp = require('../support/lib/driver-myapp')('mh4g');
 
 describe('mh4g/equip-combinator', () => {
     let context = new Context();

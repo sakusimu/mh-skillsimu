@@ -1,17 +1,30 @@
 'use strict';
 const assert = require('power-assert');
-const myapp = require('../lib/driver-myapp');
+const createMyApp = require('../lib/driver-myapp');
+const MyApp = createMyApp.MyApp;
 
 describe('test-driver/myapp', () => {
     describe('export', () => {
-        it('should export myapp', () => {
-            assert(myapp);
-            assert(myapp.data);
-            assert(myapp.hunter);
+        it('should export function', () => {
+            assert(typeof createMyApp === 'function');
+        });
+    });
+
+    describe('constructor()', () => {
+        it('should create myapp', () => {
+            let myapp = new MyApp('mh4g');
+        });
+
+        it('should throw exception if no arguments', () => {
+            let got;
+            try { new MyApp(); } catch (e) { got = e.message; }
+            assert(got === 'series is require');
         });
     });
 
     describe('setup()', () => {
+        let myapp = createMyApp('mh4g');
+
         it('should setup', () => {
             myapp.setup();
             assert(myapp.data.equips.head.length > 0);
@@ -32,8 +45,8 @@ describe('test-driver/myapp', () => {
             assert.deepEqual(got, exp);
             got = myapp.data.equips.oma;
             exp = [
-                { name: '龍の護石(スロ3,匠+4,氷耐性-5)',
-                  slot: 3, skillComb: { '匠': 4, '氷耐性': -5 } }
+                { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                  skillComb: { '匠': 4, '氷耐性': -5 } }
             ];
             assert.deepEqual(got, exp);
         });
@@ -51,24 +64,25 @@ describe('test-driver/myapp', () => {
         });
     });
 
-    describe('equip()', () => {
+    describe('MyApp#equip()', () => {
         it('should return equip', () => {
-            let got = myapp.equip('body', 'ブレイブベスト').name;
-            assert(got === 'ブレイブベスト', 'name,0,0');
-            got = myapp.equip('body', 'ハンターメイル').name;
-            assert(got === 'ハンターメイル', 'name,0,1');
-        });
-
-        it('should return equip if not found', () => {
-            let got = myapp.equip('body', 'ユクモ');
-            assert(got === null);
+            let got = MyApp.equip(['レウスヘルム',0,0,3,0,3,5,23,125,2,0,-2,0,-3,'攻撃',3,'火属性攻撃',1,'回復量',-2,null,null,null,null,'火竜の鱗',3,'火竜の甲殻',3,'火竜の翼爪',1,'ドラグ ライト鉱石',3]);
+            let exp = {
+                name: 'レウスヘルム', slot: 0,
+                skillComb: { '回復量': -2, '攻撃': 3, '火属性攻撃': 1 }
+            };
+            assert.deepStrictEqual(got, exp);
         });
     });
 
-    describe('oma()', () => {
+    describe('MyApp#oma()', () => {
         it('should return oma', () => {
-            let got = myapp.oma([ '龍の護石',3,'匠',4,'氷耐性',-5 ]).name;
-            assert(got === '龍の護石(スロ3,匠+4,氷耐性-5)');
+            let got = MyApp.oma([ '龍の護石',3,'匠',4,'氷耐性',-5 ]);
+            let exp = {
+                name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                skillComb: { '匠': 4, '氷耐性': -5 }
+            };
+            assert.deepStrictEqual(got, exp);
         });
     });
 });

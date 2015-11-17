@@ -1,15 +1,26 @@
 'use strict';
+const load = require('./data-loader.js');
 const Hunter = require('./driver-hunter');
 const model = require('./driver-model');
+const simudata = require('./driver-simudata');
 const parts = require('../../../lib/util').parts;
-require('./driver-dig');
+
+function createMyApp(series) {
+    return new MyApp(series);
+}
+exports = module.exports = createMyApp;
 
 /**
  * シミュレータのユーザ側クラス。
  * アプリを表すクラス。
  */
 class MyApp {
-    constructor() {
+    constructor(series) {
+        if(series == null) throw new Error(`series is require`);
+
+        this.rawdata = load(series);
+        if (this.rawdata == null) throw new Error(`unknown series: ${series}`);
+
         this.initialize.apply(this, arguments);
     }
 
@@ -24,15 +35,12 @@ class MyApp {
 
         this.hunter.init(opts.hunter);
 
-        const simuData = obj => obj.simuData();
-
         let equips = {};
         parts.forEach(part => equips[part] = []);
 
         let armors = [ 'head', 'body', 'arm', 'waist', 'leg' ];
         armors.forEach(part => {
-            let list = model.equips.enabled(part, this.hunter);
-            equips[part] = list.map(simuData);
+            equips[part] = simudata.equips(this.rawdata.equips[part], this.hunter);
         });
 
         if (opts.weaponSlot != null) {
@@ -41,27 +49,22 @@ class MyApp {
             equips.weapon = [ weapon ];
         }
 
+        let decos = simudata.decos(this.rawdata.decos, this.hunter);
+
+        let skills = simudata.skills(this.rawdata.skills);
+
         if (opts.omas) {
-            equips.oma = [];
-            opts.omas.forEach(list => {
-                let oma = new model.Oma(list);
-                equips.oma.push(oma.simuData());
-            });
+            equips.oma = simudata.omas(opts.omas);
         }
 
         if (opts.dig) {
-            let weapons = model.digs.enabled('weapon', this.hunter).map(simuData);
+            let weapons = simudata.digs(this.rawdata.digs.weapon, this.hunter);
             equips.weapon = equips.weapon.concat(weapons);
             armors.forEach(part => {
-                let list = model.digs.enabled(part, this.hunter);
-                equips[part] = equips[part].concat(list.map(simuData));
+                let digs = simudata.digs(this.rawdata.digs[part], this.hunter);
+                equips[part] = equips[part].concat(digs);
             });
         }
-
-        let decos = model.decos.enabled(this.hunter).map(simuData);
-
-        let skills = {};
-        model.skills.enabled().forEach(s => skills[s.name] = s.simuData());
 
         this.data = {
             equips: equips,
@@ -70,35 +73,16 @@ class MyApp {
         };
     }
 
-    equip(part, name) {
-        let equips = model.equips;
-        let sex  = this.hunter.sex === 'm' ? 1 : 2;
-        let type = this.hunter.type === 'k' ? 1 : 2;
-
-        let id = [ name, 0, 0 ].join(',');
-        let eq = equips.get(part, id);
-        if (eq) return eq.simuData();
-
-        id = [ name, 0, type ].join(',');
-        eq = equips.get(part, id);
-        if (eq) return eq.simuData();
-
-        id = [ name, sex, 0 ].join(',');
-        eq = equips.get(part, id);
-        if (eq) return eq.simuData();
-
-        id = [ name, sex, type ].join(',');
-        eq = equips.get(part, id);
-        if (eq) return eq.simuData();
-
-        return null;
+    static equip(rawdata) {
+        let eq = new model.Equip(rawdata);
+        return eq.simuData();
     }
+    equip() { return MyApp.equip.apply(MyApp, arguments); }
 
-    oma(list) {
+    static oma(list) {
         let oma = new model.Oma(list);
         return oma ? oma.simuData() : null;
     }
+    oma() { return MyApp.oma.apply(MyApp, arguments); }
 }
-
-let myapp = new MyApp();
-module.exports = myapp;
+exports.MyApp = MyApp;

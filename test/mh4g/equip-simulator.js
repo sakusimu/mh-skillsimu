@@ -2,7 +2,7 @@
 const assert = require('power-assert');
 const Simulator = require('../../lib/equip/simulator');
 const Context = require('../../lib/context');
-const myapp = require('../support/lib/driver-myapp');
+const myapp = require('../support/lib/driver-myapp')('mh4g');
 
 describe('mh4g/equip-simulator', () => {
     let context = new Context();
@@ -14,15 +14,26 @@ describe('mh4g/equip-simulator', () => {
         it('should simulate torsoUp', () => {
             myapp.setup({ hunter: { sex: 'w' } });
             let equips = myapp.data.equips;
-            equips.head  = [ myapp.equip('head', 'ユクモノカサ・天') ];
-            equips.body  = [ myapp.equip('body', '三眼の首飾り') ];
-            equips.arm   = [ myapp.equip('arm', 'ユクモノコテ・天') ];
-            equips.waist = [
-                myapp.equip('waist', 'レザーベルト'),
-                myapp.equip('waist', 'バンギスコイル'),
-                myapp.equip('waist', 'シルバーソルコイル')
+            equips.head = [
+                { name: 'ユクモノカサ・天', slot: 2,
+                  skillComb: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } }
             ];
-            equips.leg   = [ myapp.equip('leg', 'ユクモノハカマ・天') ];
+            equips.body = [ { name: '三眼の首飾り', slot: 3, skillComb: {} } ];
+            equips.arm = [
+                { name: 'ユクモノコテ・天', slot: 2,
+                  skillComb: { '匠': 1, '研ぎ師': 3, '回復量': 2, '加護': 3 } }
+            ];
+            equips.waist = [
+                { name: 'レザーベルト', slot: 0,
+                  skillComb: { '採取': 3, '運気': -1, '体力': 2, '気まぐれ': 1 } },
+                { name: 'バンギスコイル', slot: 0, skillComb: { '胴系統倍加': 1 } },
+                { name: 'シルバーソルコイル', slot: 2,
+                  skillComb: { '痛撃': 2, '斬れ味': 1, '火属性攻撃': 5, '回復量': -3 } }
+            ];
+            equips.leg = [
+                { name: 'ユクモノハカマ・天', slot: 2,
+                  skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } }
+            ];
             context.init(myapp.data);
 
             let got = simu.simulate([ '斬れ味レベル+1', '砥石使用高速化' ]);
@@ -59,22 +70,19 @@ describe('mh4g/equip-simulator', () => {
         it('[ "攻撃力UP【大】", "業物" ]', () => {
             let skills = [ '攻撃力UP【大】', '業物' ];
             let got = simu.simulate(skills).length;
-            let exp = 280;
-            assert(got === exp);
+            assert(got === 280);
         });
 
         it('[ "斬れ味レベル+1", "高級耳栓" ]', () => {
             let skills = [ '斬れ味レベル+1', '高級耳栓' ];
             let got = simu.simulate(skills).length;
-            let exp = 1737; // 頑シミュさんと同じ
-            assert(got === exp);
+            assert(got === 1647); // 頑シミュさんと同じ
         });
 
         it('[ "攻撃力UP【大】", "業物", "集中", "見切り+1", "弱点特効" ]', () => {
             let skills = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
             let got = simu.simulate(skills).length;
-            let exp = 0;
-            assert(got === exp);
+            assert(got === 0);
         });
     });
 });

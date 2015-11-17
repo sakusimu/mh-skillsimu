@@ -32,7 +32,7 @@ How to use
 For example, the following code:
 ```javascript
 'use strict';
-const myapp = require('./test/lib/driver-myapp.js');
+const myapp = require('./test/lib/driver-myapp.js')('mh4g');
 const simu = require('./index.js');
 
 let simulator = new simu.Simulator();
