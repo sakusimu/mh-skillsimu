@@ -36,48 +36,6 @@ Dig.columns = [ 'sex', 'type', 'skillTree1', 'skillPt1' ];
 Dig.numColumns = { sex: true, type: true, skillPt1: true };
 Dig.props = [ 'name', 'sex', 'type', 'slot', 'skillTree1', 'skillPt1' ];
 
-class Digs {
-    constructor() {
-        this.data = {};
-        this.init.apply(this, arguments);
-    }
-
-    init(digs) {
-        let data = {};
-        for (let part in digs) {
-            let list = digs[part] || [];
-            data[part] = {};
-            for (let i = 0, len = list.length; i < len; ++i) {
-                let dig = new Dig(list[i]);
-                data[part][dig.name] = dig;
-            }
-        }
-        this.data = data;
-    }
-
-    enabled(part, hunter) {
-        if (part == null) throw new Error('part is required');
-
-        let digs = this.data[part];
-        if (digs == null) return [];
-
-        let ret = [];
-        for (let id in digs) {
-            let dig = digs[id];
-            if(dig.isEnabled(hunter)) ret.push(dig);
-        }
-        return ret;
-    }
-
-    get(part, name) {
-        if (part == null) throw new Error('part is required');
-        if (this.data[part] == null) return null;
-        let dig = this.data[part][name];
-        return dig ? dig : null;
-    }
-}
-
 model.Dig = Dig;
-model.Digs = Digs;
 
 module.exports = model;
