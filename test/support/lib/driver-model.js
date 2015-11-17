@@ -47,8 +47,6 @@ class Equip {
     constructor(data) {
         let obj = makeObject(Equip.columns, data, Equip.numColumns);
         for (let prop in obj) this[prop] = obj[prop];
-
-        this.id = [ this.name, this.sex, this.type ].join(',');
     }
 
     isEnabled(hunter) {
@@ -87,7 +85,7 @@ Equip.numColumns = { sex: true, type: true, slot: true,
                      availableHR: true, availableVS: true,
                      skillPt1: true, skillPt2: true, skillPt3: true,
                      skillPt4: true, skillPt5: true };
-Equip.props = [].concat([ 'id' ], Equip.columns.filter(col => col !== ''));
+Equip.props = Equip.columns.filter(col => col !== '');
 
 /**
  * 装飾品データのクラス。

@@ -80,7 +80,7 @@ describe('test-driver/model', () => {
 
             let got = pick(eq, model.Equip.props);
             let exp = {
-                id: '名前,0,1', name: '名前', sex: 0, type: 1, rarity: 'レア度', slot: 2,
+                name: '名前', sex: 0, type: 1, rarity: 'レア度', slot: 2,
                 availableHR: 5, availableVS: 6,
                 skillTree1: 'スキル系統1', skillPt1: 21,
                 skillTree2: 'スキル系統2', skillPt2: 22,
@@ -97,7 +97,7 @@ describe('test-driver/model', () => {
 
             let got = pick(eq, model.Equip.props);
             let exp = {
-                id: ',0,0', name: null, sex: 0, type: 0, rarity: null, slot: 0,
+                name: null, sex: 0, type: 0, rarity: null, slot: 0,
                 availableHR: 0, availableVS: 0,
                 skillTree1: null, skillPt1: 0,
                 skillTree2: null, skillPt2: 0,
@@ -113,7 +113,7 @@ describe('test-driver/model', () => {
         let hunter = new Hunter();
 
         it('should return true or false correctly depend on sex and type', () => {
-            // ID,名前,"性別(0=両,1=男,2=女)","タイプ(0=両方,1=剣士,2=ガンナー)",レア度,スロット数,入手時期／HR（99=集会場入手不可）,入手時期／村★（99=村入手不可）
+            // 名前,"性別(0=両,1=男,2=女)","タイプ(0=両方,1=剣士,2=ガンナー)",レア度,スロット数,入手時期／HR（99=集会場入手不可）,入手時期／村★（99=村入手不可）
             let equips = [
                 [ '両/両/r/s/HR3/★6',0,0,4,0,3,6 ],
                 [ '両/剣/r/s/HR3/★6',0,1,4,0,3,6 ],
