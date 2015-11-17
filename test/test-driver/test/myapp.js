@@ -1,6 +1,6 @@
 'use strict';
 const assert = require('power-assert');
-const createMyApp = require('../lib/driver-myapp');
+const createMyApp = require('../myapp');
 const MyApp = createMyApp.MyApp;
 
 describe('test-driver/myapp', () => {

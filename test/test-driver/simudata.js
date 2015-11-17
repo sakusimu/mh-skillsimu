@@ -1,5 +1,5 @@
 'use strict';
-const model = require('./driver-model');
+const model = require('./model');
 
 exports.equips = function equips(rawdataEquips, hunter) {
     if (hunter == null) throw new Error('hunter is required');

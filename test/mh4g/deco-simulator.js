@@ -2,7 +2,7 @@
 const assert = require('power-assert');
 const Simulator = require('../../lib/deco/simulator');
 const Context = require('../../lib/context');
-const myapp = require('../support/lib/driver-myapp')('mh4g');
+const myapp = require('../test-driver/myapp')('mh4g');
 
 describe('mh4g/deco-simulator', () => {
     let context = new Context();

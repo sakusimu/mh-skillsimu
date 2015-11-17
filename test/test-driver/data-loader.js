@@ -1,7 +1,7 @@
 'use strict';
 const path = require('path');
 
-let rootDir = path.resolve(__dirname, '..', '..', '..');
+let rootDir = path.resolve(__dirname, '..', '..');
 let dataDir = path.resolve(rootDir, 'tmp', 'testdata');
 
 let loader = {

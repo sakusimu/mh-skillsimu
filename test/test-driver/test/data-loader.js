@@ -1,6 +1,6 @@
 'use strict';
 const assert = require('power-assert');
-const load = require('../lib/data-loader.js');
+const load = require('../data-loader.js');
 
 describe('test/data-loader', () => {
     describe('export', () => {

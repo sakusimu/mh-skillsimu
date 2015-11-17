@@ -4,7 +4,7 @@ const Assembler = require('../../lib/equip/assembler');
 const Context = require('../../lib/context');
 const Normalizer = require('../../lib/equip/normalizer');
 const Combinator = require('../../lib/equip/combinator');
-const myapp = require('../support/lib/driver-myapp')('mh4g');
+const myapp = require('../test-driver/myapp')('mh4g');
 
 describe('mh4g/equip-assembler', () => {
     let context = new Context();

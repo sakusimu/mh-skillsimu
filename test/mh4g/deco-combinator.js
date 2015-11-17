@@ -3,7 +3,7 @@ const assert = require('power-assert');
 const Combinator = require('../../lib/deco/combinator');
 const Context = require('../../lib/context');
 const Normalizer = require('../../lib/deco/normalizer');
-const myapp = require('../support/lib/driver-myapp')('mh4g');
+const myapp = require('../test-driver/myapp')('mh4g');
 
 describe('mh4g/deco-combinator', () => {
     let context = new Context();

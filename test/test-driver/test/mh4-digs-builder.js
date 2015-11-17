@@ -1,6 +1,6 @@
 'use strict';
 const assert = require('power-assert');
-const digs = require('../lib/mh4-digs-builder');
+const digs = require('../mh4-digs-builder');
 
 describe('test/mh4-digs-builder', () => {
     describe('export', () => {

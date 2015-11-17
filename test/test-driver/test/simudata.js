@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('power-assert');
-const simudata = require('../lib/driver-simudata');
-const Hunter = require('../lib/driver-hunter');
+const simudata = require('../simudata');
+const Hunter = require('../hunter');
 
 describe('test-driver/simudata', () => {
     describe('equips()', () => {

@@ -1,9 +1,9 @@
 'use strict';
 const load = require('./data-loader.js');
-const Hunter = require('./driver-hunter');
-const model = require('./driver-model');
-const simudata = require('./driver-simudata');
-const parts = require('../../../lib/util').parts;
+const Hunter = require('./hunter');
+const model = require('./model');
+const simudata = require('./simudata');
+const parts = require('../../lib/util').parts;
 
 function createMyApp(series) {
     return new MyApp(series);

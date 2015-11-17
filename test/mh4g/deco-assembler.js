@@ -4,7 +4,7 @@ const Assembler = require('../../lib/deco/assembler');
 const Context = require('../../lib/context');
 const Normalizer = require('../../lib/deco/normalizer');
 const Combinator = require('../../lib/deco/combinator');
-const myapp = require('../support/lib/driver-myapp')('mh4g');
+const myapp = require('../test-driver/myapp')('mh4g');
 
 describe('mh4g/deco-assembler', () => {
     let context = new Context();

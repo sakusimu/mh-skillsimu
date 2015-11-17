@@ -1,7 +1,7 @@
 'use strict';
 const assert = require('power-assert');
-const model = require('../lib/driver-model');
-const Hunter = require('../lib/driver-hunter');
+const model = require('../model');
+const Hunter = require('../hunter');
 
 describe('test-driver/model', () => {
     describe('model.makeObject()', () => {
