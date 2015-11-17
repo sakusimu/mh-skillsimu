@@ -1,28 +1,38 @@
 'use strict';
 const assert = require('power-assert');
-const data = require('../lib/data-loader.js');
+const load = require('../lib/data-loader.js');
 
 describe('test/data-loader', () => {
     describe('export', () => {
-        it('should contain mh4g', () => {
-            assert(data.mh4g);
+        it('should export load', () => {
+            assert(typeof load === 'function');
         });
-        it('should contain mh4g.equips correctly', () => {
-            let got = Object.keys(data.mh4g.equips).sort();
+    });
+
+    describe('load()', () => {
+        it('should load if specify mh4g', () => {
+            let data = load('mh4g');
+
+            let got = Object.keys(data.equips).sort();
             let exp = [ 'head', 'body', 'arm', 'waist', 'leg' ].sort();
             assert.deepEqual(got, exp);
 
-            assert(Array.isArray(data.mh4g.equips.head));
-            assert(Array.isArray(data.mh4g.equips.body));
-            assert(Array.isArray(data.mh4g.equips.arm));
-            assert(Array.isArray(data.mh4g.equips.waist));
-            assert(Array.isArray(data.mh4g.equips.leg));
+            assert(Array.isArray(data.equips.head));
+            assert(Array.isArray(data.equips.body));
+            assert(Array.isArray(data.equips.arm));
+            assert(Array.isArray(data.equips.waist));
+            assert(Array.isArray(data.equips.leg));
+
+            assert(Array.isArray(data.decos));
+            assert(Array.isArray(data.skills));
         });
-        it('should contain mh4g.decos as array', () => {
-            assert(Array.isArray(data.mh4g.decos));
-        });
-        it('should contain mh4g.skills as array', () => {
-            assert(Array.isArray(data.mh4g.skills));
+
+        it('should throw exception in some case', () => {
+            let got;
+            try { load(); } catch (e) { got = e.message; }
+            assert(got === 'series is required');
+            try { load('hoge'); } catch (e) { got = e.message; }
+            assert(got === 'unknown series: hoge');
         });
     });
 });
