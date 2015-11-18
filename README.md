@@ -32,11 +32,11 @@ How to use
 For example, the following code:
 ```javascript
 'use strict';
-const myapp = require('./test/test-driver/myapp.js')('mh4g');
-const simu = require('./index.js');
+const myapp = require('./test/test-driver/myapp')('mh4g');
+const mhsimu = require('./index');
 
-let simulator = new simu.Simulator();
-let assemblies = simulator.simulateEquip([ '斬れ味レベル+1', '耳栓', '集中' ]);
+let simu = mhsimu(myapp.data);
+let assemblies = simu.simulateEquip([ '斬れ味レベル+1', '耳栓', '集中' ]);
 console.log(assemblies);
 ```
 run:
