@@ -1,6 +1,6 @@
 'use strict';
 const assert = require('power-assert');
-const Hunter = require('../lib/driver-hunter');
+const Hunter = require('../hunter');
 
 describe('test-driver/hunter', () => {
     describe('constructor()', () => {

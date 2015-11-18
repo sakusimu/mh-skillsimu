@@ -4,7 +4,7 @@ const Assembler = require('../../lib/equip/assembler');
 const Context = require('../../lib/context');
 const Normalizer = require('../../lib/equip/normalizer');
 const Combinator = require('../../lib/equip/combinator');
-const myapp = require('../support/lib/driver-myapp');
+const myapp = require('../test-driver/myapp')('mh4g');
 
 describe('mh4g/equip-assembler', () => {
     let context = new Context();
@@ -12,7 +12,7 @@ describe('mh4g/equip-assembler', () => {
     let c = new Combinator(context);
     let a = new Assembler(context);
 
-    beforeEach(() => { myapp.initialize(); });
+    beforeEach(() => { myapp.init(); });
 
     describe('assemble: weapon slot', () => {
         it('should assemble if contain a slot2 weapon', () => {
@@ -112,7 +112,8 @@ describe('mh4g/equip-assembler', () => {
             let eqcombs = c.combine(skills, bulksSet);
 
             let assems = a.assemble(eqcombs);
-            assert(assems.length === 1737); // 頑シミュさんと同じ
+            let got = assems.length;
+            assert(got === 1647); // 頑シミュさんと同じ
         });
 
         it('[ "攻撃力UP【大】", "業物", "集中", "見切り+1", "弱点特効" ]', () => {
