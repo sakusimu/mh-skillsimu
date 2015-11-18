@@ -53,6 +53,7 @@ describe('test-driver/simudata', () => {
         it('should throw exception if not specify hunter', () => {
             let got;
             try { simudata.equips([]); } catch (e) { got = e.message; }
+            assert(got === 'hunter is required');
         });
     });
 
@@ -92,6 +93,7 @@ describe('test-driver/simudata', () => {
         it('should throw exception if not specify hunter', () => {
             let got;
             try { simudata.decos([]); } catch (e) { got = e.message; }
+            assert(got === 'hunter is required');
         });
     });
 
@@ -161,6 +163,7 @@ describe('test-driver/simudata', () => {
         it('should throw exception if not specify hunter', () => {
             let got;
             try { simudata.digs([]); } catch (e) { got = e.message; }
+            assert(got === 'hunter is required');
         });
     });
 });

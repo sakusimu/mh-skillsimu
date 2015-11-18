@@ -337,6 +337,7 @@ describe('test-driver/model', () => {
                 tree: 'スキル系統', point: 0,
                 type: 1
             };
+            assert.deepStrictEqual(got, exp);
         });
 
         it('should create skill if no arguments', () => {

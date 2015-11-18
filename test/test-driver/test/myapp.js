@@ -13,6 +13,7 @@ describe('test-driver/myapp', () => {
     describe('constructor()', () => {
         it('should create myapp', () => {
             let myapp = new MyApp('mh4g');
+            assert(myapp);
         });
 
         it('should throw exception if no arguments', () => {
