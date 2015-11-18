@@ -1,20 +1,30 @@
 'use strict';
 const assert = require('power-assert');
-const simu = require('../../index');
+const mhsimu = require('../../index');
+const Simulator = require('../../lib/simulator');
+const util = require('../../lib/util');
 
 describe('index', () => {
     describe('export', () => {
-        it('should some properties', () => {
-            assert(/\d+\.\d+\.\d+/.test(simu.VERSION));
-            assert(typeof simu.Simulator === 'function');
-            assert(simu.util);
+        it('should export function', () => {
+            assert(typeof mhsimu === 'function');
+        });
+
+        it('should have some properties', () => {
+            assert(/\d+\.\d+\.\d+/.test(mhsimu.VERSION));
+            assert(mhsimu.util === util);
+        });
+
+        it('should return instance of Simulator', () => {
+            let got = mhsimu();
+            assert(got instanceof Simulator);
         });
     });
 
     (global.document ? describe : describe.skip)('Browser', () => {
         /* global window:false */
-        it('should have window.simu', () => {
-            assert(window.simu === simu);
+        it('should have window.mhsimu', () => {
+            assert(window.mhsimu === mhsimu);
         });
     });
 });

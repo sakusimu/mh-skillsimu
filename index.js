@@ -1,6 +1,15 @@
 'use strict';
-const pkg = require('./package.json');
+const VERSION = require('./package.json').version;
+const Simulator = require('./lib/simulator');
+const util = require('./lib/util');
 
-exports.VERSION = pkg.version;
-exports.Simulator = require('./lib/simulator');
-exports.util = require('./lib/util');
+exports = module.exports = createSimulator;
+
+function createSimulator() {
+    let simu = new Simulator();
+    simu.init.apply(simu, arguments);
+    return simu;
+}
+
+exports.VERSION = VERSION;
+exports.util = util;
