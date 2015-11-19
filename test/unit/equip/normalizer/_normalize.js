@@ -25,7 +25,7 @@ describe('equip/normalizer/normalize', () => {
 
     beforeEach(() => { context.init({ decos: DECOS, skills: SKILLS }); });
 
-    function joinSkillComb(skillComb) {
+    function toString(skillComb) {
         let skills = Object.keys(skillComb).sort().map(tree => {
             return tree + ':' + skillComb[tree];
         });
@@ -33,7 +33,7 @@ describe('equip/normalizer/normalize', () => {
     }
     function sorter(bulks) {
         return bulks.sort((a, b) => {
-            return joinSkillComb(a.skillComb) > joinSkillComb(b.skillComb) ? 1 : -1;
+            return toString(a.skillComb) > toString(b.skillComb) ? 1 : -1;
         });
     }
 

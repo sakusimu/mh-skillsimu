@@ -9,7 +9,7 @@ describe('equip/normalizer/normalize4', () => {
     describe('_normalize4()', () => {
         let n = new Normalizer(context);
 
-        function joinSkillComb(skillComb) {
+        function toString(skillComb) {
             let skills = Object.keys(skillComb).sort().map(tree => {
                 return tree + ':' + skillComb[tree];
             });
@@ -17,7 +17,7 @@ describe('equip/normalizer/normalize4', () => {
         }
         function sorter(actiCombs) {
             return actiCombs.sort((a, b) => {
-                return joinSkillComb(a.skillComb) > joinSkillComb(b.skillComb) ? 1 : -1;
+                return toString(a.skillComb) > toString(b.skillComb) ? 1 : -1;
             });
         }
 
