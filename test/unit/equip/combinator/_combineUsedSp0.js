@@ -37,7 +37,7 @@ describe('equip/combinator/_combineUsedSp0', () => {
                 waist: bulks.concat(sp0),
                 leg  : torsoUp.concat(bulks),
                 // weapon: undefined
-                oma  : null
+                charm: null
             };
 
             let got = c._makeBulksSetWithSp0(bulksSet);
@@ -47,13 +47,13 @@ describe('equip/combinator/_combineUsedSp0', () => {
                   arm  : bulks,
                   waist: bulks.concat(sp0),
                   leg  : torsoUp.concat(bulks),
-                  weapon: null, oma: null },
+                  weapon: null, charm: null },
                 { head : bulks,
                   body : bulks.concat(sp0),
                   arm  : bulks,
                   waist: sp0,
                   leg  : torsoUp.concat(bulks),
-                  weapon: null, oma: null }
+                  weapon: null, charm: null }
             ];
             assert.deepEqual(got, exp);
         });
@@ -91,7 +91,7 @@ describe('equip/combinator/_combineUsedSp0', () => {
                           waist : [ '6,2' ],
                           leg   : [ '4,4' ],
                           weapon: [],
-                          oma   : [],
+                          charm : [],
                           bodySC: { '攻撃': 6, '斬れ味': 2 } }
                     ],
                     sumSC: { '攻撃': 20, '斬れ味': 10 }
@@ -105,7 +105,7 @@ describe('equip/combinator/_combineUsedSp0', () => {
                 //          waist : [ '6,2' ],
                 //          leg   : [ '4,4' ],
                 //          weapon: [],
-                //          oma   : [],
+                //          charm : [],
                 //          bodySC: { '攻撃': 6, '斬れ味': 2 } }
                 //    ],
                 //    sumSC: { '攻撃': 20, '斬れ味': 10 }

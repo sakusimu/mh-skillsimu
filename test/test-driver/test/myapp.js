@@ -35,7 +35,7 @@ describe('test-driver/myapp', () => {
 
             myapp.setup({
                 weaponSlot: 2,
-                omas: [
+                charms: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ]
                 ]
             });
@@ -44,7 +44,7 @@ describe('test-driver/myapp', () => {
                 { name: 'slot2', slot: 2, skillComb: {} }
             ];
             assert.deepEqual(got, exp);
-            got = myapp.data.equips.oma;
+            got = myapp.data.equips.charm;
             exp = [
                 { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                   skillComb: { '匠': 4, '氷耐性': -5 } }
@@ -76,9 +76,9 @@ describe('test-driver/myapp', () => {
         });
     });
 
-    describe('MyApp#oma()', () => {
-        it('should return oma', () => {
-            let got = MyApp.oma([ '龍の護石',3,'匠',4,'氷耐性',-5 ]);
+    describe('MyApp#charm()', () => {
+        it('should return charm', () => {
+            let got = MyApp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ]);
             let exp = {
                 name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                 skillComb: { '匠': 4, '氷耐性': -5 }

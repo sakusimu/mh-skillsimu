@@ -31,12 +31,12 @@ describe('mh4g/equip-assembler', () => {
         });
     });
 
-    describe('assemble: oma', () => {
-        it('should combine if contain omas', () => {
+    describe('assemble: charm', () => {
+        it('should combine if contain charms', () => {
             myapp.setup({
                 hunter: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
                 weaponSlot: 3,
-                omas: [
+                charms: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],
                     [ '龍の護石',0,'溜め短縮',5,'攻撃',9 ],
                     [ '龍の護石',3,'痛撃',4 ]
@@ -52,11 +52,11 @@ describe('mh4g/equip-assembler', () => {
             assert(assems.length === 3); // 頑シミュさんと同じ
         });
 
-        it('should assemble if contain omas and slot0 weapon', () => {
+        it('should assemble if contain charms and slot0 weapon', () => {
             myapp.setup({
                 hunter: { hr: 1, vs: 6 }, // 装備を村のみにしぼる
                 weaponSlot: 0,
-                omas: [
+                charms: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],
                     [ '龍の護石',0,'溜め短縮',5,'攻撃',9 ],
                     [ '龍の護石',3,'痛撃',4 ]
@@ -76,7 +76,7 @@ describe('mh4g/equip-assembler', () => {
     describe('assemble: dig', () => {
         it('should assemble if contain dig equips', () => {
             myapp.setup({
-                omas: [
+                charms: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],
                     [ '龍の護石',0,'溜め短縮',5,'攻撃',9 ],
                     [ '龍の護石',3,'痛撃',4 ]

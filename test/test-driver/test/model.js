@@ -363,14 +363,14 @@ describe('test-driver/model', () => {
         });
     });
 
-    describe('Oma#constructor()', () => {
-        it('should create oma', () => {
+    describe('Charm#constructor()', () => {
+        it('should create charm', () => {
             let data = [ '龍の護石',3,'匠',4,'氷耐性',-5 ];
 
-            let oma = new model.Oma(data);
-            assert(oma);
+            let charm = new model.Charm(data);
+            assert(charm);
 
-            let got = pick(oma, model.Oma.props);
+            let got = pick(charm, model.Charm.props);
             let exp = {
                 name: '龍の護石',
                 slot: 3,
@@ -378,33 +378,33 @@ describe('test-driver/model', () => {
                 skillTree2: '氷耐性', skillPt2: -5
             };
 
-            got = oma.toString();
+            got = charm.toString();
             exp = '龍の護石(スロ3,匠+4,氷耐性-5)';
             assert(got === exp);
         });
 
-        it('should create oma if skill2 is null', () => {
-            let oma = new model.Oma([ '龍の護石','3','痛撃','4' ]);
-            let got = pick(oma, model.Oma.props);
+        it('should create charm if skill2 is null', () => {
+            let charm = new model.Charm([ '龍の護石','3','痛撃','4' ]);
+            let got = pick(charm, model.Charm.props);
             let exp = {
                 name: '龍の護石',
                 slot: 3,
                 skillTree1: '痛撃', skillPt1: 4,
                 skillTree2: null, skillPt2: 0
             };
-            assert(oma.skillTree2 === null);
-            assert(oma.skillPt2 === 0);
+            assert(charm.skillTree2 === null);
+            assert(charm.skillPt2 === 0);
 
-            got = oma.toString();
+            got = charm.toString();
             exp = '龍の護石(スロ3,痛撃+4)';
             assert(got === exp);
         });
 
-        it('should create oma if no arguments', () => {
-            let oma = new model.Oma();
-            assert(oma);
+        it('should create charm if no arguments', () => {
+            let charm = new model.Charm();
+            assert(charm);
 
-            let got = pick(oma, model.Oma.props);
+            let got = pick(charm, model.Charm.props);
             let exp = {
                 name: null,
                 slot: 0,
@@ -415,10 +415,10 @@ describe('test-driver/model', () => {
         });
     });
 
-    describe('Oma#simuData()', () => {
+    describe('Charm#simuData()', () => {
         it('should return simuData', () => {
-            let oma = new model.Oma([ '龍の護石',3,'匠',4,'氷耐性',-5 ]);
-            let got = oma.simuData();
+            let charm = new model.Charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ]);
+            let got = charm.simuData();
             let exp = {
                 name: '龍の護石(スロ3,匠+4,氷耐性-5)',
                 slot: 3,

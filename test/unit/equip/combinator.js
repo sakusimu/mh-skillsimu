@@ -87,7 +87,7 @@ describe('equip/combinator', () => {
                           waist : [ 'waist1' ],
                           leg   : [ 'leg1' ],
                           weapon: [ 'weapon1' ],
-                          oma   : [ 'oma1' ],
+                          charm : [ 'charm1' ],
                           bodySC: { '攻撃': 1, '斬れ味': 1 } },
                         { head  : [ 'head2' ],
                           body  : [ 'body2' ],
@@ -95,7 +95,7 @@ describe('equip/combinator', () => {
                           waist : [ 'waist2' ],
                           leg   : [ 'leg2' ],
                           //weapon: undefined,
-                          oma   : null,
+                          charm : null,
                           bodySC: {} }
                     ],
                     sumSC: {}
@@ -108,7 +108,7 @@ describe('equip/combinator', () => {
                           waist : [ 'waist3' ],
                           leg   : [ 'leg3' ],
                           weapon: [ 'weapon3' ],
-                          oma   : [ 'oma3' ],
+                          charm : [ 'charm3' ],
                           bodySC: {} }
                     ],
                     sumSC: {}
@@ -122,21 +122,21 @@ describe('equip/combinator', () => {
                   waist : [ 'waist1' ],
                   leg   : [ 'leg1' ],
                   weapon: [ 'weapon1' ],
-                  oma   : [ 'oma1' ] },
+                  charm : [ 'charm1' ] },
                 { head  : [ 'head2' ],
                   body  : [ 'body2' ],
                   arm   : [ 'arm2' ],
                   waist : [ 'waist2' ],
                   leg   : [ 'leg2' ],
                   weapon: [],
-                  oma   : [] },
+                  charm : [] },
                 { head  : [ 'head3' ],
                   body  : [ 'body3' ],
                   arm   : [ 'arm3' ],
                   waist : [ 'waist3' ],
                   leg   : [ 'leg3' ],
                   weapon: [ 'weapon3' ],
-                  oma   : [ 'oma3' ] }
+                  charm : [ 'charm3' ] }
             ];
             assert.deepEqual(got, exp);
         });

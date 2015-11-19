@@ -22,7 +22,7 @@ describe('mh4g/deco-simulator', () => {
             });
         }
 
-        it('should simulate if contain torsoUp, weaponSlot, oma', () => {
+        it('should simulate if contain torsoUp, weaponSlot, charm', () => {
             context.init(myapp.data);
 
             let equip = {
@@ -35,7 +35,7 @@ describe('mh4g/deco-simulator', () => {
                 leg   : { name: 'ユクモノハカマ・天', slot: 2,
                           skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
                 weapon: { name: 'slot2', slot: 2, skillComb: {} },
-                oma   : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                           skillComb: { '匠': 4, '氷耐性': -5 } }
             };
 
@@ -87,7 +87,7 @@ describe('mh4g/deco-simulator', () => {
                 waist : { name: '三眼の腰飾り', slot: 3, skillComb: {} },
                 leg   : { name: '三眼の足輪', slot: 3, skillComb: {} },
                 weapon: { name: 'slot3', slot: 3, skillComb: {} },
-                oma   : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                           skillComb: { '匠': 4, '氷耐性': -5 } }
             };
 
@@ -134,7 +134,7 @@ describe('mh4g/deco-simulator', () => {
                 leg   : { name: 'アークグリーヴ', slot: 2,
                           skillComb: { '匠': 3, '本気': 3, '火耐性': -3, '狂撃耐性': 1 } },
                 weapon: { name: 'slot3', slot: 3, skillComb: {} },
-                oma   : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                           skillComb: { '匠': 4, '氷耐性': -5 } }
             };
 

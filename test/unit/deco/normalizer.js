@@ -214,12 +214,12 @@ describe('deco/normalizer', () => {
                       slot: 2, skillComb: { '匠': 0, '研ぎ師': 4 } },
                     { decos: [ '匠珠【２】' ], slot: 2, skillComb: { '匠': 1, '研ぎ師': 0 } } ],
                 weapon: [],
-                oma: []
+                charm: []
             };
             assert.deepEqual(got, exp);
         });
 
-        it('should normalize if equips contain slotN, torsoUp, weapon, oma', () => {
+        it('should normalize if equips contain slotN, torsoUp, weapon, charm', () => {
             let equip = {
                 head  : { name: 'ユクモノカサ・天', slot: 2,
                           skillComb: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } },
@@ -229,7 +229,7 @@ describe('deco/normalizer', () => {
                 leg   : { name: 'ユクモノハカマ・天', slot: 2,
                           skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
                 weapon: { name: 'slot2', slot: 2, skillComb: {} },
-                oma   : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                           skillComb: { '匠': 4, '氷耐性': -5 } }
             };
             let got = n.normalize([ '斬れ味レベル+1', '砥石使用高速化' ], equip);
@@ -267,7 +267,7 @@ describe('deco/normalizer', () => {
                     { decos: [ '研磨珠【１】', '研磨珠【１】' ],
                       slot: 2, skillComb: { '匠': 0, '研ぎ師': 4 } },
                     { decos: [ '匠珠【２】' ], slot: 2, skillComb: { '匠': 1, '研ぎ師': 0 } } ],
-                oma: [
+                charm: [
                     { decos: [], slot: 0, skillComb: { '匠': 0, '研ぎ師': 0 } },
                     { decos: [ '研磨珠【１】' ], slot: 1, skillComb: { '匠': 0, '研ぎ師': 2 } },
                     { decos: [ '研磨珠【１】', '研磨珠【１】' ],
@@ -291,7 +291,7 @@ describe('deco/normalizer', () => {
             assert(n.normalize([ '攻撃力UP【大】' ], null) === null);
             let got = n.normalize([ '攻撃力UP【大】' ], {});
             let exp = {
-                head: [], body: [], arm: [], waist: [],leg: [], weapon: [], oma: []
+                head: [], body: [], arm: [], waist: [],leg: [], weapon: [], charm: []
             };
             assert.deepEqual(got, exp);
         });

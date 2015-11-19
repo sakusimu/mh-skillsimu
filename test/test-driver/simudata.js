@@ -28,11 +28,11 @@ exports.skills = function skills(rawdataSkills) {
     return skills;
 };
 
-exports.omas = function omas(rawdataOmas) {
-    let omas = (rawdataOmas || [])
-            .map(cols => new model.Oma(cols))
-            .map(oma => oma.simuData());
-    return omas;
+exports.charms = function charms(rawdataCharms) {
+    let charms = (rawdataCharms || [])
+            .map(cols => new model.Charm(cols))
+            .map(charm => charm.simuData());
+    return charms;
 };
 
 exports.digs = function digs(rawdataDigs, hunter) {

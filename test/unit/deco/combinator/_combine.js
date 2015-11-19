@@ -90,7 +90,7 @@ describe('deco/combinator/_combine', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
                 leg: [
                     { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
@@ -106,14 +106,14 @@ describe('deco/combinator/_combine', () => {
                           waist : bulksSet.waist[2],
                           leg   : bulksSet.leg[0],
                           weapon: { decos: [], slot: 0, skillComb: {} },
-                          oma   : bulksSet.oma[1] },
+                          charm : bulksSet.charm[1] },
                         { head  : bulksSet.head[0],
                           body  : bulksSet.body[0],
                           arm   : bulksSet.arm[0],
                           waist : bulksSet.waist[3],
                           leg   : bulksSet.leg[0],
                           weapon: { decos: [], slot: 0, skillComb: {} },
-                          oma   : bulksSet.oma[0] }
+                          charm : bulksSet.charm[0] }
                     ],
                     sumSC: { '攻撃': 7, '斬れ味': 4 }
                 }
@@ -138,7 +138,7 @@ describe('deco/combinator/_combine', () => {
                     { skillComb: { '胴系統倍加': 1 }, decos: [ 'torsoUp' ], slot: 0 } ],
                 weapon: [
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
@@ -154,14 +154,14 @@ describe('deco/combinator/_combine', () => {
                           waist : bulksSet.waist[2],
                           leg   : bulksSet.leg[0],
                           weapon: bulksSet.weapon[0],
-                          oma   : bulksSet.oma[1] },
+                          charm : bulksSet.charm[1] },
                         { head  : bulksSet.head[0],
                           body  : { decos: [], slot: 0, skillComb: {} },
                           arm   : bulksSet.arm[0],
                           waist : bulksSet.waist[3],
                           leg   : bulksSet.leg[0],
                           weapon: bulksSet.weapon[0],
-                          oma   : bulksSet.oma[0] }
+                          charm : bulksSet.charm[0] }
                     ],
                     sumSC: { '攻撃': 7, '斬れ味': 4 }
                 }
@@ -185,7 +185,7 @@ describe('deco/combinator/_combine', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
                 leg: [
                     { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };

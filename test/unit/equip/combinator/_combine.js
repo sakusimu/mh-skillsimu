@@ -106,7 +106,7 @@ describe('equip/combinator/_combine', () => {
                           waist : [ '2,3,2' ],
                           leg   : [ '6,0,4' ],
                           weapon: [],
-                          oma   : [],
+                          charm : [],
                           bodySC: { '攻撃': 4, '匠': 2, '聴覚保護': 2 } }
                     ],
                     sumSC: { '攻撃': 20, '匠': 10, '聴覚保護': 10 }
@@ -137,7 +137,7 @@ describe('equip/combinator/_combine', () => {
                     { skillComb: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] },
                     { skillComb: { '攻撃': 2, '匠': 3, '聴覚保護': 2 }, equips: [ '2,3,2' ] },
                     { skillComb: { '攻撃': 3, '匠': 3, '聴覚保護': 1 }, equips: [ '3,3,1' ] } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 6, '匠': 0, '聴覚保護': 4 }, equips: [ '6,0,4' ] },
                     { skillComb: { '攻撃': 3, '匠': 2, '聴覚保護': 4 }, equips: [ '3,2,4' ] },
                     { skillComb: { '攻撃': 4, '匠': 2, '聴覚保護': 3 }, equips: [ '4,2,3' ] } ]
@@ -152,7 +152,7 @@ describe('equip/combinator/_combine', () => {
                           waist : [ 'torsoUp' ],
                           leg   : [ '4,2,2' ],
                           weapon: [ '2,3,2' ],
-                          oma   : [ '6,0,4' ],
+                          charm : [ '6,0,4' ],
                           bodySC: {} }
                     ],
                     sumSC: { '攻撃': 20, '匠': 10, '聴覚保護': 10 }

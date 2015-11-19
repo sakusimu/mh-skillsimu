@@ -36,7 +36,7 @@ describe('mh4g/equip-normalizer', () => {
             ];
             assert.deepEqual(got, exp, 'body');
             got = summary(bulksSet);
-            exp = { head: 37, body: 2, arm: 29, waist: 30, leg: 36, weapon: 0, oma: 0 };
+            exp = { head: 37, body: 2, arm: 29, waist: 30, leg: 36, weapon: 0, charm: 0 };
             assert.deepEqual(got, exp, 'summary');
         });
 
@@ -54,7 +54,7 @@ describe('mh4g/equip-normalizer', () => {
 
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);
             let got = summary(bulksSet);
-            let exp = { head: 37, body: 5, arm: 29, waist: 30, leg: 36, weapon: 0, oma: 0 };
+            let exp = { head: 37, body: 5, arm: 29, waist: 30, leg: 36, weapon: 0, charm: 0 };
             assert.deepEqual(got, exp);
         });
     });
@@ -88,11 +88,11 @@ describe('mh4g/equip-normalizer', () => {
         });
     });
 
-    describe('normalize: oma', () => {
-        it('should normalize if contain omas', () => {
+    describe('normalize: charm', () => {
+        it('should normalize if contain charms', () => {
             myapp.setup({
                 hunter: { hr: 1, vs: 6 },
-                omas: [
+                charms: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],
                     [ '龍の護石',0,'溜め短縮',5,'攻撃',9 ],
                     [ '龍の護石',3,'痛撃',4 ]
@@ -101,7 +101,7 @@ describe('mh4g/equip-normalizer', () => {
             context.init(myapp.data);
 
             let bulksSet = n.normalize([ '斬れ味レベル+1', '攻撃力UP【中】', '耳栓' ]);
-            let got = bulksSet.oma;
+            let got = bulksSet.charm;
             let exp = [
                 { skillComb: { '匠': 0, '攻撃': 0, '聴覚保護': 3 },
                   equips: [ '龍の護石(スロ3,痛撃+4)' ] },
@@ -129,7 +129,7 @@ describe('mh4g/equip-normalizer', () => {
     describe('normalize: dig', () => {
         it('should normalize if contain dig equips', () => {
             myapp.setup({
-                omas: [
+                charms: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],
                     [ '龍の護石',0,'溜め短縮',5,'攻撃',9 ],
                     [ '龍の護石',3,'痛撃',4 ]
@@ -164,14 +164,14 @@ describe('mh4g/equip-normalizer', () => {
         it('[ "攻撃力UP【大】", "業物" ]', () => {
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);
             let got = summary(bulksSet);
-            let exp = { head: 37, body: 29, arm: 29, waist: 30, leg: 36, weapon: 0, oma: 0 };
+            let exp = { head: 37, body: 29, arm: 29, waist: 30, leg: 36, weapon: 0, charm: 0 };
             assert.deepEqual(got, exp);
         });
 
         it('[ "斬れ味レベル+1", "高級耳栓" ]', () => {
             let bulksSet = n.normalize([ '斬れ味レベル+1', '高級耳栓' ]);
             let got = summary(bulksSet);
-            let exp = { head: 19, body: 16, arm: 21, waist: 21, leg: 24, weapon: 0, oma: 0 };
+            let exp = { head: 19, body: 16, arm: 21, waist: 21, leg: 24, weapon: 0, charm: 0 };
             assert.deepEqual(got, exp);
         });
 
@@ -179,7 +179,7 @@ describe('mh4g/equip-normalizer', () => {
             // スキル系統で見ているので、高級耳栓も耳栓も結果は同じ
             let bulksSet = n.normalize([ '斬れ味レベル+1', '耳栓' ]);
             let got = summary(bulksSet);
-            let exp = { head: 19, body: 16, arm: 21, waist: 21, leg: 24, weapon: 0, oma: 0 };
+            let exp = { head: 19, body: 16, arm: 21, waist: 21, leg: 24, weapon: 0, charm: 0 };
             assert.deepEqual(got, exp);
         });
 
@@ -187,7 +187,7 @@ describe('mh4g/equip-normalizer', () => {
             let skills = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
             let bulksSet = n.normalize(skills);
             let got = summary(bulksSet);
-            let exp = { head: 444, body: 229, arm: 250, waist: 343, leg: 282, weapon: 0, oma: 0 };
+            let exp = { head: 444, body: 229, arm: 250, waist: 343, leg: 282, weapon: 0, charm: 0 };
             assert.deepEqual(got, exp);
         });
     });

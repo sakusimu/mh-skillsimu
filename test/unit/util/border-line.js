@@ -85,13 +85,13 @@ describe('util/border-line', () => {
                     { skillComb: { 'a': 4, 'b': 1 } } ],
                 weapon: [
                     { skillComb: { 'a': 1         } } ],
-                oma: [
+                charm: [
                     { skillComb: {         'b': 1 } } ]
             };
             let got = bl._calcMaxEachSkillPoint(bulksSet);
             let exp = {
-                'a': { head: 1, body: 1, arm: 1, waist: 2, leg: 5, weapon: 1, oma: 0 },
-                'b': { head: 1, body: 1, arm: 1, waist: 0, leg: 6, weapon: 0, oma: 1 }
+                'a': { head: 1, body: 1, arm: 1, waist: 2, leg: 5, weapon: 1, charm: 0 },
+                'b': { head: 1, body: 1, arm: 1, waist: 0, leg: 6, weapon: 0, charm: 1 }
             };
             assert.deepEqual(got, exp);
         });
@@ -111,9 +111,9 @@ describe('util/border-line', () => {
             };
             let got = bl._calcMaxEachSkillPoint(bulksSet);
             let exp = {
-                'a': { head: 1, body: 1, arm: 0, waist: 0, leg: 0, weapon: 0, oma: 0 },
-                'b': { head: 1, body: 1, arm: 0, waist: 0, leg: 0, weapon: 0, oma: 0 },
-                'c': { head: 0, body: 0, arm: 0, waist: 0, leg: 0, weapon: 1, oma: 0 }
+                'a': { head: 1, body: 1, arm: 0, waist: 0, leg: 0, weapon: 0, charm: 0 },
+                'b': { head: 1, body: 1, arm: 0, waist: 0, leg: 0, weapon: 0, charm: 0 },
+                'c': { head: 0, body: 0, arm: 0, waist: 0, leg: 0, weapon: 1, charm: 0 }
             };
             assert.deepEqual(got, exp);
         });
@@ -141,8 +141,8 @@ describe('util/border-line', () => {
             };
             let got = bl._calcMaxEachSkillPoint(bulksSet);
             let exp = {
-                'a': { head: 2, body: 2, arm: 5, waist: 2, leg: 2, weapon: 0, oma: 0 },
-                'b': { head: 2, body: 2, arm: 2, waist: 3, leg: 2, weapon: 0, oma: 0 }
+                'a': { head: 2, body: 2, arm: 5, waist: 2, leg: 2, weapon: 0, charm: 0 },
+                'b': { head: 2, body: 2, arm: 2, waist: 3, leg: 2, weapon: 0, charm: 0 }
             };
             assert.deepEqual(got, exp);
         });
@@ -169,8 +169,8 @@ describe('util/border-line', () => {
             };
             let got = bl._calcMaxEachSkillPoint(bulksSet);
             let exp = {
-                'a': { head: 1, body: 0, arm: 5, waist: 1, leg: 0, weapon: 0, oma: 0 },
-                'b': { head: 1, body: 0, arm: 2, waist: 3, leg: 0, weapon: 0, oma: 0 }
+                'a': { head: 1, body: 0, arm: 5, waist: 1, leg: 0, weapon: 0, charm: 0 },
+                'b': { head: 1, body: 0, arm: 2, waist: 3, leg: 0, weapon: 0, charm: 0 }
             };
             assert.deepEqual(got, exp);
         });
@@ -205,11 +205,11 @@ describe('util/border-line', () => {
                     { skillComb: { 'a': 4, 'b': 1 } } ],
                 weapon: [
                     { skillComb: { 'a': 1         } } ],
-                oma: [
+                charm: [
                     { skillComb: {         'b': 1 } } ]
             };
             let got = bl._calcMaxSumSkillPoint(bulksSet);
-            let exp = { head: 1, body: 2, arm: 1, waist: 2, leg: 6, weapon: 1, oma: 1 };
+            let exp = { head: 1, body: 2, arm: 1, waist: 2, leg: 6, weapon: 1, charm: 1 };
             assert.deepEqual(got, exp);
         });
 
@@ -226,7 +226,7 @@ describe('util/border-line', () => {
                     { skillComb: { 'c': 1 } } ]
             };
             let got = bl._calcMaxSumSkillPoint(bulksSet);
-            let exp = { head: 1, body: 2, arm: 0, waist: 0, leg: 0, weapon: 1, oma: 0 };
+            let exp = { head: 1, body: 2, arm: 0, waist: 0, leg: 0, weapon: 1, charm: 0 };
             assert.deepEqual(got, exp);
         });
 
@@ -252,7 +252,7 @@ describe('util/border-line', () => {
                     { skillComb: { '胴系統倍加': 1 } } ]
             };
             let got = bl._calcMaxSumSkillPoint(bulksSet);
-            let exp = { head: 4, body: 4, arm: 5, waist: 4, leg: 4, weapon: 0, oma: 0 };
+            let exp = { head: 4, body: 4, arm: 5, waist: 4, leg: 4, weapon: 0, charm: 0 };
             assert.deepEqual(got, exp);
         });
 
@@ -277,7 +277,7 @@ describe('util/border-line', () => {
                     { skillComb: { '胴系統倍加': 1 } } ]
             };
             let got = bl._calcMaxSumSkillPoint(bulksSet);
-            let exp = { head: 1, body: 0, arm: 5, waist: 3, leg: 0, weapon: 0, oma: 0 };
+            let exp = { head: 1, body: 0, arm: 5, waist: 3, leg: 0, weapon: 0, charm: 0 };
             assert.deepEqual(got, exp);
         });
 
@@ -305,7 +305,7 @@ describe('util/border-line', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 4 } },
                     { skillComb: { '攻撃': 1, '斬れ味': 3 } },
                     { skillComb: { '攻撃': 4, '斬れ味': 1 } } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 4, '斬れ味': 0 } },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 } } ]
             };
@@ -400,7 +400,7 @@ describe('util/border-line', () => {
                     { skillComb: { '攻撃': 4, '斬れ味': 2 } },
                     { skillComb: { '攻撃': 0, '斬れ味': 4 } },
                     { skillComb: { '胴系統倍加': 1 } } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 4, '斬れ味': 3 } } ]
             };
             let bl = new BorderLine(context, skillNames, bulksSet);
@@ -431,7 +431,7 @@ describe('util/border-line', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 4 } },
                     { skillComb: { '攻撃': 1, '斬れ味': 3 } },
                     { skillComb: { '攻撃': 4, '斬れ味': 1 } } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 4, '斬れ味': 0 } },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 } } ]
             };

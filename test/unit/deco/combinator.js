@@ -45,7 +45,7 @@ describe('deco/combinator', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
                 leg: [
                     { skillComb: { '胴系統倍加': 1 }, decos: [ 'torsoUp' ], slot: 0 } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
             let equipSC = { '攻撃': 13, '斬れ味': 6 };
@@ -104,7 +104,7 @@ describe('deco/combinator', () => {
                           waist : { decos: [] },
                           leg   : { decos: [ 'b2' ] },
                           weapon: { decos: [ 'b2' ] },
-                          oma   : { decos: [ 'a3' ] },
+                          charm : { decos: [ 'a3' ] },
                           bodySC: { 'a': 9, 'b': 4 } },
                         { head  : { decos: [ 'a1' ] },
                           body  : { decos: [ 'a3' ] },
@@ -112,7 +112,7 @@ describe('deco/combinator', () => {
                           waist : { decos: [] },
                           leg   : { decos: [ 'b2' ] },
                           //weapon: undefined,
-                          oma   : null,
+                          charm : null,
                           bodySC: {} }
                     ],
                     sumSC: {}
@@ -125,7 +125,7 @@ describe('deco/combinator', () => {
                           waist : { decos: [] },
                           leg   : null,
                           weapon: { decos: [ 'b2' ] },
-                          oma: { decos: [ 'a3' ] } }
+                          charm : { decos: [ 'a3' ] } }
                     ],
                     sumSC: {}
                 }
@@ -138,21 +138,21 @@ describe('deco/combinator', () => {
                   waist : { decos: [] },
                   leg   : { decos: [ 'b2' ] },
                   weapon: { decos: [ 'b2' ] },
-                  oma   : { decos: [ 'a3' ] } },
+                  charm : { decos: [ 'a3' ] } },
                 { head  : { decos: [ 'a1' ] },
                   body  : { decos: [ 'a3' ] },
                   arm   : { decos: [ 'a1', 'a1' ] },
                   waist : { decos: [] },
                   leg   : { decos: [ 'b2' ] },
                   weapon: { decos: [], slot: 0, skillComb: {} },
-                  oma   : { decos: [], slot: 0, skillComb: {} } },
+                  charm : { decos: [], slot: 0, skillComb: {} } },
                 { body  : { decos: [ 'a3' ] },
                   head  : { decos: [ 'a3' ] },
                   arm   : { decos: [ 'b2' ] },
                   waist : { decos: [] },
                   leg   : { decos: [], slot: 0, skillComb: {} },
                   weapon: { decos: [ 'b2' ] },
-                  oma: { decos: [ 'a3' ] } }
+                  charm : { decos: [ 'a3' ] } }
             ];
             assert.deepEqual(got, exp);
         });
@@ -170,7 +170,7 @@ describe('deco/combinator', () => {
                   waist : { decos: [] },
                   leg   : { decos: [ 'b2' ] },
                   weapon: { decos: [ 'b2' ] },
-                  oma   : { decos: [ 'a3' ] } },
+                  charm : { decos: [ 'a3' ] } },
                 // a1*2, a2*1, a3*2, b2*2
                 { body  : { decos: [ 'a3' ] },
                   head  : { decos: [ 'a1' ] },
@@ -178,7 +178,7 @@ describe('deco/combinator', () => {
                   waist : { decos: [] },
                   leg   : { decos: [ 'b2' ] },
                   weapon: { decos: [ 'b2' ] },
-                  oma   : { decos: [ 'a3' ] } },
+                  charm : { decos: [ 'a3' ] } },
                 // a1*3, a3*2, b2*2
                 { body  : { decos: [ 'a3' ] },
                   head  : { decos: [ 'a1' ] },
@@ -186,7 +186,7 @@ describe('deco/combinator', () => {
                   waist : null,
                   leg   : { decos: [ 'b2' ] },
                   weapon: { decos: [ 'b2' ] },
-                  oma   : { decos: [ 'a3' ] } },
+                  charm : { decos: [ 'a3' ] } },
                 // a3*3, b2*2
                 { body  : { decos: [ 'a3' ] },
                   head  : { decos: [ 'a3' ] },
@@ -194,7 +194,7 @@ describe('deco/combinator', () => {
                   waist : { decos: [] },
                   leg   : null,
                   weapon: { decos: [ 'b2' ] },
-                  oma: { decos: [ 'a3' ] } },
+                  charm : { decos: [ 'a3' ] } },
                 // a1*3, a3*2, b2*2
                 { body  : { decos: [ 'a3' ] },
                   head  : { decos: [ 'a1' ] },
@@ -202,7 +202,7 @@ describe('deco/combinator', () => {
                   waist : { decos: [] },
                   leg   : { decos: [ 'a1', 'a1' ] },
                   weapon: { decos: [ 'b2' ] },
-                  oma: { decos: [ 'a3' ] } }
+                  charm : { decos: [ 'a3' ] } }
             ];
             let got = c._removeOverlap(decombs);
             let exp = [
@@ -213,7 +213,7 @@ describe('deco/combinator', () => {
                   waist : { decos: [] },
                   leg   : { decos: [ 'b2' ] },
                   weapon: { decos: [ 'b2' ] },
-                  oma   : { decos: [ 'a3' ] } },
+                  charm : { decos: [ 'a3' ] } },
                 // a1*2, a2*1, a3*2, b2*2
                 { body  : { decos: [ 'a3' ] },
                   head  : { decos: [ 'a1' ] },
@@ -221,7 +221,7 @@ describe('deco/combinator', () => {
                   waist : { decos: [] },
                   leg   : { decos: [ 'b2' ] },
                   weapon: { decos: [ 'b2' ] },
-                  oma   : { decos: [ 'a3' ] } },
+                  charm : { decos: [ 'a3' ] } },
                 // a3*3, b2*2
                 { body  : { decos: [ 'a3' ] },
                   head  : { decos: [ 'a3' ] },
@@ -229,7 +229,7 @@ describe('deco/combinator', () => {
                   waist : { decos: [] },
                   leg   : null,
                   weapon: { decos: [ 'b2' ] },
-                  oma: { decos: [ 'a3' ] } }
+                  charm : { decos: [ 'a3' ] } }
             ];
             assert.deepEqual(got, exp);
         });
@@ -246,7 +246,7 @@ describe('deco/combinator', () => {
                 waist : { name: 'waist', slot: 0 },
                 leg   : { name: 'leg', slot: 2 },
                 weapon: null,
-                oma   : { name: 'oma', slot: 3 }
+                charm : { name: 'charm', slot: 3 }
             };
             assert(c._calcTotalSlot(equip) === 11);
         });
@@ -263,21 +263,21 @@ describe('deco/combinator', () => {
                   waist : { slot: 1 },
                   leg   : { slot: 2 },
                   weapon: null,
-                  oma   : { slot: 3 } },
+                  charm : { slot: 3 } },
                 { body : { slot: 0 },
                   head : { slot: 3 },
                   arm  : { slot: 3 },
                   waist: { slot: 0 },
                   // weapon がない
                   leg  : { slot: 3 },
-                  oma  : { slot: 3 } },
+                  charm: { slot: 3 } },
                 { body  : { slot: 2 },
                   head  : { slot: 2 },
                   arm   : { slot: 2 },
                   waist : { slot: 2 },
                   leg   : { slot: 2 },
                   weapon: { slot: 2 },
-                  oma   : { slot: 2 } }
+                  charm : { slot: 2 } }
             ];
             let got = c._groupByFreeSlot(decombs, 15);
             let exp = {
@@ -288,14 +288,14 @@ describe('deco/combinator', () => {
                       waist : { slot: 1 },
                       leg   : { slot: 2 },
                       weapon: null,
-                      oma   : { slot: 3 } },
+                      charm : { slot: 3 } },
                     { body : { slot: 0 },
                       head : { slot: 3 },
                       arm  : { slot: 3 },
                       waist: { slot: 0 },
                       // weapon がない
                       leg  : { slot: 3 },
-                      oma  : { slot: 3 } }
+                      charm: { slot: 3 } }
                 ],
                 1: [
                     { body  : { slot: 2 },
@@ -304,7 +304,7 @@ describe('deco/combinator', () => {
                       waist : { slot: 2 },
                       leg   : { slot: 2 },
                       weapon: { slot: 2 },
-                      oma   : { slot: 2 } }
+                      charm : { slot: 2 } }
                 ]
             };
             assert.deepEqual(got, exp);
@@ -324,7 +324,7 @@ describe('deco/combinator', () => {
                   waist : { skillComb: { '攻撃': 1, '斬れ味': 1 } },
                   leg   : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
                   weapon: null,
-                  oma   : { skillComb: { '攻撃': 2, '斬れ味': 0 } } },
+                  charm : { skillComb: { '攻撃': 2, '斬れ味': 0 } } },
                 // { '攻撃': 6, '斬れ味': 10 }
                 { body : { skillComb: { '攻撃': 1, '斬れ味': 1 } },
                   head : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
@@ -332,7 +332,7 @@ describe('deco/combinator', () => {
                   waist: { skillComb: { '胴系統倍加': 1 } },
                   leg  : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
                   // weapon がない
-                  oma  : { skillComb: { '攻撃': 2, '斬れ味': 0 } } },
+                  charm: { skillComb: { '攻撃': 2, '斬れ味': 0 } } },
                 // { '攻撃': 7, '斬れ味': 10 }
                 { body  : { skillComb: { '攻撃': 1, '斬れ味': 1 } },
                   head  : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
@@ -340,7 +340,7 @@ describe('deco/combinator', () => {
                   waist : { skillComb: { '胴系統倍加': 1 } },
                   leg   : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
                   weapon: { skillComb: { '攻撃': 1, '斬れ味': 0 } },
-                  oma   : { skillComb: { '攻撃': 2, '斬れ味': 0 } } }
+                  charm : { skillComb: { '攻撃': 2, '斬れ味': 0 } } }
             ];
             let got = c._getJustActivated(decombs, goal);
             let exp = [ decombs[0], decombs[1] ];
@@ -362,7 +362,7 @@ describe('deco/combinator', () => {
                   waist : { skillComb: { '匠': 0, '聴覚保護': 2 } },
                   leg   : { skillComb: { '匠': 0, '聴覚保護': 2 } },
                   weapon: null,
-                  oma   : { skillComb: { '匠': 0, '聴覚保護': 3 } } }
+                  charm : { skillComb: { '匠': 0, '聴覚保護': 3 } } }
             ];
             let got = c._getJustActivated(decombs, goal);
             let exp = [ decombs[0] ];
@@ -389,7 +389,7 @@ describe('deco/combinator', () => {
                   waist : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
                   leg   : { slot: 0, skillComb: { '攻撃': 0, '斬れ味': 0 } },
                   weapon: null,
-                  oma   : { slot: 3, skillComb: { '攻撃': 4, '斬れ味': 0 } } },
+                  charm : { slot: 3, skillComb: { '攻撃': 4, '斬れ味': 0 } } },
                 // スロ13, { '攻撃': 7, '斬れ味': 10 }
                 { body  : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
                   head  : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
@@ -397,7 +397,7 @@ describe('deco/combinator', () => {
                   waist : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
                   leg   : { slot: 0, skillComb: { '攻撃': 0, '斬れ味': 0 } },
                   weapon: null,
-                  oma   : { slot: 3, skillComb: { '攻撃': 5, '斬れ味': 0 } } },
+                  charm : { slot: 3, skillComb: { '攻撃': 5, '斬れ味': 0 } } },
                 // スロ14, { '攻撃': 6, '斬れ味': 10 }
                 { body  : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
                   head  : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
@@ -405,7 +405,7 @@ describe('deco/combinator', () => {
                   waist : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
                   leg   : { slot: 2, skillComb: { '攻撃': 2, '斬れ味': 0 } },
                   //weapon: undefined,
-                  oma   : { slot: 2, skillComb: { '攻撃': 2, '斬れ味': 0 } } },
+                  charm : { slot: 2, skillComb: { '攻撃': 2, '斬れ味': 0 } } },
                 // スロ14, { '攻撃': 7, '斬れ味': 10 }
                 { body  : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
                   head  : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
@@ -413,7 +413,7 @@ describe('deco/combinator', () => {
                   waist : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
                   leg   : { slot: 2, skillComb: { '攻撃': 2, '斬れ味': 0 } },
                   weapon: null,
-                  oma   : { slot: 2, skillComb: { '攻撃': 3, '斬れ味': 0 } } }
+                  charm : { slot: 2, skillComb: { '攻撃': 3, '斬れ味': 0 } } }
             ];
             let got = c._removePointOver(decombs, 14, goal);
             let exp = [ decombs[0], decombs[2] ];

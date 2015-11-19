@@ -121,7 +121,7 @@ describe('equip/combinator/_combineEquip', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 4 }, equips: [ '0,4' ] },
                     { skillComb: { '攻撃': 1, '斬れ味': 3 }, equips: [ '1,3' ] },
                     { skillComb: { '攻撃': 4, '斬れ味': 1 }, equips: [ '4,1' ] } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 4, '斬れ味': 0 }, equips: [ '4,0' ] },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ '0,2' ] } ]
             };
@@ -194,7 +194,7 @@ describe('equip/combinator/_combineEquip', () => {
                     { skillComb: { '攻撃': 0, '斬れ味': 4 }, equips: [ '0,4' ] },
                     { skillComb: { '攻撃': 1, '斬れ味': 3 }, equips: [ '1,3' ] },
                     { skillComb: { '攻撃': 4, '斬れ味': 1 }, equips: [ '4,1' ] } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 4, '斬れ味': 0 }, equips: [ '4,0' ] },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ '0,2' ] } ]
             };
@@ -262,7 +262,7 @@ describe('equip/combinator/_combineEquip', () => {
                     { skillComb: { '攻撃': 5, '斬れ味': 1 }, equips: [ '5,1' ] } ],
                 leg: [
                     { skillComb: { '攻撃': 5, '斬れ味': 1 }, equips: [ '5,1' ] } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 4, '斬れ味': 0 }, equips: [ '4,0' ] },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ '0,2' ] } ]
             };
@@ -300,7 +300,7 @@ describe('equip/combinator/_combineEquip', () => {
                     { skillComb: { '攻撃': 5, '斬れ味': 1 }, equips: [ '5,1' ] } ],
                 leg: [
                     { skillComb: { '攻撃': 6, '斬れ味': 0 }, equips: [ '6,0' ] } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 4, '斬れ味': 0 }, equips: [ '4,0' ] },
                     { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ '0,2' ] } ]
             };

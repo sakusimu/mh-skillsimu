@@ -43,13 +43,13 @@ describe('mh4g/equip-simulator', () => {
                           waist : 'バンギスコイル',
                           leg   : 'ユクモノハカマ・天',
                           weapon: null,
-                          oma   : null } ];
+                          charm : null } ];
             assert.deepEqual(got, exp);
         });
 
         it('should simulate dig', () => {
             myapp.setup({
-                omas: [
+                charms: [
                     [ '龍の護石',3,'匠',4,'氷耐性',-5 ],
                     [ '龍の護石',0,'溜め短縮',5,'攻撃',9 ],
                     [ '龍の護石',3,'痛撃',4 ]

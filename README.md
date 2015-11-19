@@ -48,14 +48,14 @@ $ node example.js
     waist: 'クシャナアンダ',
     leg: 'アークグリーヴ',
     weapon: null,
-    oma: null },
+    charm: null },
   { head: 'ミヅハ【烏帽子】',
     body: 'アカムトウルンテ',
     arm: 'EXレックスアーム',
     waist: 'クシャナアンダ',
     leg: 'ゾディアスグリーヴ',
     weapon: null,
-    oma: null } ]
+    charm: null } ]
 ```
 
 See Also

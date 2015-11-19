@@ -280,7 +280,7 @@ describe('util/skill', () => {
                 waist: { skillComb: { '胴系統倍加': 1 } },
                 leg: { skillComb: { c: 1 } },
                 weapon: {},
-                oma: null
+                charm: null
             };
             let got = util.unify(set);
             let exp = { a: 3, b: 3, c: 1 };
@@ -295,7 +295,7 @@ describe('util/skill', () => {
                 waist: { skillComb: { '胴系統倍加': 1 } },
                 leg: { skillComb: { c: 1 } },
                 weapon: {},
-                oma: null
+                charm: null
             };
             let got = util.unify(set);
             let exp = { a: 1, b: 1, c: 1 };

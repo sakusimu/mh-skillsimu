@@ -34,7 +34,7 @@ describe('mh4g/deco-combinator', () => {
     }
 
     describe('combine', () => {
-        it('should combine if equips contain torsoUp, weaponSlot, oma', () => {
+        it('should combine if equips contain torsoUp, weaponSlot, charm', () => {
             let skills = [ '斬れ味レベル+1', '高級耳栓' ];
             let equip = {
                 head  : { name: 'ユクモノカサ・天', slot: 2,
@@ -46,7 +46,7 @@ describe('mh4g/deco-combinator', () => {
                 leg   : { name: 'ユクモノハカマ・天', slot: 2,
                           skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
                 weapon: { name: 'slot2', slot: 2, skillComb: {} },
-                oma   : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                           skillComb: { '匠': 4, '氷耐性': -5 } }
             };
             let bulksSet = n.normalize(skills, equip);
@@ -71,7 +71,7 @@ describe('mh4g/deco-combinator', () => {
                 waist : { name: '三眼の腰飾り', slot: 3, skillComb: {} },
                 leg   : { name: '三眼の足輪', slot: 3, skillComb: {} },
                 weapon: { name: 'slot3', slot: 3, skillComb: {} },
-                oma   : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                           skillComb: { '匠': 4, '氷耐性': -5 } }
             };
             let bulksSet = n.normalize(skills, equip);
@@ -100,7 +100,7 @@ describe('mh4g/deco-combinator', () => {
                 leg  : { name: 'ゾディアスグリーヴ', slot: 3,
                          skillComb: { '剣術': 1, '匠': 2, '乗り': -3 } },
                 weapon: null,
-                oma: null
+                charm: null
             };
             let bulksSet = n.normalize(skills, equip);
 
@@ -128,7 +128,7 @@ describe('mh4g/deco-combinator', () => {
                 leg   : { name: 'ユクモノハカマ・天', slot: 2,
                           skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
                 weapon: null,
-                oma   : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                           skillComb: { '匠': 4, '氷耐性': -5 } }
             };
             let bulksSet = n.normalize(skills, equip);

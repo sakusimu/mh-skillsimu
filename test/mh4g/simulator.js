@@ -43,7 +43,7 @@ describe('mh4g/simulator', () => {
                 leg   : { name: 'ユクモノハカマ・天', slot: 2,
                           skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
                 weapon: { name: 'slot2', slot: 2, skillComb: {} },
-                oma   : myapp.oma([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
+                charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
             let got = simu.simulateDeco([ '斬れ味レベル+1', '高級耳栓' ], equip).length;
             assert(got === 3);

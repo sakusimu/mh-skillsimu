@@ -142,9 +142,9 @@ Skill.props = Skill.columns.filter(col => col !== '');
 /**
  * お守りデータのクラス。
  */
-class Oma {
+class Charm {
     constructor(data) {
-        let obj = makeObject(Oma.columns, data, Oma.numColumns);
+        let obj = makeObject(Charm.columns, data, Charm.numColumns);
         for (let prop in obj) this[prop] = obj[prop];
     }
 
@@ -156,8 +156,8 @@ class Oma {
     }
 
     toString() {
-        let skill1 = Oma.skillAsStr(this.skillTree1, this.skillPt1);
-        let skill2 = Oma.skillAsStr(this.skillTree2, this.skillPt2);
+        let skill1 = Charm.skillAsStr(this.skillTree1, this.skillPt1);
+        let skill2 = Charm.skillAsStr(this.skillTree2, this.skillPt2);
 
         let summary = [ 'スロ' + this.slot, skill1 ];
         if (skill2 != null) summary.push(skill2);
@@ -175,9 +175,9 @@ class Oma {
 }
 
 // 名前,スロット数,スキル系統1,スキル値1,スキル系統2,スキル値2
-Oma.columns = [ 'name', 'slot', 'skillTree1', 'skillPt1', 'skillTree2', 'skillPt2' ];
-Oma.numColumns = { slot: true, skillPt1: true, skillPt2: true };
-Oma.props = Oma.columns.filter(col => col !== '');
+Charm.columns = [ 'name', 'slot', 'skillTree1', 'skillPt1', 'skillTree2', 'skillPt2' ];
+Charm.numColumns = { slot: true, skillPt1: true, skillPt2: true };
+Charm.props = Charm.columns.filter(col => col !== '');
 
 /**
  * 発掘装備のクラス。
@@ -217,7 +217,7 @@ Dig.props = [ 'name', 'sex', 'type', 'slot', 'skillTree1', 'skillPt1' ];
 model.Equip = Equip;
 model.Deco  = Deco;
 model.Skill = Skill;
-model.Oma   = Oma;
+model.Charm = Charm;
 model.Dig = Dig;
 
 module.exports = model;

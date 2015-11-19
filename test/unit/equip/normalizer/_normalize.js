@@ -82,8 +82,8 @@ describe('equip/normalizer/normalize', () => {
             assert.deepEqual(got, exp, 'head');
             got = bulksSet.weapon;
             assert.deepEqual(got, [], 'weapon');
-            got = bulksSet.oma;
-            assert.deepEqual(got, [], 'oma');
+            got = bulksSet.charm;
+            assert.deepEqual(got, [], 'charm');
         });
 
         it('should normalize if contain torsoUp', () => {

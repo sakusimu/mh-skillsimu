@@ -53,8 +53,8 @@ class MyApp {
 
         let skills = simudata.skills(this.rawdata.skills);
 
-        if (opts.omas) {
-            equips.oma = simudata.omas(opts.omas);
+        if (opts.charms) {
+            equips.charm = simudata.charms(opts.charms);
         }
 
         if (opts.dig) {
@@ -79,10 +79,10 @@ class MyApp {
     }
     equip() { return MyApp.equip.apply(MyApp, arguments); }
 
-    static oma(list) {
-        let oma = new model.Oma(list);
-        return oma ? oma.simuData() : null;
+    static charm(list) {
+        let charm = new model.Charm(list);
+        return charm ? charm.simuData() : null;
     }
-    oma() { return MyApp.oma.apply(MyApp, arguments); }
+    charm() { return MyApp.charm.apply(MyApp, arguments); }
 }
 exports.MyApp = MyApp;

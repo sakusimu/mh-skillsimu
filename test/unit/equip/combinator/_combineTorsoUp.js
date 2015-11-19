@@ -35,7 +35,7 @@ describe('equip/combinator/_combineTorsoUp', () => {
                     { skillComb: { '胴系統倍加': 1 } } ],
                 leg: [
                     { skillComb: { '胴系統倍加': 1 } } ],
-                oma: [
+                charm: [
                     { skillComb: { '攻撃': 3, '斬れ味': 1 } },
                     { skillComb: { '攻撃': 2, '斬れ味': 2 } } ]
             };

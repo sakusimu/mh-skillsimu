@@ -31,16 +31,16 @@ describe('equip/assembler', () => {
                 waist : [ 'waist01' ],
                 leg   : [ 'leg01' ],
                 weapon: [ 'wpn01' ],
-                oma   : [ 'oma01' ]
+                charm : [ 'charm01' ]
             };
             let got = a._assemble(eqcomb);
             let exp = [
-                [ 'head01', 'body01', 'arm01', 'waist01', 'leg01', 'wpn01', 'oma01' ]
+                [ 'head01', 'body01', 'arm01', 'waist01', 'leg01', 'wpn01', 'charm01' ]
             ];
             assert.deepEqual(got, exp);
         });
 
-        it('should assemble if weapon and oma are []', () => {
+        it('should assemble if weapon and charm are []', () => {
             let eqcomb = {
                 head  : [ 'head01' ],
                 body  : [ 'body01' ],
@@ -48,7 +48,7 @@ describe('equip/assembler', () => {
                 waist : [ 'waist01' ],
                 leg   : [ 'leg01' ],
                 weapon: [],
-                oma   : []
+                charm : []
             };
             let got = a._assemble(eqcomb);
             let exp = [
@@ -66,7 +66,7 @@ describe('equip/assembler', () => {
                 waist : [ 'waist01' ],
                 leg   : [ 'leg01', 'leg02' ],
                 weapon: [],
-                oma   : []
+                charm : []
             };
             let got = a._assemble(eqcomb);
             let exp = [
@@ -92,7 +92,7 @@ describe('equip/assembler', () => {
                 waist : [ 'waist01' ],
                 leg   : [ 'leg01' ],
                 weapon: [],
-                oma   : [ 'oma01' ]
+                charm : [ 'charm01' ]
             };
             a._assemble(eqcomb, cache);
 
@@ -103,12 +103,12 @@ describe('equip/assembler', () => {
                 waist : [ 'waist01' ],
                 leg   : [ 'leg01' ],
                 weapon: [],
-                oma   : [ 'oma01' ]
+                charm : [ 'charm01' ]
             };
             let got = a._assemble(eqcomb, cache);
             let exp = [
                 // head01 の組み合わせは既にキャッシュされているので出てこない
-                [ 'head02', 'body01', 'arm01', 'waist01', 'leg01', null, 'oma01' ]
+                [ 'head02', 'body01', 'arm01', 'waist01', 'leg01', null, 'charm01' ]
             ];
             assert.deepEqual(got, exp);
         });
@@ -125,14 +125,14 @@ describe('equip/assembler', () => {
                   waist : [ 'waist1' ],
                   leg   : [ 'leg1' ],
                   weapon: [ 'weapon1' ],
-                  oma   : [ 'oma1' ] },
+                  charm : [ 'charm1' ] },
                 { head  : [ 'head2' ],
                   body  : [ 'body2' ],
                   arm   : [ 'arm2' ],
                   waist : [ 'waist2' ],
                   leg   : [ 'leg2' ],
                   weapon: [],
-                  oma   : [ 'oma2a', 'oma2b' ] }
+                  charm : [ 'charm2a', 'charm2b' ] }
             ];
             let got = a.assemble(eqcombs);
             let exp = [
@@ -142,28 +142,28 @@ describe('equip/assembler', () => {
                   waist : 'waist1',
                   leg   : 'leg1',
                   weapon: 'weapon1',
-                  oma   : 'oma1' },
+                  charm : 'charm1' },
                 { head  : 'head1b',
                   body  : 'body1',
                   arm   : 'arm1',
                   waist : 'waist1',
                   leg   : 'leg1',
                   weapon: 'weapon1',
-                  oma   : 'oma1' },
+                  charm : 'charm1' },
                 { head  : 'head2',
                   body  : 'body2',
                   arm   : 'arm2',
                   waist : 'waist2',
                   leg   : 'leg2',
                   weapon: null,
-                  oma   : 'oma2a' },
+                  charm : 'charm2a' },
                 { head  : 'head2',
                   body  : 'body2',
                   arm   : 'arm2',
                   leg   : 'leg2',
                   waist : 'waist2',
                   weapon: null,
-                  oma   : 'oma2b' }
+                  charm : 'charm2b' }
             ];
             assert.deepEqual(got, exp);
         });

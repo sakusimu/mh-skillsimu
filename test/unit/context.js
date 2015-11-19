@@ -10,7 +10,7 @@ describe('context', () => {
         waist : [ 'waist01', 'waist02' ],
         leg   : [ 'leg01', 'leg02' ],
         weapon: [ 'wpn01', 'wpn02' ],
-        oma   : [ 'oma01', 'oma02' ]
+        charm : [ 'charm01', 'charm02' ]
     };
     const DECOS = [ 'deco01', 'deco02' ];
     const SKILLS = { 'skill01': 'skill01', 'skill02': 'skill02' };
@@ -30,7 +30,7 @@ describe('context', () => {
             assert(ctx);
 
             let got = ctx.equips;
-            let exp = { head: [], body: [], arm: [], waist:[], leg:[], weapon: [], oma: [] };
+            let exp = { head: [], body: [], arm: [], waist:[], leg:[], weapon: [], charm: [] };
             assert.deepEqual(got, exp);
             assert.deepEqual(ctx.decos, []);
             assert.deepEqual(ctx.skills, {});
@@ -52,7 +52,7 @@ describe('context', () => {
                 waist : [ 'waist01', 'waist02' ],
                 leg   : [ 'leg01', 'leg02' ],
                 weapon: [],
-                oma   : [ 'oma01', 'oma02' ]
+                charm : [ 'charm01', 'charm02' ]
             };
             assert.deepEqual(got, exp);
             assert.deepEqual(ctx.decos, DECOS);
