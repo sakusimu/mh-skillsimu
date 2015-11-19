@@ -68,20 +68,20 @@ describe('mh4g/equip-simulator', () => {
         beforeEach(() => { context.init(myapp.data); });
 
         it('[ "攻撃力UP【大】", "業物" ]', () => {
-            let skills = [ '攻撃力UP【大】', '業物' ];
-            let got = simu.simulate(skills).length;
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
+            let got = simu.simulate(skillnames).length;
             assert(got === 280);
         });
 
         it('[ "斬れ味レベル+1", "高級耳栓" ]', () => {
-            let skills = [ '斬れ味レベル+1', '高級耳栓' ];
-            let got = simu.simulate(skills).length;
+            let skillnames = [ '斬れ味レベル+1', '高級耳栓' ];
+            let got = simu.simulate(skillnames).length;
             assert(got === 1647); // 頑シミュさんと同じ
         });
 
         it('[ "攻撃力UP【大】", "業物", "集中", "見切り+1", "弱点特効" ]', () => {
-            let skills = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
-            let got = simu.simulate(skills).length;
+            let skillnames = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
+            let got = simu.simulate(skillnames).length;
             assert(got === 0);
         });
     });

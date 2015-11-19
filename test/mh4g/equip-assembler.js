@@ -22,9 +22,9 @@ describe('mh4g/equip-assembler', () => {
             });
             context.init(myapp.data);
 
-            let skills = [ '斬れ味レベル+1', '集中' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '斬れ味レベル+1', '集中' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
 
             let assems = a.assemble(eqcombs);
             assert(assems.length === 36); // 頑シミュさんと同じ
@@ -44,9 +44,9 @@ describe('mh4g/equip-assembler', () => {
             });
             context.init(myapp.data);
 
-            let skills = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
 
             let assems = a.assemble(eqcombs);
             assert(assems.length === 3); // 頑シミュさんと同じ
@@ -64,9 +64,9 @@ describe('mh4g/equip-assembler', () => {
             });
             context.init(myapp.data);
 
-            let skills = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
 
             let assems = a.assemble(eqcombs);
             assert(assems.length === 0);
@@ -85,9 +85,9 @@ describe('mh4g/equip-assembler', () => {
             });
             context.init(myapp.data);
 
-            let skills = [ '真打', '集中', '弱点特効', '耳栓' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '真打', '集中', '弱点特効', '耳栓' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
 
             let assems = a.assemble(eqcombs);
             assert(assems.length === 157); // 頑シミュさんと同じ
@@ -98,18 +98,18 @@ describe('mh4g/equip-assembler', () => {
         beforeEach(() => { context.init(myapp.data); });
 
         it('[ "攻撃力UP【大】", "業物" ]', () => {
-            let skills = [ '攻撃力UP【大】', '業物' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
 
             let assems = a.assemble(eqcombs);
             assert(assems.length === 280);
         });
 
         it('[ "斬れ味レベル+1", "高級耳栓" ]', () => {
-            let skills = [ '斬れ味レベル+1', '高級耳栓' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '斬れ味レベル+1', '高級耳栓' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
 
             let assems = a.assemble(eqcombs);
             let got = assems.length;
@@ -117,9 +117,9 @@ describe('mh4g/equip-assembler', () => {
         });
 
         it('[ "攻撃力UP【大】", "業物", "集中", "見切り+1", "弱点特効" ]', () => {
-            let skills = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
 
             let assems = a.assemble(eqcombs);
             assert(assems.length === 0);

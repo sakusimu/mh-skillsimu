@@ -184,8 +184,8 @@ describe('mh4g/equip-normalizer', () => {
         });
 
         it('[ "攻撃力UP【大】", "業物", "集中", "見切り+1", "弱点特効" ]', () => {
-            let skills = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
-            let bulksSet = n.normalize(skills);
+            let skillnames = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
+            let bulksSet = n.normalize(skillnames);
             let got = summary(bulksSet);
             let exp = { head: 444, body: 229, arm: 250, waist: 343, leg: 282, weapon: 0, charm: 0 };
             assert.deepEqual(got, exp);

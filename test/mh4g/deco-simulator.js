@@ -121,7 +121,7 @@ describe('mh4g/deco-simulator', () => {
             myapp.setup({ hunter: { hr: 1, vs: 6 } }); // 装飾品を村のみにしぼる
             context.init(myapp.data);
 
-            let skills = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
+            let skillnames = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
             let equip = {
                 head  : { name: 'ガララキャップ', slot: 2,
                           skillComb: { '捕獲': 1, '聴覚保護': 4, '気まぐれ': -3, '麻痺': 1 } },
@@ -138,7 +138,7 @@ describe('mh4g/deco-simulator', () => {
                           skillComb: { '匠': 4, '氷耐性': -5 } }
             };
 
-            let assems = simu.simulate(skills, equip);
+            let assems = simu.simulate(skillnames, equip);
             let got = sorter(assems);
             let exp = [
                 {

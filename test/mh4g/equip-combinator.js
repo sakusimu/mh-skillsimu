@@ -23,10 +23,10 @@ describe('mh4g/equip-combinator', () => {
             });
             context.init(myapp.data);
 
-            let skills = [ '斬れ味レベル+1', '集中' ];
-            let bulksSet = n.normalize(skills);
+            let skillnames = [ '斬れ味レベル+1', '集中' ];
+            let bulksSet = n.normalize(skillnames);
 
-            let eqcombs = c.combine(skills, bulksSet);
+            let eqcombs = c.combine(skillnames, bulksSet);
             assert(eqcombs.length === 6);
         });
     });
@@ -44,10 +44,10 @@ describe('mh4g/equip-combinator', () => {
             });
             context.init(myapp.data);
 
-            let skills = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
-            let bulksSet = n.normalize(skills);
+            let skillnames = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
+            let bulksSet = n.normalize(skillnames);
 
-            let eqcombs = c.combine(skills, bulksSet);
+            let eqcombs = c.combine(skillnames, bulksSet);
             assert(eqcombs.length === 12);
         });
 
@@ -63,10 +63,10 @@ describe('mh4g/equip-combinator', () => {
             });
             context.init(myapp.data);
 
-            let skills = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
-            let bulksSet = n.normalize(skills);
+            let skillnames = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
+            let bulksSet = n.normalize(skillnames);
 
-            let eqcombs = c.combine(skills, bulksSet);
+            let eqcombs = c.combine(skillnames, bulksSet);
             assert(eqcombs.length === 0);
         });
     });
@@ -83,10 +83,10 @@ describe('mh4g/equip-combinator', () => {
             });
             context.init(myapp.data);
 
-            let skills = [ '真打', '集中', '弱点特効', '耳栓' ];
-            let bulksSet = n.normalize(skills);
+            let skillnames = [ '真打', '集中', '弱点特効', '耳栓' ];
+            let bulksSet = n.normalize(skillnames);
 
-            let eqcombs = c.combine(skills, bulksSet);
+            let eqcombs = c.combine(skillnames, bulksSet);
             assert(eqcombs.length === 141);
         });
     });
@@ -95,23 +95,23 @@ describe('mh4g/equip-combinator', () => {
         beforeEach(() => { context.init(myapp.data); });
 
         it('[ "攻撃力UP【大】", "業物" ]', () => {
-            let skills = [ '攻撃力UP【大】', '業物' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
             assert(eqcombs.length === 18);
         });
 
         it('[ "斬れ味レベル+1", "高級耳栓" ]', () => {
-            let skills = [ '斬れ味レベル+1', '高級耳栓' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '斬れ味レベル+1', '高級耳栓' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
             assert(eqcombs.length === 418);
         });
 
         it('[ "攻撃力UP【大】", "業物", "集中", "見切り+1", "弱点特効" ]', () => {
-            let skills = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
-            let bulksSet = n.normalize(skills);
-            let eqcombs = c.combine(skills, bulksSet);
+            let skillnames = [ '攻撃力UP【大】', '業物', '集中', '見切り+1', '弱点特効' ];
+            let bulksSet = n.normalize(skillnames);
+            let eqcombs = c.combine(skillnames, bulksSet);
             assert(eqcombs.length === 0);
         });
     });
