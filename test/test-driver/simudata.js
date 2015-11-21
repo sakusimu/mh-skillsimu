@@ -6,7 +6,7 @@ exports.equips = function equips(rawdataEquips, hunter) {
     let equips = (rawdataEquips || [])
             .map(cols => new model.Equip(cols))
             .filter(eq => eq.isEnabled(hunter))
-            .map(eq => eq.simuData());
+            .map(eq => eq.simudata());
     return equips;
 };
 
@@ -15,7 +15,7 @@ exports.decos = function decos(rawdataDecos, hunter) {
     let decos = (rawdataDecos || [])
             .map(cols => new model.Deco(cols))
             .filter(deco => deco.isEnabled(hunter))
-            .map(deco => deco.simuData());
+            .map(deco => deco.simudata());
     return decos;
 };
 
@@ -23,7 +23,7 @@ exports.skills = function skills(rawdataSkills) {
     let skills = {};
     (rawdataSkills || []).forEach(cols => {
         let skill = new model.Skill(cols);
-        skills[skill.name] = skill.simuData();
+        skills[skill.name] = skill.simudata();
     });
     return skills;
 };
@@ -31,7 +31,7 @@ exports.skills = function skills(rawdataSkills) {
 exports.charms = function charms(rawdataCharms) {
     let charms = (rawdataCharms || [])
             .map(cols => new model.Charm(cols))
-            .map(charm => charm.simuData());
+            .map(charm => charm.simudata());
     return charms;
 };
 
@@ -40,6 +40,6 @@ exports.digs = function digs(rawdataDigs, hunter) {
     let digs = (rawdataDigs || [])
             .map(cols => new model.Dig(cols))
             .filter(dig => dig.isEnabled(hunter))
-            .map(dig => dig.simuData());
+            .map(dig => dig.simudata());
     return digs;
 };

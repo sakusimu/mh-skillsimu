@@ -66,12 +66,8 @@ class Equip {
         return true;
     }
 
-    simuData() {
-        return {
-            name: this.name,
-            slot: this.slot,
-            skills: makeSkills(this, 5)
-        };
+    simudata() {
+        return { name: this.name, slot: this.slot, skills: makeSkills(this, 5) };
     }
 }
 
@@ -105,12 +101,8 @@ class Deco {
         return true;
     }
 
-    simuData() {
-        return {
-            name: this.name,
-            slot: this.slot,
-            skills: makeSkills(this, 2)
-        };
+    simudata() {
+        return { name: this.name, slot: this.slot, skills: makeSkills(this, 2) };
     }
 }
 
@@ -129,7 +121,7 @@ class Skill {
         let obj = makeObject(Skill.columns, data, Skill.numColumns);
         for (let prop in obj) this[prop] = obj[prop];
     }
-    simuData() {
+    simudata() {
         return { name: this.name, tree: this.tree, point: this.point };
     }
 }
@@ -165,12 +157,8 @@ class Charm {
         return this.name + '(' + summary.join(',') + ')';
     }
 
-    simuData() {
-        return {
-            name: this.toString(),
-            slot: this.slot,
-            skills: makeSkills(this, 2)
-        };
+    simudata() {
+        return { name: this.toString(), slot: this.slot, skills: makeSkills(this, 2) };
     }
 }
 
@@ -200,12 +188,8 @@ class Dig {
         return true;
     }
 
-    simuData() {
-        return {
-            name: this.name,
-            slot: this.slot,
-            skills: model.makeSkills(this, 1)
-        };
+    simudata() {
+        return { name: this.name, slot: this.slot, skills: model.makeSkills(this, 1) };
     }
 }
 

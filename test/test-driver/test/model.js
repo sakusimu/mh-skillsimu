@@ -228,12 +228,12 @@ describe('test-driver/model', () => {
         });
     });
 
-    describe('Equip#simuData()', () => {
-        it('should return simuData', () => {
+    describe('Equip#simudata()', () => {
+        it('should return simudata', () => {
             let data = ['ジンオウメイル',0,1,3,0,3,5,21,109,0,-2,2,-4,1,'本気',3,'雷属性攻撃',1,'気配',-2,null,null,null,null,'雷狼竜の帯電毛',1,'雷狼竜の甲殻',2,'雷狼竜の蓄電殻',2,'雷光虫',10];
 
             let equip = new model.Equip(data);
-            let got = equip.simuData();
+            let got = equip.simudata();
             let exp = {
                 name: 'ジンオウメイル', slot: 0,
                 skills: { '本気': 3, '雷属性攻撃': 1, '気配': -2 }
@@ -308,12 +308,12 @@ describe('test-driver/model', () => {
         });
     });
 
-    describe('Deco#simuData()', () => {
-        it('should return simuData', () => {
+    describe('Deco#simudata()', () => {
+        it('should return simudata', () => {
             let data = ['攻撃珠【１】',4,1,2,2,'攻撃',1,'防御',-1,'水光原珠',1,'ジャギィの鱗',2,'怪力の種',1,null,null,null,null,null,null,null,null,null,null];
 
             let deco = new model.Deco(data);
-            let got = deco.simuData();
+            let got = deco.simudata();
             let exp = {
                 name: '攻撃珠【１】', slot: 1, skills: { '攻撃': 1, '防御': -1 }
             };
@@ -347,15 +347,11 @@ describe('test-driver/model', () => {
         });
     });
 
-    describe('Skill#simuData()', () => {
-        it('should return simuData', () => {
+    describe('Skill#simudata()', () => {
+        it('should return simudata', () => {
             let skill = new model.Skill(['攻撃力UP【大】','攻撃',20,0]);
-            let got = skill.simuData();
-            let exp = {
-                name: '攻撃力UP【大】',
-                tree: '攻撃',
-                point: 20
-            };
+            let got = skill.simudata();
+            let exp = { name: '攻撃力UP【大】', tree: '攻撃', point: 20 };
             assert.deepStrictEqual(got, exp);
         });
     });
@@ -409,10 +405,10 @@ describe('test-driver/model', () => {
         });
     });
 
-    describe('Charm#simuData()', () => {
-        it('should return simuData', () => {
+    describe('Charm#simudata()', () => {
+        it('should return simudata', () => {
             let charm = new model.Charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ]);
-            let got = charm.simuData();
+            let got = charm.simudata();
             let exp = {
                 name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                 skills: { '匠': 4, '氷耐性': -5 }
@@ -473,10 +469,10 @@ describe('test-driver/model', () => {
         });
     });
 
-    describe('Dig#simuData()', () => {
-        it('should return simuData', () => {
+    describe('Dig#simudata()', () => {
+        it('should return simudata', () => {
             let dig = new model.Dig([ 0, 1, '刀匠', 4 ]);
-            let got = dig.simuData();
+            let got = dig.simudata();
             let exp = {
                 name: '発掘(刀匠+4)', slot: 0, skills: { '刀匠': 4 }
             };

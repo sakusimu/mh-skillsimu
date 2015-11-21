@@ -75,13 +75,13 @@ class MyApp {
 
     static equip(rawdata) {
         let eq = new model.Equip(rawdata);
-        return eq.simuData();
+        return eq.simudata();
     }
     equip() { return MyApp.equip.apply(MyApp, arguments); }
 
     static charm(list) {
         let charm = new model.Charm(list);
-        return charm ? charm.simuData() : null;
+        return charm ? charm.simudata() : null;
     }
     charm() { return MyApp.charm.apply(MyApp, arguments); }
 }
