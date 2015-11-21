@@ -3,7 +3,7 @@ const assert = require('power-assert');
 const Normalizer = require('../../../../lib/equip/normalizer');
 const Context = require('../../../../lib/context');
 
-describe('equip/normalizer/normalize', () => {
+describe('equip/normalizer/_normalize', () => {
     const SKILLS = {
         '攻撃力UP【大】': { name: '攻撃力UP【大】', tree: '攻撃', point: 20 },
         '集中': { name: '集中', tree: '溜め短縮', point: 10 },

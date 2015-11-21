@@ -4,7 +4,7 @@ const util = require('../../../lib/util/skill');
 
 describe('util/skill', () => {
     describe('isTorsoUp()', () => {
-        it('should return true or false correctly', () => {
+        it('should return true if torsoUp', () => {
             assert(util.isTorsoUp('胴系統倍加'));
             assert(util.isTorsoUp('胴系統倍化'));
 
@@ -17,7 +17,7 @@ describe('util/skill', () => {
     });
 
     describe('hasTorsoUp()', () => {
-        it('should return true or false correctly', () => {
+        it('should return true if contain torsoUp', () => {
             assert(util.hasTorsoUp({ '胴系統倍加': 1 }));
             assert(util.hasTorsoUp({ '胴系統倍化': 1 }));
 

@@ -3,7 +3,7 @@ const assert = require('power-assert');
 const Normalizer = require('../../../../lib/equip/normalizer');
 const Context = require('../../../../lib/context');
 
-describe('equip/normalizer/normalize4', () => {
+describe('equip/normalizer/_normalize4', () => {
     let context = new Context();
 
     describe('_normalize4()', () => {

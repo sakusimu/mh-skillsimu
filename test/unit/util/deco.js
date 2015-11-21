@@ -66,7 +66,7 @@ describe('util/deco', () => {
     });
 
     describe('_rcomb1()', () => {
-        it('should return comb correctly', () => {
+        it('should return combinations with repetition', () => {
             let got = util._rcomb1([ 'a', 'b', 'c' ]);
             let exp = [
                 [ 'a' ], [ 'b' ], [ 'c' ]
@@ -78,7 +78,7 @@ describe('util/deco', () => {
     });
 
     describe('_rcomb2()', () => {
-        it('should return comb correctly', () => {
+        it('should return combinations with repetition', () => {
             let got = util._rcomb2([ 'a', 'b', 'c' ]);
             let exp = [
                 [ 'a', 'a' ], [ 'a', 'b' ], [ 'a', 'c' ],
@@ -92,7 +92,7 @@ describe('util/deco', () => {
     });
 
     describe('_rcomb3()', () => {
-        it('should return comb correctly', () => {
+        it('should return combinations with repetitionw', () => {
             let got = util._rcomb3([ 'a', 'b', 'c' ]);
             let exp = [
                 [ 'a', 'a', 'a' ], [ 'a', 'a', 'b' ], [ 'a', 'a', 'c' ],
@@ -116,7 +116,7 @@ describe('util/deco', () => {
             return ret;
         }
 
-        it('should group by correctly', () => {
+        it('should group by slot', () => {
             let decos = util.filter(DECOS, [ '攻撃' ]);
             let group = util._groupBySlot(decos);
             let got = name(group);
@@ -149,7 +149,7 @@ describe('util/deco', () => {
         });
 
 
-        it('should group by correctly if null or etc', () => {
+        it('should group by slot if null or etc', () => {
             let exp = { '1': [], '2': [], '3': [] };
             assert.deepEqual(util._groupBySlot(), exp);
             assert.deepEqual(util._groupBySlot(null), exp);

@@ -3,7 +3,7 @@ const assert = require('power-assert');
 const Normalizer = require('../../../../lib/equip/normalizer');
 const Context = require('../../../../lib/context');
 
-describe('equip/normalizer/normalize1', () => {
+describe('equip/normalizer/_normalize1', () => {
     const DECOS = [
         { name: '攻撃珠【１】', slot: 1, skills: { '攻撃': 1, '防御': -1 } },
         { name: '攻撃珠【２】', slot: 2, skills: { '攻撃': 3, '防御': -1 } },
