@@ -48,7 +48,7 @@ describe('test-driver/model', () => {
     describe('model.makeSkills()', () => {
         it('should make skills', () => {
             let data = { id: 'ID', name: '名前',
-                         skillTree1: 'スキル系統1', skillPt1: 1 };
+                         skilltree1: 'スキル系統1', skillPt1: 1 };
 
             let got = model.makeSkills(data);
             let exp = { 'スキル系統1': 1 };
@@ -82,11 +82,11 @@ describe('test-driver/model', () => {
             let exp = {
                 name: '名前', sex: 0, type: 1, rarity: 'レア度', slot: 2,
                 availableHR: 5, availableVS: 6,
-                skillTree1: 'スキル系統1', skillPt1: 21,
-                skillTree2: 'スキル系統2', skillPt2: 22,
-                skillTree3: 'スキル系統3', skillPt3: 23,
-                skillTree4: 'スキル系統4', skillPt4: 24,
-                skillTree5: 'スキル系統5', skillPt5: 25
+                skilltree1: 'スキル系統1', skillPt1: 21,
+                skilltree2: 'スキル系統2', skillPt2: 22,
+                skilltree3: 'スキル系統3', skillPt3: 23,
+                skilltree4: 'スキル系統4', skillPt4: 24,
+                skilltree5: 'スキル系統5', skillPt5: 25
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -99,11 +99,11 @@ describe('test-driver/model', () => {
             let exp = {
                 name: null, sex: 0, type: 0, rarity: null, slot: 0,
                 availableHR: 0, availableVS: 0,
-                skillTree1: null, skillPt1: 0,
-                skillTree2: null, skillPt2: 0,
-                skillTree3: null, skillPt3: 0,
-                skillTree4: null, skillPt4: 0,
-                skillTree5: null, skillPt5: 0
+                skilltree1: null, skillPt1: 0,
+                skilltree2: null, skillPt2: 0,
+                skilltree3: null, skillPt3: 0,
+                skilltree4: null, skillPt4: 0,
+                skilltree5: null, skillPt5: 0
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -257,8 +257,8 @@ describe('test-driver/model', () => {
             let exp = {
                 name: '名前', slot: 2,
                 availableHR: 5, availableVS: 6,
-                skillTree1: 'スキル系統1', skillPt1: 21,
-                skillTree2: 'スキル系統2', skillPt2: 22
+                skilltree1: 'スキル系統1', skillPt1: 21,
+                skilltree2: 'スキル系統2', skillPt2: 22
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -271,8 +271,8 @@ describe('test-driver/model', () => {
             let exp = {
                 name: null, slot: 0,
                 availableHR: 0, availableVS: 0,
-                skillTree1: null, skillPt1: 0,
-                skillTree2: null, skillPt2: 0
+                skilltree1: null, skillPt1: 0,
+                skilltree2: null, skillPt2: 0
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -369,11 +369,11 @@ describe('test-driver/model', () => {
 
             let got = pick(charm, model.Charm.props);
             let exp = {
-                name: '龍の護石',
-                slot: 3,
-                skillTree1: '匠', skillPt1: 4,
-                skillTree2: '氷耐性', skillPt2: -5
+                name: '龍の護石', slot: 3,
+                skilltree1: '匠', skillPt1: 4,
+                skilltree2: '氷耐性', skillPt2: -5
             };
+            assert.deepStrictEqual(got, exp);
 
             got = charm.toString();
             exp = '龍の護石(スロ3,匠+4,氷耐性-5)';
@@ -384,13 +384,11 @@ describe('test-driver/model', () => {
             let charm = new model.Charm([ '龍の護石','3','痛撃','4' ]);
             let got = pick(charm, model.Charm.props);
             let exp = {
-                name: '龍の護石',
-                slot: 3,
-                skillTree1: '痛撃', skillPt1: 4,
-                skillTree2: null, skillPt2: 0
+                name: '龍の護石', slot: 3,
+                skilltree1: '痛撃', skillPt1: 4,
+                skilltree2: null, skillPt2: 0
             };
-            assert(charm.skillTree2 === null);
-            assert(charm.skillPt2 === 0);
+            assert.deepStrictEqual(got, exp);
 
             got = charm.toString();
             exp = '龍の護石(スロ3,痛撃+4)';
@@ -403,10 +401,9 @@ describe('test-driver/model', () => {
 
             let got = pick(charm, model.Charm.props);
             let exp = {
-                name: null,
-                slot: 0,
-                skillTree1: null, skillPt1: 0,
-                skillTree2: null, skillPt2: 0
+                name: null, slot: 0,
+                skilltree1: null, skillPt1: 0,
+                skilltree2: null, skillPt2: 0
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -435,7 +432,7 @@ describe('test-driver/model', () => {
             model.Dig.props.forEach(prop => got[prop] = dig[prop]);
             let exp = {
                 name: '発掘(刀匠+4)', sex: 0, type: 1, slot: 0,
-                skillTree1: '刀匠', skillPt1: 4
+                skilltree1: '刀匠', skillPt1: 4
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -448,7 +445,7 @@ describe('test-driver/model', () => {
             model.Dig.props.forEach(prop => got[prop] = dig[prop]);
             let exp = {
                 name: '発掘(null+0)', sex: 0, type: 0, slot: 0,
-                skillTree1: null, skillPt1: 0
+                skilltree1: null, skillPt1: 0
             };
             assert.deepStrictEqual(got, exp);
         });
