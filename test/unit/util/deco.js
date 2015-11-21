@@ -107,10 +107,10 @@ describe('util/deco', () => {
     });
 
     describe('_groupBySlot()', () => {
-        function name(decosList) {
+        function name(decosBySlot) {
             let ret = {};
-            Object.keys(decosList).forEach(slot => {
-                let decos = decosList[slot];
+            Object.keys(decosBySlot).forEach(slot => {
+                let decos = decosBySlot[slot];
                 ret[slot] = decos.map(d => d.name);
             });
             return ret;
@@ -158,9 +158,9 @@ describe('util/deco', () => {
     });
 
     describe('combs()', () => {
-        function name(decoCombs) {
-            return decoCombs.map(decosList => {
-                return decosList.map(decos => decos.map(deco => deco.name));
+        function name(decosCombBySlot) {
+            return decosCombBySlot.map(decosComb => {
+                return decosComb.map(decos => decos.map(deco => deco.name));
             });
         }
 
