@@ -55,7 +55,7 @@ Example
 -------
 At first, download and build test data.
 
-    $ npm run data
+    $ npm run testdata
 
 For example, run `examples/basic.js`
 
@@ -160,7 +160,7 @@ Running Tests
 -------------
 At first, download and build test data.
 
-    $ npm run data
+    $ npm run testdata
 
 To run all unit tests, use:
 
