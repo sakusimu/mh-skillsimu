@@ -80,8 +80,8 @@ class MyApp {
     equip() { return MyApp.equip.apply(MyApp, arguments); }
 
     static charm(list) {
-        let charm = new model.Charm(list);
-        return charm ? charm.simudata() : null;
+        let ch = new model.Charm(list);
+        return ch ? ch.simudata() : null;
     }
     charm() { return MyApp.charm.apply(MyApp, arguments); }
 }
