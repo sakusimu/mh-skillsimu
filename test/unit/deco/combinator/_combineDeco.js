@@ -18,18 +18,18 @@ describe('deco/combinator/_combineDeco', () => {
             let comb = {
                 decombs: [
                     { head : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } },
+                               skills: { '攻撃': 0, '斬れ味': 1 } },
                       body : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } } },
                     { head : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } },
                       body : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } } }
+                               skills: { '攻撃': 0, '斬れ味': 1 } } }
                 ],
-                sumSC: { '攻撃': 1, '斬れ味': 1 }
+                sumSkills: { '攻撃': 1, '斬れ味': 1 }
             };
             let bulk = {
-                skillComb: { '攻撃': 1, '斬れ味': 1 },
+                skills: { '攻撃': 1, '斬れ味': 1 },
                 decos: [ '攻撃珠【１】', '斬鉄珠【１】' ],
                 slot: 2
             };
@@ -37,19 +37,19 @@ describe('deco/combinator/_combineDeco', () => {
             let exp = {
                 decombs: [
                     { head : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } },
+                               skills: { '攻撃': 0, '斬れ味': 1 } },
                       body : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } },
                       arm  : { decos: [ '攻撃珠【１】', '斬鉄珠【１】' ], slot: 2,
-                               skillComb: { '攻撃': 1, '斬れ味': 1 } } },
+                               skills: { '攻撃': 1, '斬れ味': 1 } } },
                     { head : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } },
                       body : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } },
+                               skills: { '攻撃': 0, '斬れ味': 1 } },
                       arm  : { decos: [ '攻撃珠【１】', '斬鉄珠【１】' ], slot: 2,
-                               skillComb: { '攻撃': 1, '斬れ味': 1 } } }
+                               skills: { '攻撃': 1, '斬れ味': 1 } } }
                 ],
-                sumSC: { '攻撃': 2, '斬れ味': 2 }
+                sumSkills: { '攻撃': 2, '斬れ味': 2 }
             };
             assert.deepEqual(got, exp);
 
@@ -57,15 +57,15 @@ describe('deco/combinator/_combineDeco', () => {
             exp = {
                 decombs: [
                     { head : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } },
+                               skills: { '攻撃': 0, '斬れ味': 1 } },
                       body : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } } },
                     { head : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } },
                       body : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } } }
+                               skills: { '攻撃': 0, '斬れ味': 1 } } }
                 ],
-                sumSC: { '攻撃': 1, '斬れ味': 1 }
+                sumSkills: { '攻撃': 1, '斬れ味': 1 }
             };
             assert.deepEqual(got, exp, 'stable');
         });
@@ -74,38 +74,38 @@ describe('deco/combinator/_combineDeco', () => {
             let comb = {
                 decombs: [
                     { head : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } },
+                               skills: { '攻撃': 0, '斬れ味': 1 } },
                       body : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } } },
                     { head : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } },
                       body : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } } }
+                               skills: { '攻撃': 0, '斬れ味': 1 } } }
                 ],
-                sumSC: { '攻撃': 1, '斬れ味': 1 }
+                sumSkills: { '攻撃': 1, '斬れ味': 1 }
             };
             let got = c._newComb(comb, null, 'arm');
             let exp = {
                 decombs: [
                     { head : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } },
+                               skills: { '攻撃': 0, '斬れ味': 1 } },
                       body : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } },
-                      arm  : { decos: [], slot: 0, skillComb: {} } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } },
+                      arm  : { decos: [], slot: 0, skills: {} } },
                     { head : { decos: [ '攻撃珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 1, '斬れ味': 0 } },
+                               skills: { '攻撃': 1, '斬れ味': 0 } },
                       body : { decos: [ '斬鉄珠【１】' ], slot: 1,
-                               skillComb: { '攻撃': 0, '斬れ味': 1 } },
-                      arm  : { decos: [], slot: 0, skillComb: {} } }
+                               skills: { '攻撃': 0, '斬れ味': 1 } },
+                      arm  : { decos: [], slot: 0, skills: {} } }
                 ],
-                sumSC: { '攻撃': 1, '斬れ味': 1 }
+                sumSkills: { '攻撃': 1, '斬れ味': 1 }
             };
             assert.deepEqual(got, exp);
         });
 
         it('should return new comb if comb is null', () => {
             let bulk = {
-                skillComb: { '攻撃': 1, '斬れ味': 1 },
+                skills: { '攻撃': 1, '斬れ味': 1 },
                 decos: [ '攻撃珠【１】', '斬鉄珠【１】' ],
                 slot: 2
             };
@@ -113,9 +113,9 @@ describe('deco/combinator/_combineDeco', () => {
             let exp = {
                 decombs: [
                     { body : { decos: [ '攻撃珠【１】', '斬鉄珠【１】' ], slot: 2,
-                               skillComb: { '攻撃': 1, '斬れ味': 1 } } }
+                               skills: { '攻撃': 1, '斬れ味': 1 } } }
                 ],
-                sumSC: { '攻撃': 1, '斬れ味': 1 }
+                sumSkills: { '攻撃': 1, '斬れ味': 1 }
             };
             assert.deepEqual(got, exp);
         });
@@ -123,32 +123,32 @@ describe('deco/combinator/_combineDeco', () => {
 
     describe('_combineDeco()', () => {
         let c = new Combinator(context);
-        let skillNames = [ '攻撃力UP【大】', '業物' ];
+        let skillnames = [ '攻撃力UP【大】', '業物' ];
 
         it('should combine waist (done: body, head, arm, waist)', () => {
             // body, head, arm まで終わってて、これから waist を処理するところ
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 },
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 },
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 body: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 },
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 },
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 arm: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 waist: [
-                    { skillComb: { '攻撃': 2, '斬れ味': 0 }, decos: [ '2,0' ], slot: 2 },
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
-                    { skillComb: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
+                    { skills: { '攻撃': 2, '斬れ味': 0 }, decos: [ '2,0' ], slot: 2 },
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
+                    { skills: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
+                    { skills: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
                 leg: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 charm: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
+                    { skills: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
-            let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
+            let equipSkills = { '攻撃': 13, '斬れ味': 6 };
+            let borderLine = new BorderLine(context, skillnames, bulksSet, equipSkills);
             let comb = {
                 decombs: [
                     { head: bulksSet.head[0],
@@ -158,7 +158,7 @@ describe('deco/combinator/_combineDeco', () => {
                       body: bulksSet.body[0],
                       arm : bulksSet.arm[0] }
                 ],
-                sumSC: { '攻撃': 3, '斬れ味': 2 }
+                sumSkills: { '攻撃': 3, '斬れ味': 2 }
             };
             let bulks = bulksSet.waist;
             let got = c._combineDeco(comb, bulks, borderLine, 'waist');
@@ -174,7 +174,7 @@ describe('deco/combinator/_combineDeco', () => {
                           arm  : bulksSet.arm[0],
                           waist: bulksSet.waist[2] }
                     ],
-                    sumSC: { '攻撃': 4, '斬れ味': 3 }
+                    sumSkills: { '攻撃': 4, '斬れ味': 3 }
                 },
                 {
                     decombs: [
@@ -187,7 +187,7 @@ describe('deco/combinator/_combineDeco', () => {
                           arm  : bulksSet.arm[0],
                           waist: bulksSet.waist[3] }
                     ],
-                    sumSC: { '攻撃': 3, '斬れ味': 4 }
+                    sumSkills: { '攻撃': 3, '斬れ味': 4 }
                 }
             ];
             assert.deepEqual(got, exp);
@@ -197,29 +197,29 @@ describe('deco/combinator/_combineDeco', () => {
             // スロ2で見つかってもスロ3も見つける
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 body: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 arm: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 waist: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 },
-                    { skillComb: { '攻撃': 1, '斬れ味': 2 }, decos: [ '1,2' ], slot: 3 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 },
+                    { skills: { '攻撃': 1, '斬れ味': 2 }, decos: [ '1,2' ], slot: 3 } ],
                 leg: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 charm: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
+                    { skills: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
-            let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
+            let equipSkills = { '攻撃': 13, '斬れ味': 6 };
+            let borderLine = new BorderLine(context, skillnames, bulksSet, equipSkills);
             let comb = {
                 decombs: [
                     { head: bulksSet.head[0],
                       body: bulksSet.body[0],
                       arm : bulksSet.arm[0] }
                 ],
-                sumSC: { '攻撃': 3, '斬れ味': 2 }
+                sumSkills: { '攻撃': 3, '斬れ味': 2 }
             };
             let bulks = bulksSet.waist;
             let got = c._combineDeco(comb, bulks, borderLine, 'waist');
@@ -231,7 +231,7 @@ describe('deco/combinator/_combineDeco', () => {
                           arm  : bulksSet.arm[0],
                           waist: bulksSet.waist[0] }
                     ],
-                    sumSC: { '攻撃': 3, '斬れ味': 4 }
+                    sumSkills: { '攻撃': 3, '斬れ味': 4 }
                 },
                 {
                     decombs: [
@@ -240,7 +240,7 @@ describe('deco/combinator/_combineDeco', () => {
                           arm  : bulksSet.arm[0],
                           waist: bulksSet.waist[1] }
                     ],
-                    sumSC: { '攻撃': 4, '斬れ味': 4 }
+                    sumSkills: { '攻撃': 4, '斬れ味': 4 }
                 }
             ];
             assert.deepEqual(got, exp);
@@ -249,24 +249,24 @@ describe('deco/combinator/_combineDeco', () => {
         it('should combine if contain torsoUp', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { '胴系統倍加': 1 }, decos: [ 'torsoUp' ], slot: 0 } ],
+                    { skills: { '胴系統倍加': 1 }, decos: [ 'torsoUp' ], slot: 0 } ],
                 body: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 1 }, decos: [ '3,1' ], slot: 3 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 1 }, decos: [ '3,1' ], slot: 3 } ],
                 arm: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
                 waist: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 1 }, decos: [ '1,3' ], slot: 3 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 1 }, decos: [ '1,3' ], slot: 3 } ],
                 leg: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 0 }, decos: [ '0,0' ], slot: 0 },
-                    { skillComb: { '胴系統倍加': 1 }, decos: [ 'torsoUp' ], slot: 0 },
-                    { skillComb: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
-                    { skillComb: { '攻撃': 3, '斬れ味': 1 }, decos: [ '3,1' ], slot: 3 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 0 }, decos: [ '0,0' ], slot: 0 },
+                    { skills: { '胴系統倍加': 1 }, decos: [ 'torsoUp' ], slot: 0 },
+                    { skills: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
+                    { skills: { '攻撃': 3, '斬れ味': 1 }, decos: [ '3,1' ], slot: 3 } ],
                 charm: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 1 } ]
+                    { skills: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 1 } ]
             };
-            let equipSC = { '攻撃': 7, '斬れ味': 4 };
-            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
+            let equipSkills = { '攻撃': 7, '斬れ味': 4 };
+            let borderLine = new BorderLine(context, skillnames, bulksSet, equipSkills);
             let comb = {
                 decombs: [
                     { head : bulksSet.head[0],
@@ -274,7 +274,7 @@ describe('deco/combinator/_combineDeco', () => {
                       arm  : bulksSet.arm[0],
                       waist: bulksSet.waist[0] }
                 ],
-                sumSC: { '攻撃': 9, '斬れ味': 4 }
+                sumSkills: { '攻撃': 9, '斬れ味': 4 }
             };
             let bulks = bulksSet.leg;
             let got = c._combineDeco(comb, bulks, borderLine, 'leg');
@@ -287,7 +287,7 @@ describe('deco/combinator/_combineDeco', () => {
                           waist: bulksSet.waist[0],
                           leg  : bulksSet.leg[1] }
                     ],
-                    sumSC: { '攻撃': 12, '斬れ味': 5 }
+                    sumSkills: { '攻撃': 12, '斬れ味': 5 }
                 },
                 {
                     decombs: [
@@ -297,7 +297,7 @@ describe('deco/combinator/_combineDeco', () => {
                           waist: bulksSet.waist[0],
                           leg  : bulksSet.leg[4] }
                     ],
-                    sumSC: { '攻撃': 12, '斬れ味': 5 }
+                    sumSkills: { '攻撃': 12, '斬れ味': 5 }
                 }
             ];
             assert.deepEqual(got, exp);
@@ -306,25 +306,25 @@ describe('deco/combinator/_combineDeco', () => {
         it('should combine body (done: none)', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 body: [
-                    { skillComb: { '攻撃': 2, '斬れ味': 0 }, decos: [ '2,0' ], slot: 2 },
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
-                    { skillComb: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
+                    { skills: { '攻撃': 2, '斬れ味': 0 }, decos: [ '2,0' ], slot: 2 },
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
+                    { skills: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
+                    { skills: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
                 arm: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 waist: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 leg: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 charm: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
+                    { skills: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
-            let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
-            let comb = { decombs: [], sumSC: 0 };
+            let equipSkills = { '攻撃': 13, '斬れ味': 6 };
+            let borderLine = new BorderLine(context, skillnames, bulksSet, equipSkills);
+            let comb = { decombs: [], sumSkills: 0 };
             let bulks = bulksSet.body;
             let got = c._combineDeco(comb, bulks, borderLine, 'body');
             let exp = [
@@ -332,13 +332,13 @@ describe('deco/combinator/_combineDeco', () => {
                     decombs: [
                         { body : bulksSet.body[2] }
                     ],
-                    sumSC: { '攻撃': 1, '斬れ味': 1 }
+                    sumSkills: { '攻撃': 1, '斬れ味': 1 }
                 },
                 {
                     decombs: [
                         { body : bulksSet.body[3] }
                     ],
-                    sumSC: { '攻撃': 0, '斬れ味': 2 }
+                    sumSkills: { '攻撃': 0, '斬れ味': 2 }
                 }
             ];
             assert.deepEqual(got, exp);
@@ -347,25 +347,25 @@ describe('deco/combinator/_combineDeco', () => {
         it('should combine if skill already activates', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 body: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 arm: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 waist: [
-                    { skillComb: { '攻撃': 2, '斬れ味': 0 }, decos: [ '2,0' ], slot: 2 },
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
-                    { skillComb: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
+                    { skills: { '攻撃': 2, '斬れ味': 0 }, decos: [ '2,0' ], slot: 2 },
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
+                    { skills: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
+                    { skills: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
                 leg: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 charm: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
+                    { skills: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
-            let equipSC = { '攻撃': 20, '斬れ味': 10 };
-            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
-            let comb = { decombs: [], sumSC: {} };
+            let equipSkills = { '攻撃': 20, '斬れ味': 10 };
+            let borderLine = new BorderLine(context, skillnames, bulksSet, equipSkills);
+            let comb = { decombs: [], sumSkills: {} };
             let bulks = bulksSet.body;
             let got = c._combineDeco(comb, bulks, borderLine, 'body');
             let exp = [
@@ -373,7 +373,7 @@ describe('deco/combinator/_combineDeco', () => {
                     decombs: [
                         { body: bulksSet.body[0] }
                     ],
-                    sumSC: { '攻撃': 3, '斬れ味': 0 }
+                    sumSkills: { '攻撃': 3, '斬れ味': 0 }
                 }
             ];
             assert.deepEqual(got, exp);
@@ -382,21 +382,21 @@ describe('deco/combinator/_combineDeco', () => {
         it('should combine if bulks is null', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 body: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 arm: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 waist: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
                 leg: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 charm: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
+                    { skills: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
-            let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
+            let equipSkills = { '攻撃': 13, '斬れ味': 6 };
+            let borderLine = new BorderLine(context, skillnames, bulksSet, equipSkills);
             let comb = {
                 decombs: [
                     { head : bulksSet.head[0],
@@ -405,7 +405,7 @@ describe('deco/combinator/_combineDeco', () => {
                       waist: bulksSet.waist[0],
                       leg  : bulksSet.leg[0] }
                 ],
-                sumSC: { '攻撃': 6, '斬れ味': 4 }
+                sumSkills: { '攻撃': 6, '斬れ味': 4 }
             };
             let bulks = bulksSet.weapon;
             let got = c._combineDeco(comb, bulks, borderLine, 'weapon');
@@ -417,9 +417,9 @@ describe('deco/combinator/_combineDeco', () => {
                           arm  : bulksSet.arm[0],
                           waist: bulksSet.waist[0],
                           leg  : bulksSet.leg[0],
-                          weapon: { decos: [], slot: 0, skillComb: {} } }
+                          weapon: { decos: [], slot: 0, skills: {} } }
                     ],
-                    sumSC: { '攻撃': 6, '斬れ味': 4 }
+                    sumSkills: { '攻撃': 6, '斬れ味': 4 }
                 }
             ];
             assert.deepEqual(got, exp);

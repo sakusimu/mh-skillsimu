@@ -16,23 +16,23 @@ describe('mh4g/equip-simulator', () => {
             let equips = myapp.data.equips;
             equips.head = [
                 { name: 'ユクモノカサ・天', slot: 2,
-                  skillComb: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } }
+                  skills: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } }
             ];
-            equips.body = [ { name: '三眼の首飾り', slot: 3, skillComb: {} } ];
+            equips.body = [ { name: '三眼の首飾り', slot: 3, skills: {} } ];
             equips.arm = [
                 { name: 'ユクモノコテ・天', slot: 2,
-                  skillComb: { '匠': 1, '研ぎ師': 3, '回復量': 2, '加護': 3 } }
+                  skills: { '匠': 1, '研ぎ師': 3, '回復量': 2, '加護': 3 } }
             ];
             equips.waist = [
                 { name: 'レザーベルト', slot: 0,
-                  skillComb: { '採取': 3, '運気': -1, '体力': 2, '気まぐれ': 1 } },
-                { name: 'バンギスコイル', slot: 0, skillComb: { '胴系統倍加': 1 } },
+                  skills: { '採取': 3, '運気': -1, '体力': 2, '気まぐれ': 1 } },
+                { name: 'バンギスコイル', slot: 0, skills: { '胴系統倍加': 1 } },
                 { name: 'シルバーソルコイル', slot: 2,
-                  skillComb: { '痛撃': 2, '斬れ味': 1, '火属性攻撃': 5, '回復量': -3 } }
+                  skills: { '痛撃': 2, '斬れ味': 1, '火属性攻撃': 5, '回復量': -3 } }
             ];
             equips.leg = [
                 { name: 'ユクモノハカマ・天', slot: 2,
-                  skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } }
+                  skills: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } }
             ];
             context.init(myapp.data);
 

@@ -4,20 +4,20 @@ const util = require('../../../lib/util/deco');
 
 describe('util/deco', () => {
     const DECOS = [
-        { name: '耐絶珠【１】', slot: 1, skillComb: { '気絶': 1, '麻痺': -1 } },
-        { name: '制絶珠【１】', slot: 1, skillComb: { '気絶': 2 } },
-        { name: '攻撃珠【１】', slot: 1, skillComb: { '攻撃': 1, '防御': -1 } },
-        { name: '攻撃珠【２】', slot: 2, skillComb: { '攻撃': 3, '防御': -1 } },
-        { name: '攻撃珠【３】', slot: 3, skillComb: { '攻撃': 5, '防御': -1 } },
-        { name: '達人珠【１】', slot: 1, skillComb: { '達人': 1, '龍耐性': -1 } },
-        { name: '達人珠【２】', slot: 2, skillComb: { '達人': 3, '龍耐性': -1 } },
-        { name: '達人珠【３】', slot: 3, skillComb: { '達人': 5, '龍耐性': -1 } },
-        { name: '匠珠【２】', slot: 2, skillComb: { '匠': 1, '斬れ味': -1 } },
-        { name: '匠珠【３】', slot: 3, skillComb: { '匠': 2, '斬れ味': -2 } },
-        { name: '斬鉄珠【１】', slot: 1, skillComb: { '斬れ味': 1, '匠': -1 } },
-        { name: '斬鉄珠【３】', slot: 3, skillComb: { '斬れ味': 4, '匠': -2 } },
-        { name: '採取珠【１】', slot: 1, skillComb: { '採取': 2 } },
-        { name: '速集珠【１】', slot: 1, skillComb: { '高速収集': 2 } }
+        { name: '耐絶珠【１】', slot: 1, skills: { '気絶': 1, '麻痺': -1 } },
+        { name: '制絶珠【１】', slot: 1, skills: { '気絶': 2 } },
+        { name: '攻撃珠【１】', slot: 1, skills: { '攻撃': 1, '防御': -1 } },
+        { name: '攻撃珠【２】', slot: 2, skills: { '攻撃': 3, '防御': -1 } },
+        { name: '攻撃珠【３】', slot: 3, skills: { '攻撃': 5, '防御': -1 } },
+        { name: '達人珠【１】', slot: 1, skills: { '達人': 1, '龍耐性': -1 } },
+        { name: '達人珠【２】', slot: 2, skills: { '達人': 3, '龍耐性': -1 } },
+        { name: '達人珠【３】', slot: 3, skills: { '達人': 5, '龍耐性': -1 } },
+        { name: '匠珠【２】', slot: 2, skills: { '匠': 1, '斬れ味': -1 } },
+        { name: '匠珠【３】', slot: 3, skills: { '匠': 2, '斬れ味': -2 } },
+        { name: '斬鉄珠【１】', slot: 1, skills: { '斬れ味': 1, '匠': -1 } },
+        { name: '斬鉄珠【３】', slot: 3, skills: { '斬れ味': 4, '匠': -2 } },
+        { name: '採取珠【１】', slot: 1, skills: { '採取': 2 } },
+        { name: '速集珠【１】', slot: 1, skills: { '高速収集': 2 } }
     ];
 
     describe('filter()', () => {
@@ -57,11 +57,11 @@ describe('util/deco', () => {
         it('should return [] if null or etc', () => {
             assert.deepEqual(util.filter(), []);
             assert.deepEqual(util.filter(null), []);
-            assert.deepEqual(util.filter(''), []);
+            assert.deepEqual(util.filter([]), []);
 
             assert.deepEqual(util.filter([]), []);
             assert.deepEqual(util.filter([], null), []);
-            assert.deepEqual(util.filter([], ''), []);
+            assert.deepEqual(util.filter([], []), []);
         });
     });
 
@@ -293,9 +293,9 @@ describe('util/deco', () => {
         });
     });
 
-    describe('skillCombs()', () => {
-        it('should return skillCombs', () => {
-            let got = util.skillCombs(DECOS, [ '攻撃', '匠' ]);
+    describe('skillsCombBySlot()', () => {
+        it('should return skillsComb by slot', () => {
+            let got = util.skillsCombBySlot(DECOS, [ '攻撃', '匠' ]);
             let exp = [
                 [],
                 [ { '攻撃': 1, '防御': -1 } ],
@@ -311,9 +311,9 @@ describe('util/deco', () => {
             assert.deepEqual(got, exp);
         });
 
-        it('should return skillCombs if decos are 1, 2, 3 slots', () => {
-            // どちらも1, 2, 3スロある場合
-            let got = util.skillCombs(DECOS, [ '攻撃', '達人' ]);
+        it('should return skillsComb by slot if decos are 1, 2, 3 slot', () => {
+            // どちらの装飾品も1, 2, 3スロある場合
+            let got = util.skillsCombBySlot(DECOS, [ '攻撃', '達人' ]);
             let exp = [
                 [],
                 [ { '攻撃': 1, '防御': -1 }, { '達人': 1, '龍耐性': -1 } ],
@@ -336,9 +336,9 @@ describe('util/deco', () => {
             assert.deepEqual(got, exp);
         });
 
-        it('should return skillComb if conflict skills', () => {
+        it('should return skillsComb by slot if conflict skills', () => {
             // 斬れ味と匠みたくプラスマイナスが反発するポイントの場合
-            let got = util.skillCombs(DECOS, [ '斬れ味', '匠' ]);
+            let got = util.skillsCombBySlot(DECOS, [ '斬れ味', '匠' ]);
             let exp = [
                 [],
                 [ { '斬れ味': 1, '匠': -1 } ],
@@ -351,9 +351,9 @@ describe('util/deco', () => {
             assert.deepEqual(got, exp);
         });
 
-        it('should return skillComb if decos are 1 slot only', () => {
+        it('should return skillsComb by slot if decos are 1 slot only', () => {
             // 採取や高速収集みたく1スロしかない場合
-            let got = util.skillCombs(DECOS, [ '採取', '高速収集' ]);
+            let got = util.skillsCombBySlot(DECOS, [ '採取', '高速収集' ]);
             let exp = [
                 [],
                 [ { '採取': 2 }, { '高速収集': 2 } ],
@@ -366,21 +366,21 @@ describe('util/deco', () => {
             assert.deepEqual(got, exp);
         });
 
-        it('should return skillComb if none deco', () => {
-            let nonedeco = []; // 装飾品なし
-            let got = util.skillCombs(nonedeco, [ '攻撃', '斬れ味' ]);
+        it('should return skillsComb by slot if none deco', () => {
+            let nonedeco = [];
+            let got = util.skillsCombBySlot(nonedeco, [ '攻撃', '斬れ味' ]);
             let exp = [ [], [], [], [] ];
             assert.deepEqual(got, exp);
         });
 
-        it('should return skillComb if null or etc', () => {
-            assert.deepEqual(util.skillCombs(), []);
-            assert.deepEqual(util.skillCombs(null), []);
-            assert.deepEqual(util.skillCombs([]), []);
+        it('should return skillsCombBySlot if null or etc', () => {
+            assert.deepEqual(util.skillsCombBySlot(), []);
+            assert.deepEqual(util.skillsCombBySlot(null), []);
+            assert.deepEqual(util.skillsCombBySlot([]), []);
 
-            assert.deepEqual(util.skillCombs([]), []);
-            assert.deepEqual(util.skillCombs([], null), []);
-            assert.deepEqual(util.skillCombs([], []), []);
+            assert.deepEqual(util.skillsCombBySlot([]), []);
+            assert.deepEqual(util.skillsCombBySlot([], null), []);
+            assert.deepEqual(util.skillsCombBySlot([], []), []);
         });
     });
 });

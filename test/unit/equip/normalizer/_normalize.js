@@ -11,29 +11,29 @@ describe('equip/normalizer/normalize', () => {
         '業物': { name: '業物', tree: '斬れ味', point: 10 }
     };
     const DECOS = [
-        { name: '攻撃珠【１】', slot: 1, skillComb: { '攻撃': 1, '防御': -1 } },
-        { name: '攻撃珠【２】', slot: 2, skillComb: { '攻撃': 3, '防御': -1 } },
-        { name: '攻撃珠【３】', slot: 3, skillComb: { '攻撃': 5, '防御': -1 } },
-        { name: '痛撃珠【１】', slot: 1, skillComb: { '痛撃': 1, '体力': -1 } },
-        { name: '痛撃珠【３】', slot: 3, skillComb: { '痛撃': 4, '体力': -2 } },
-        { name: '短縮珠【１】', slot: 1, skillComb: { '溜め短縮': 1, '体術': -1 } },
-        { name: '短縮珠【３】', slot: 3, skillComb: { '溜め短縮': 4, '体術': -2 } },
-        { name: '斬鉄珠【１】', slot: 1, skillComb: { '斬れ味': 1, '匠': -1 } },
-        { name: '斬鉄珠【３】', slot: 3, skillComb: { '斬れ味': 4, '匠': -2 } }
+        { name: '攻撃珠【１】', slot: 1, skills: { '攻撃': 1, '防御': -1 } },
+        { name: '攻撃珠【２】', slot: 2, skills: { '攻撃': 3, '防御': -1 } },
+        { name: '攻撃珠【３】', slot: 3, skills: { '攻撃': 5, '防御': -1 } },
+        { name: '痛撃珠【１】', slot: 1, skills: { '痛撃': 1, '体力': -1 } },
+        { name: '痛撃珠【３】', slot: 3, skills: { '痛撃': 4, '体力': -2 } },
+        { name: '短縮珠【１】', slot: 1, skills: { '溜め短縮': 1, '体術': -1 } },
+        { name: '短縮珠【３】', slot: 3, skills: { '溜め短縮': 4, '体術': -2 } },
+        { name: '斬鉄珠【１】', slot: 1, skills: { '斬れ味': 1, '匠': -1 } },
+        { name: '斬鉄珠【３】', slot: 3, skills: { '斬れ味': 4, '匠': -2 } }
     ];
     let context = new Context();
 
     beforeEach(() => { context.init({ decos: DECOS, skills: SKILLS }); });
 
-    function toString(skillComb) {
-        let skills = Object.keys(skillComb).sort().map(tree => {
-            return tree + ':' + skillComb[tree];
+    function toString(skills) {
+        let list = Object.keys(skills).sort().map(tree => {
+            return tree + ':' + skills[tree];
         });
-        return skills.join(',');
+        return list.join(',');
     }
     function sorter(bulks) {
         return bulks.sort((a, b) => {
-            return toString(a.skillComb) > toString(b.skillComb) ? 1 : -1;
+            return toString(a.skills) > toString(b.skills) ? 1 : -1;
         });
     }
 
@@ -42,42 +42,42 @@ describe('equip/normalizer/normalize', () => {
 
         it('should normalize', () => {
             context.equips.head = [
-                { name: 'ランポスヘルム', slot: 1, skillComb: { '攻撃': 2 } },
-                { name: 'バトルヘルム', slot: 2, skillComb: { '攻撃': 2, '研ぎ師': 1 } },
-                { name: 'レックスヘルム', slot: 1, skillComb: { '攻撃': 3, '研ぎ師': -2 } },
-                { name: 'リオソウルヘルム', slot: 3, skillComb: { '斬れ味': 2, '聴覚保護': 1 } },
-                { name: 'シルバーソルヘルム', slot: 1, skillComb: { '斬れ味': 3, '痛撃': 2 } },
-                { name: 'slot0', slot: 0, skillComb: {} },
-                { name: 'slot1', slot: 1, skillComb: {} },
-                { name: 'slot2', slot: 2, skillComb: {} },
-                { name: 'slot3', slot: 3, skillComb: {} }
+                { name: 'ランポスヘルム', slot: 1, skills: { '攻撃': 2 } },
+                { name: 'バトルヘルム', slot: 2, skills: { '攻撃': 2, '研ぎ師': 1 } },
+                { name: 'レックスヘルム', slot: 1, skills: { '攻撃': 3, '研ぎ師': -2 } },
+                { name: 'リオソウルヘルム', slot: 3, skills: { '斬れ味': 2, '聴覚保護': 1 } },
+                { name: 'シルバーソルヘルム', slot: 1, skills: { '斬れ味': 3, '痛撃': 2 } },
+                { name: 'slot0', slot: 0, skills: {} },
+                { name: 'slot1', slot: 1, skills: {} },
+                { name: 'slot2', slot: 2, skills: {} },
+                { name: 'slot3', slot: 3, skills: {} }
             ];
 
             let bulksSet = n.normalize([ '攻撃力UP【大】', '業物' ]);
             let got = sorter(bulksSet.head);
             let exp = sorter([
-                { skillComb: { '攻撃': 0, '斬れ味': 0 }, equips: [ 'slot0' ] },
-                { skillComb: { '攻撃': 0, '斬れ味': 1 }, equips: [ 'slot1' ] },
-                { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ 'slot2' ] },
-                { skillComb: { '攻撃': 0, '斬れ味': 4 },
+                { skills: { '攻撃': 0, '斬れ味': 0 }, equips: [ 'slot0' ] },
+                { skills: { '攻撃': 0, '斬れ味': 1 }, equips: [ 'slot1' ] },
+                { skills: { '攻撃': 0, '斬れ味': 2 }, equips: [ 'slot2' ] },
+                { skills: { '攻撃': 0, '斬れ味': 4 },
                   equips: [ 'シルバーソルヘルム', 'slot3' ] },
-                { skillComb: { '攻撃': 0, '斬れ味': 6 }, equips: [ 'リオソウルヘルム' ] },
-                { skillComb: { '攻撃': 1, '斬れ味': 0 }, equips: [ 'slot1' ] },
-                { skillComb: { '攻撃': 1, '斬れ味': 1 }, equips: [ 'slot2' ] },
-                { skillComb: { '攻撃': 1, '斬れ味': 2 }, equips: [ 'slot3' ] },
-                { skillComb: { '攻撃': 1, '斬れ味': 3 }, equips: [ 'シルバーソルヘルム' ] },
-                { skillComb: { '攻撃': 1, '斬れ味': 4 }, equips: [ 'リオソウルヘルム' ] },
-                { skillComb: { '攻撃': 2, '斬れ味': 1 }, equips: [ 'ランポスヘルム' ] },
-                { skillComb: { '攻撃': 2, '斬れ味': 2 }, equips: [ 'バトルヘルム' ] },
-                { skillComb: { '攻撃': 3, '斬れ味': 0 },
+                { skills: { '攻撃': 0, '斬れ味': 6 }, equips: [ 'リオソウルヘルム' ] },
+                { skills: { '攻撃': 1, '斬れ味': 0 }, equips: [ 'slot1' ] },
+                { skills: { '攻撃': 1, '斬れ味': 1 }, equips: [ 'slot2' ] },
+                { skills: { '攻撃': 1, '斬れ味': 2 }, equips: [ 'slot3' ] },
+                { skills: { '攻撃': 1, '斬れ味': 3 }, equips: [ 'シルバーソルヘルム' ] },
+                { skills: { '攻撃': 1, '斬れ味': 4 }, equips: [ 'リオソウルヘルム' ] },
+                { skills: { '攻撃': 2, '斬れ味': 1 }, equips: [ 'ランポスヘルム' ] },
+                { skills: { '攻撃': 2, '斬れ味': 2 }, equips: [ 'バトルヘルム' ] },
+                { skills: { '攻撃': 3, '斬れ味': 0 },
                   equips: [ 'ランポスヘルム', 'slot2' ] },
-                { skillComb: { '攻撃': 3, '斬れ味': 1 },
+                { skills: { '攻撃': 3, '斬れ味': 1 },
                   equips: [ 'バトルヘルム', 'レックスヘルム', 'slot3' ] },
-                { skillComb: { '攻撃': 3, '斬れ味': 3 }, equips: [ 'リオソウルヘルム' ] },
-                { skillComb: { '攻撃': 4, '斬れ味': 0 }, equips: [ 'レックスヘルム' ] },
-                { skillComb: { '攻撃': 5, '斬れ味': 0 },
+                { skills: { '攻撃': 3, '斬れ味': 3 }, equips: [ 'リオソウルヘルム' ] },
+                { skills: { '攻撃': 4, '斬れ味': 0 }, equips: [ 'レックスヘルム' ] },
+                { skills: { '攻撃': 5, '斬れ味': 0 },
                   equips: [ 'バトルヘルム', 'slot3' ] },
-                { skillComb: { '攻撃': 5, '斬れ味': 2 }, equips: [ 'リオソウルヘルム' ] }
+                { skills: { '攻撃': 5, '斬れ味': 2 }, equips: [ 'リオソウルヘルム' ] }
             ]);
             assert.deepEqual(got, exp, 'head');
             got = bulksSet.weapon;
@@ -88,38 +88,38 @@ describe('equip/normalizer/normalize', () => {
 
         it('should normalize if contain torsoUp', () => {
             context.equips.leg = [
-                { name: 'マギュルヴルツェル', slot: 0, skillComb: { '溜め短縮': 3 } },
-                { name: 'クシャナハディ', slot: 2, skillComb: { '溜め短縮': 2 } },
-                { name: 'シルバーソルレギンス', slot: 0, skillComb: { '痛撃': 2 } },
-                { name: 'ドラゴンレグス', slot: 1, skillComb: { '痛撃': 2 } },
-                { name: 'slot0', slot: 0, skillComb: {} },
-                { name: 'slot1', slot: 1, skillComb: {} },
-                { name: 'slot2', slot: 2, skillComb: {} },
-                { name: 'slot3', slot: 3, skillComb: {} },
-                { name: 'torsoUp', slot: 0, skillComb: { '胴系統倍加': 1 } }
+                { name: 'マギュルヴルツェル', slot: 0, skills: { '溜め短縮': 3 } },
+                { name: 'クシャナハディ', slot: 2, skills: { '溜め短縮': 2 } },
+                { name: 'シルバーソルレギンス', slot: 0, skills: { '痛撃': 2 } },
+                { name: 'ドラゴンレグス', slot: 1, skills: { '痛撃': 2 } },
+                { name: 'slot0', slot: 0, skills: {} },
+                { name: 'slot1', slot: 1, skills: {} },
+                { name: 'slot2', slot: 2, skills: {} },
+                { name: 'slot3', slot: 3, skills: {} },
+                { name: 'torsoUp', slot: 0, skills: { '胴系統倍加': 1 } }
             ];
 
             let bulksSet = n.normalize([ '集中', '弱点特効' ]);
             let got = sorter(bulksSet.leg);
             let exp = sorter([
-                { skillComb: { '溜め短縮': 0, '痛撃': 0 }, equips: [ 'slot0' ] },
-                { skillComb: { '溜め短縮': 0, '痛撃': 1 }, equips: [ 'slot1' ] },
-                { skillComb: { '溜め短縮': 0, '痛撃': 2 },
+                { skills: { '溜め短縮': 0, '痛撃': 0 }, equips: [ 'slot0' ] },
+                { skills: { '溜め短縮': 0, '痛撃': 1 }, equips: [ 'slot1' ] },
+                { skills: { '溜め短縮': 0, '痛撃': 2 },
                   equips: [ 'シルバーソルレギンス', 'slot2' ] },
-                { skillComb: { '溜め短縮': 0, '痛撃': 3 }, equips: [ 'ドラゴンレグス' ] },
-                { skillComb: { '溜め短縮': 0, '痛撃': 4 }, equips: [ 'slot3' ] },
-                { skillComb: { '溜め短縮': 1, '痛撃': 0 }, equips: [ 'slot1' ] },
-                { skillComb: { '溜め短縮': 1, '痛撃': 1 }, equips: [ 'slot2' ] },
-                { skillComb: { '溜め短縮': 1, '痛撃': 2 },
+                { skills: { '溜め短縮': 0, '痛撃': 3 }, equips: [ 'ドラゴンレグス' ] },
+                { skills: { '溜め短縮': 0, '痛撃': 4 }, equips: [ 'slot3' ] },
+                { skills: { '溜め短縮': 1, '痛撃': 0 }, equips: [ 'slot1' ] },
+                { skills: { '溜め短縮': 1, '痛撃': 1 }, equips: [ 'slot2' ] },
+                { skills: { '溜め短縮': 1, '痛撃': 2 },
                   equips: [ 'ドラゴンレグス', 'slot3' ] },
-                { skillComb: { '溜め短縮': 2, '痛撃': 0 }, equips: [ 'slot2' ] },
-                { skillComb: { '溜め短縮': 2, '痛撃': 1 }, equips: [ 'slot3' ] },
-                { skillComb: { '溜め短縮': 2, '痛撃': 2 }, equips: [ 'クシャナハディ' ] },
-                { skillComb: { '溜め短縮': 3, '痛撃': 0 }, equips: [ 'マギュルヴルツェル' ] },
-                { skillComb: { '溜め短縮': 3, '痛撃': 1 }, equips: [ 'クシャナハディ' ] },
-                { skillComb: { '溜め短縮': 4, '痛撃': 0 },
+                { skills: { '溜め短縮': 2, '痛撃': 0 }, equips: [ 'slot2' ] },
+                { skills: { '溜め短縮': 2, '痛撃': 1 }, equips: [ 'slot3' ] },
+                { skills: { '溜め短縮': 2, '痛撃': 2 }, equips: [ 'クシャナハディ' ] },
+                { skills: { '溜め短縮': 3, '痛撃': 0 }, equips: [ 'マギュルヴルツェル' ] },
+                { skills: { '溜め短縮': 3, '痛撃': 1 }, equips: [ 'クシャナハディ' ] },
+                { skills: { '溜め短縮': 4, '痛撃': 0 },
                   equips: [ 'クシャナハディ', 'slot3' ] },
-                { skillComb: { '溜め短縮': 0, '痛撃': 0, '胴系統倍加': 1 },
+                { skills: { '溜め短縮': 0, '痛撃': 0, '胴系統倍加': 1 },
                   equips: [ 'torsoUp' ] }
             ]);
             assert.deepEqual(got, exp);

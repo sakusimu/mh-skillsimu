@@ -16,29 +16,29 @@ describe('equip/combinator/_combine', () => {
 
         it('should compress', () => {
             let combs = [
-                { eqcombs: [ 'eqcomb1' ], sumSC: { a: 2, b: 0 } },
-                { eqcombs: [ 'eqcomb1' ], sumSC: { a: 0, b: 2 } },
-                { eqcombs: [ 'eqcomb2' ], sumSC: { a: 2, b: 0 } },
-                { eqcombs: [ 'eqcomb2' ], sumSC: { a: 0, b: 1 } }
+                { eqcombs: [ 'eqcomb1' ], sumSkills: { a: 2, b: 0 } },
+                { eqcombs: [ 'eqcomb1' ], sumSkills: { a: 0, b: 2 } },
+                { eqcombs: [ 'eqcomb2' ], sumSkills: { a: 2, b: 0 } },
+                { eqcombs: [ 'eqcomb2' ], sumSkills: { a: 0, b: 1 } }
             ];
             let got = c._compress(combs);
             let exp = [
-                { eqcombs: [ 'eqcomb1', 'eqcomb2' ], sumSC: { a: 2, b: 0 } },
-                { eqcombs: [ 'eqcomb1' ], sumSC: { a: 0, b: 2 } },
-                { eqcombs: [ 'eqcomb2' ], sumSC: { a: 0, b: 1 } }
+                { eqcombs: [ 'eqcomb1', 'eqcomb2' ], sumSkills: { a: 2, b: 0 } },
+                { eqcombs: [ 'eqcomb1' ], sumSkills: { a: 0, b: 2 } },
+                { eqcombs: [ 'eqcomb2' ], sumSkills: { a: 0, b: 1 } }
             ];
             assert.deepEqual(got, exp);
         });
 
         it('should compress if contain null', () => {
             let combs = [
-                { eqcombs: [], sumSC: null },
-                { eqcombs: [], sumSC: { a: 1 } }
+                { eqcombs: [], sumSkills: null },
+                { eqcombs: [], sumSkills: { a: 1 } }
             ];
             let got = c._compress(combs);
             let exp = [
-                { eqcombs: [], sumSC: null },
-                { eqcombs: [], sumSC: { a: 1 } }
+                { eqcombs: [], sumSkills: null },
+                { eqcombs: [], sumSkills: { a: 1 } }
             ];
             assert.deepEqual(got, exp);
         });
@@ -49,21 +49,21 @@ describe('equip/combinator/_combine', () => {
 
         it('should sort', () => {
             let combs = [
-                { sumSC: { a: 1, b: 0 } },
-                { sumSC: { a: 0, b: 2 } },
-                { sumSC: { a: 3, b: 0 } },
-                { sumSC: { a: 1, b: 1 } },
-                { sumSC: null },
-                { sumSC: { a: 2, b: 0 } }
+                { sumSkills: { a: 1, b: 0 } },
+                { sumSkills: { a: 0, b: 2 } },
+                { sumSkills: { a: 3, b: 0 } },
+                { sumSkills: { a: 1, b: 1 } },
+                { sumSkills: null },
+                { sumSkills: { a: 2, b: 0 } }
             ];
             let got = c._sortCombs(combs);
             let exp = [
-                { sumSC: { a: 3, b: 0 } },
-                { sumSC: { a: 0, b: 2 } },
-                { sumSC: { a: 1, b: 1 } },
-                { sumSC: { a: 2, b: 0 } },
-                { sumSC: { a: 1, b: 0 } },
-                { sumSC: null }
+                { sumSkills: { a: 3, b: 0 } },
+                { sumSkills: { a: 0, b: 2 } },
+                { sumSkills: { a: 1, b: 1 } },
+                { sumSkills: { a: 2, b: 0 } },
+                { sumSkills: { a: 1, b: 0 } },
+                { sumSkills: null }
             ];
             assert.deepEqual(got, exp);
         });
@@ -73,30 +73,30 @@ describe('equip/combinator/_combine', () => {
         let c = new Combinator(context);
 
         it('should combine', () => {
-            let skillNames = [ '攻撃力UP【大】', '斬れ味レベル+1', '耳栓' ];
+            let skillnames = [ '攻撃力UP【大】', '斬れ味レベル+1', '耳栓' ];
             let bulksSet = {
                 body: [
-                    { skillComb: { '攻撃': 7, '匠': 0, '聴覚保護': 1 }, equips: [ '7,0,1' ] },
-                    { skillComb: { '攻撃': 4, '匠': 2, '聴覚保護': 2 }, equips: [ '4,2,2' ] },
-                    { skillComb: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] } ],
+                    { skills: { '攻撃': 7, '匠': 0, '聴覚保護': 1 }, equips: [ '7,0,1' ] },
+                    { skills: { '攻撃': 4, '匠': 2, '聴覚保護': 2 }, equips: [ '4,2,2' ] },
+                    { skills: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] } ],
                 head: [
-                    { skillComb: { '攻撃': 7, '匠': 1, '聴覚保護': 1 }, equips: [ '7,1,1' ] },
-                    { skillComb: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] },
-                    { skillComb: { '攻撃': 6, '匠': 2, '聴覚保護': 0 }, equips: [ '6,2,0' ] } ],
+                    { skills: { '攻撃': 7, '匠': 1, '聴覚保護': 1 }, equips: [ '7,1,1' ] },
+                    { skills: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] },
+                    { skills: { '攻撃': 6, '匠': 2, '聴覚保護': 0 }, equips: [ '6,2,0' ] } ],
                 arm: [
-                    { skillComb: { '攻撃': 6, '匠': 2, '聴覚保護': 0 }, equips: [ '6,2,0' ] },
-                    { skillComb: { '攻撃': 3, '匠': 3, '聴覚保護': 1 }, equips: [ '3,3,1' ] },
-                    { skillComb: { '攻撃': 4, '匠': 3, '聴覚保護': 0 }, equips: [ '4,3,0' ] } ],
+                    { skills: { '攻撃': 6, '匠': 2, '聴覚保護': 0 }, equips: [ '6,2,0' ] },
+                    { skills: { '攻撃': 3, '匠': 3, '聴覚保護': 1 }, equips: [ '3,3,1' ] },
+                    { skills: { '攻撃': 4, '匠': 3, '聴覚保護': 0 }, equips: [ '4,3,0' ] } ],
                 waist: [
-                    { skillComb: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] },
-                    { skillComb: { '攻撃': 2, '匠': 3, '聴覚保護': 2 }, equips: [ '2,3,2' ] },
-                    { skillComb: { '攻撃': 3, '匠': 3, '聴覚保護': 1 }, equips: [ '3,3,1' ] } ],
+                    { skills: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] },
+                    { skills: { '攻撃': 2, '匠': 3, '聴覚保護': 2 }, equips: [ '2,3,2' ] },
+                    { skills: { '攻撃': 3, '匠': 3, '聴覚保護': 1 }, equips: [ '3,3,1' ] } ],
                 leg: [
-                    { skillComb: { '攻撃': 6, '匠': 0, '聴覚保護': 4 }, equips: [ '6,0,4' ] },
-                    { skillComb: { '攻撃': 3, '匠': 2, '聴覚保護': 4 }, equips: [ '3,2,4' ] },
-                    { skillComb: { '攻撃': 4, '匠': 2, '聴覚保護': 3 }, equips: [ '4,2,3' ] } ]
+                    { skills: { '攻撃': 6, '匠': 0, '聴覚保護': 4 }, equips: [ '6,0,4' ] },
+                    { skills: { '攻撃': 3, '匠': 2, '聴覚保護': 4 }, equips: [ '3,2,4' ] },
+                    { skills: { '攻撃': 4, '匠': 2, '聴覚保護': 3 }, equips: [ '4,2,3' ] } ]
             };
-            let got = c._combine(skillNames, bulksSet);
+            let got = c._combine(skillnames, bulksSet);
             let exp = [
                 {
                     eqcombs: [
@@ -107,42 +107,42 @@ describe('equip/combinator/_combine', () => {
                           leg   : [ '6,0,4' ],
                           weapon: [],
                           charm : [],
-                          bodySC: { '攻撃': 4, '匠': 2, '聴覚保護': 2 } }
+                          bodySkills: { '攻撃': 4, '匠': 2, '聴覚保護': 2 } }
                     ],
-                    sumSC: { '攻撃': 20, '匠': 10, '聴覚保護': 10 }
+                    sumSkills: { '攻撃': 20, '匠': 10, '聴覚保護': 10 }
                 }
             ];
             assert.deepEqual(got, exp);
         });
 
         it('should combine if body is [] and waist is torsoUp', () => {
-            let skillNames = [ '攻撃力UP【大】', '斬れ味レベル+1', '耳栓' ];
+            let skillnames = [ '攻撃力UP【大】', '斬れ味レベル+1', '耳栓' ];
             let bulksSet = {
                 body: [],
                 head: [
-                    { skillComb: { '攻撃': 7, '匠': 1, '聴覚保護': 1 }, equips: [ '7,1,1' ] },
-                    { skillComb: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] },
-                    { skillComb: { '攻撃': 6, '匠': 2, '聴覚保護': 0 }, equips: [ '6,2,0' ] } ],
+                    { skills: { '攻撃': 7, '匠': 1, '聴覚保護': 1 }, equips: [ '7,1,1' ] },
+                    { skills: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] },
+                    { skills: { '攻撃': 6, '匠': 2, '聴覚保護': 0 }, equips: [ '6,2,0' ] } ],
                 arm: [
-                    { skillComb: { '攻撃': 6, '匠': 2, '聴覚保護': 0 }, equips: [ '6,2,0' ] },
-                    { skillComb: { '攻撃': 3, '匠': 3, '聴覚保護': 1 }, equips: [ '3,3,1' ] },
-                    { skillComb: { '攻撃': 4, '匠': 3, '聴覚保護': 0 }, equips: [ '4,3,0' ] } ],
+                    { skills: { '攻撃': 6, '匠': 2, '聴覚保護': 0 }, equips: [ '6,2,0' ] },
+                    { skills: { '攻撃': 3, '匠': 3, '聴覚保護': 1 }, equips: [ '3,3,1' ] },
+                    { skills: { '攻撃': 4, '匠': 3, '聴覚保護': 0 }, equips: [ '4,3,0' ] } ],
                 waist: [
-                    { skillComb: { '胴系統倍加': 1 }, equips: [ 'torsoUp' ] } ],
+                    { skills: { '胴系統倍加': 1 }, equips: [ 'torsoUp' ] } ],
                 leg: [
-                    { skillComb: { '攻撃': 7, '匠': 0, '聴覚保護': 1 }, equips: [ '7,0,1' ] },
-                    { skillComb: { '攻撃': 4, '匠': 2, '聴覚保護': 2 }, equips: [ '4,2,2' ] },
-                    { skillComb: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] } ],
+                    { skills: { '攻撃': 7, '匠': 0, '聴覚保護': 1 }, equips: [ '7,0,1' ] },
+                    { skills: { '攻撃': 4, '匠': 2, '聴覚保護': 2 }, equips: [ '4,2,2' ] },
+                    { skills: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] } ],
                 weapon: [
-                    { skillComb: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] },
-                    { skillComb: { '攻撃': 2, '匠': 3, '聴覚保護': 2 }, equips: [ '2,3,2' ] },
-                    { skillComb: { '攻撃': 3, '匠': 3, '聴覚保護': 1 }, equips: [ '3,3,1' ] } ],
+                    { skills: { '攻撃': 5, '匠': 2, '聴覚保護': 1 }, equips: [ '5,2,1' ] },
+                    { skills: { '攻撃': 2, '匠': 3, '聴覚保護': 2 }, equips: [ '2,3,2' ] },
+                    { skills: { '攻撃': 3, '匠': 3, '聴覚保護': 1 }, equips: [ '3,3,1' ] } ],
                 charm: [
-                    { skillComb: { '攻撃': 6, '匠': 0, '聴覚保護': 4 }, equips: [ '6,0,4' ] },
-                    { skillComb: { '攻撃': 3, '匠': 2, '聴覚保護': 4 }, equips: [ '3,2,4' ] },
-                    { skillComb: { '攻撃': 4, '匠': 2, '聴覚保護': 3 }, equips: [ '4,2,3' ] } ]
+                    { skills: { '攻撃': 6, '匠': 0, '聴覚保護': 4 }, equips: [ '6,0,4' ] },
+                    { skills: { '攻撃': 3, '匠': 2, '聴覚保護': 4 }, equips: [ '3,2,4' ] },
+                    { skills: { '攻撃': 4, '匠': 2, '聴覚保護': 3 }, equips: [ '4,2,3' ] } ]
             };
-            let got = c._combine(skillNames, bulksSet);
+            let got = c._combine(skillnames, bulksSet);
             let exp = [
                 {
                     eqcombs: [
@@ -153,9 +153,9 @@ describe('equip/combinator/_combine', () => {
                           leg   : [ '4,2,2' ],
                           weapon: [ '2,3,2' ],
                           charm : [ '6,0,4' ],
-                          bodySC: {} }
+                          bodySkills: {} }
                     ],
-                    sumSC: { '攻撃': 20, '匠': 10, '聴覚保護': 10 }
+                    sumSkills: { '攻撃': 20, '匠': 10, '聴覚保護': 10 }
                 }
             ];
             assert.deepEqual(got, exp);

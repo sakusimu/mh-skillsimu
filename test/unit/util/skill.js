@@ -76,7 +76,7 @@ describe('util/skill', () => {
             assert.deepEqual(got, exp);
         });
 
-        it('should compact correctly if specify skillCombs', () => {
+        it('should compact correctly if specify skills list', () => {
             let got = util.compact([ 'a' ], [ { a: 1, b: 2 }, { a: 2, b: 1 } ]);
             let exp = [ { a: 1 }, { a: 2 } ];
             assert.deepEqual(got, exp);
@@ -94,14 +94,14 @@ describe('util/skill', () => {
 
     describe('contains()', () => {
         it('should return true or false correctly', () => {
-            let sc = { '体力': -2, '回復速度': 2, '乗り': 3 }; // ブレイブベスト
-            assert(util.contains(sc, '乗り'));
-            assert(util.contains(sc, [ '乗り' ]));
+            let skills = { '体力': -2, '回復速度': 2, '乗り': 3 }; // ブレイブベスト
+            assert(util.contains(skills, '乗り'));
+            assert(util.contains(skills, [ '乗り' ]));
 
-            sc = { '攻撃': 2, '火属性攻撃': 2, '回復量': -2 }; // レウスメイル
-            assert(util.contains(sc, [ '攻撃', '火属性攻撃' ]));
-            assert(util.contains(sc, [ '攻撃', '匠' ]));
-            assert(util.contains(sc, [ '達人', '匠' ]) === false);
+            skills = { '攻撃': 2, '火属性攻撃': 2, '回復量': -2 }; // レウスメイル
+            assert(util.contains(skills, [ '攻撃', '火属性攻撃' ]));
+            assert(util.contains(skills, [ '攻撃', '匠' ]));
+            assert(util.contains(skills, [ '達人', '匠' ]) === false);
         });
     });
 
@@ -161,13 +161,13 @@ describe('util/skill', () => {
         });
 
         it('should join stably', () => {
-            let combs = [ { a: 1, b: -1 }, { c: 1, d: -1 } ];
+            let skillsList = [ { a: 1, b: -1 }, { c: 1, d: -1 } ];
 
-            let got = util.join(combs);
+            let got = util.join(skillsList);
             let exp = { a: 1, c: 1, b: -1, d: -1 };
             assert.deepEqual(got, exp);
 
-            got = combs;
+            got = skillsList;
             exp = [ { a: 1, b: -1 }, { c: 1, d: -1 } ];
             assert.deepEqual(got, exp, 'stable');
         });
@@ -274,11 +274,11 @@ describe('util/skill', () => {
     describe('unify()', () => {
         it('should unify set', () => {
             let set = {
-                head: { skillComb: { a: 1 } },
-                body: { skillComb: { a: 1, b: 1 } },
-                arm: { skillComb: { b: 1 } },
-                waist: { skillComb: { '胴系統倍加': 1 } },
-                leg: { skillComb: { c: 1 } },
+                head: { skills: { a: 1 } },
+                body: { skills: { a: 1, b: 1 } },
+                arm: { skills: { b: 1 } },
+                waist: { skills: { '胴系統倍加': 1 } },
+                leg: { skills: { c: 1 } },
                 weapon: {},
                 charm: null
             };
@@ -289,11 +289,11 @@ describe('util/skill', () => {
 
         it('should unify set if body is null', () => {
             let set = {
-                head: { skillComb: { a: 1 } },
+                head: { skills: { a: 1 } },
                 body: null,
-                arm: { skillComb: { b: 1 } },
-                waist: { skillComb: { '胴系統倍加': 1 } },
-                leg: { skillComb: { c: 1 } },
+                arm: { skills: { b: 1 } },
+                waist: { skills: { '胴系統倍加': 1 } },
+                leg: { skills: { c: 1 } },
                 weapon: {},
                 charm: null
             };
@@ -304,11 +304,11 @@ describe('util/skill', () => {
 
         it('should unify list', () => {
             let list = [
-                { skillComb: { a: 1, b: 1 } },
-                { skillComb: { a: 1 } },
-                { skillComb: { b: 1 } },
-                { skillComb: { '胴系統倍加': 1 } },
-                { skillComb: { c: 1 } },
+                { skills: { a: 1, b: 1 } },
+                { skills: { a: 1 } },
+                { skills: { b: 1 } },
+                { skills: { '胴系統倍加': 1 } },
+                { skills: { c: 1 } },
                 {},
                 null
             ];
@@ -320,10 +320,10 @@ describe('util/skill', () => {
         it('should unify list if body is null', () => {
             let list = [
                 null,
-                { skillComb: { a: 1 } },
-                { skillComb: { b: 1 } },
-                { skillComb: { '胴系統倍加': 1 } },
-                { skillComb: { c: 1 } },
+                { skills: { a: 1 } },
+                { skills: { b: 1 } },
+                { skills: { '胴系統倍加': 1 } },
+                { skills: { c: 1 } },
                 {},
                 null
             ];

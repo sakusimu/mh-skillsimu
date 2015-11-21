@@ -14,7 +14,7 @@ describe('test-driver/simudata', () => {
             let got = simudata.equips(rawdata, hunter);
             let exp = [
                 { name: 'レウスヘルム', slot: 0,
-                  skillComb: { '回復量': -2, '攻撃': 3, '火属性攻撃': 1 } }
+                  skills: { '回復量': -2, '攻撃': 3, '火属性攻撃': 1 } }
             ];
             assert.deepStrictEqual(got, exp);
         });
@@ -67,7 +67,7 @@ describe('test-driver/simudata', () => {
             let got = simudata.decos(rawdata, hunter);
             let exp = [
                 { name: '攻撃珠【１】', slot: 1,
-                  skillComb: { '攻撃': 1, '防御': -1 } }
+                  skills: { '攻撃': 1, '防御': -1 } }
             ];
             assert.deepStrictEqual(got, exp);
         });
@@ -133,7 +133,7 @@ describe('test-driver/simudata', () => {
             let rawdata = [ [ 0, 1, '刀匠', 2 ] ];
             let got = simudata.digs(rawdata, hunter);
             let exp = [
-                { name: '発掘(刀匠+2)', slot: 0, skillComb: { '刀匠': 2 } }
+                { name: '発掘(刀匠+2)', slot: 0, skills: { '刀匠': 2 } }
             ];
             assert.deepStrictEqual(got, exp);
         });

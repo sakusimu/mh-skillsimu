@@ -20,7 +20,7 @@ describe('mh4g/deco-combinator', () => {
         return decombs.map(decomb => {
             let torsoUp = Object.keys(decomb).map(part => decomb[part]).some(comb => {
                 if (comb == null) return false;
-                return comb.skillComb['胴系統倍加'] ? true : false;
+                return comb.skills['胴系統倍加'] ? true : false;
             });
             let names = [];
             Object.keys(decomb).forEach(part => {
@@ -38,16 +38,16 @@ describe('mh4g/deco-combinator', () => {
             let skillnames = [ '斬れ味レベル+1', '高級耳栓' ];
             let equip = {
                 head  : { name: 'ユクモノカサ・天', slot: 2,
-                          skillComb: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } },
-                body  : { name: '三眼の首飾り', slot: 3, skillComb: {} },
+                          skills: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } },
+                body  : { name: '三眼の首飾り', slot: 3, skills: {} },
                 arm   : { name: 'ユクモノコテ・天', slot: 2,
-                          skillComb: { '匠': 1, '研ぎ師': 3, '回復量': 2, '加護': 3 } },
-                waist : { name: 'バンギスコイル', slot: 0, skillComb: { '胴系統倍加': 1 } },
+                          skills: { '匠': 1, '研ぎ師': 3, '回復量': 2, '加護': 3 } },
+                waist : { name: 'バンギスコイル', slot: 0, skills: { '胴系統倍加': 1 } },
                 leg   : { name: 'ユクモノハカマ・天', slot: 2,
-                          skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
-                weapon: { name: 'slot2', slot: 2, skillComb: {} },
+                          skills: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
+                weapon: { name: 'slot2', slot: 2, skills: {} },
                 charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
-                          skillComb: { '匠': 4, '氷耐性': -5 } }
+                          skills: { '匠': 4, '氷耐性': -5 } }
             };
             let bulksSet = n.normalize(skillnames, equip);
 
@@ -65,14 +65,14 @@ describe('mh4g/deco-combinator', () => {
             // ALL三眼, 武器スロ3, お守り(匠4,スロ3)
             let skillnames = [ '斬れ味レベル+1', '砥石使用高速化' ];
             let equip = {
-                head  : { name: '三眼のピアス', slot: 3, skillComb: {} },
-                body  : { name: '三眼の首飾り', slot: 3, skillComb: {} },
-                arm   : { name: '三眼の腕輪', slot: 3, skillComb: {} },
-                waist : { name: '三眼の腰飾り', slot: 3, skillComb: {} },
-                leg   : { name: '三眼の足輪', slot: 3, skillComb: {} },
-                weapon: { name: 'slot3', slot: 3, skillComb: {} },
+                head  : { name: '三眼のピアス', slot: 3, skills: {} },
+                body  : { name: '三眼の首飾り', slot: 3, skills: {} },
+                arm   : { name: '三眼の腕輪', slot: 3, skills: {} },
+                waist : { name: '三眼の腰飾り', slot: 3, skills: {} },
+                leg   : { name: '三眼の足輪', slot: 3, skills: {} },
+                weapon: { name: 'slot3', slot: 3, skills: {} },
                 charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
-                          skillComb: { '匠': 4, '氷耐性': -5 } }
+                          skills: { '匠': 4, '氷耐性': -5 } }
             };
             let bulksSet = n.normalize(skillnames, equip);
 
@@ -90,15 +90,15 @@ describe('mh4g/deco-combinator', () => {
             let skillnames = [ '斬れ味レベル+1', '高級耳栓' ];
             let equip = {
                 head : { name: 'ミヅハ【烏帽子】', slot: 1,
-                         skillComb: { '匠': 1, '聴覚保護': 5, '風圧': 4, '耐暑': -2 } },
+                         skills: { '匠': 1, '聴覚保護': 5, '風圧': 4, '耐暑': -2 } },
                 body : { name: 'エクスゼロメイル', slot: 1,
-                         skillComb: { '聴覚保護': 3, '研ぎ師': -2, '食事': 3 } },
+                         skills: { '聴覚保護': 3, '研ぎ師': -2, '食事': 3 } },
                 arm  : { name: 'EXレックスアーム', slot: 2,
-                         skillComb: { '匠': 2, '聴覚保護': 2, '研ぎ師': -2, '食いしん坊': 2 } },
+                         skills: { '匠': 2, '聴覚保護': 2, '研ぎ師': -2, '食いしん坊': 2 } },
                 waist: { name: 'クシャナアンダ', slot: 3,
-                         skillComb: { '匠': 2, '溜め短縮': 2, '毒': -2 } },
+                         skills: { '匠': 2, '溜め短縮': 2, '毒': -2 } },
                 leg  : { name: 'ゾディアスグリーヴ', slot: 3,
-                         skillComb: { '剣術': 1, '匠': 2, '乗り': -3 } },
+                         skills: { '剣術': 1, '匠': 2, '乗り': -3 } },
                 weapon: null,
                 charm: null
             };
@@ -118,18 +118,18 @@ describe('mh4g/deco-combinator', () => {
             let skillnames = [ '斬れ味レベル+1' ];
             let equip = {
                 head  : { name: 'ユクモノカサ・天', slot: 2,
-                          skillComb: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } },
+                          skills: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } },
                 body  : { name: 'ユクモノドウギ・天', slot: 2,
-                          skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
+                          skills: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
                 arm   : { name: 'ユクモノコテ・天', slot: 2,
-                          skillComb: { '匠': 1, '研ぎ師': 3, '回復量': 2, '加護': 3 } },
+                          skills: { '匠': 1, '研ぎ師': 3, '回復量': 2, '加護': 3 } },
                 waist : { name: 'ユクモノオビ・天', slot: 2,
-                          skillComb: { '匠': 1, '研ぎ師': 2, '回復量': 3, '加護': 2 } },
+                          skills: { '匠': 1, '研ぎ師': 2, '回復量': 3, '加護': 2 } },
                 leg   : { name: 'ユクモノハカマ・天', slot: 2,
-                          skillComb: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
+                          skills: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
                 weapon: null,
                 charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
-                          skillComb: { '匠': 4, '氷耐性': -5 } }
+                          skills: { '匠': 4, '氷耐性': -5 } }
             };
             let bulksSet = n.normalize(skillnames, equip);
 

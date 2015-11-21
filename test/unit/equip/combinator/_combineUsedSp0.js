@@ -15,19 +15,19 @@ describe('equip/combinator/_combineUsedSp0', () => {
 
         it('should make', () => {
             let bulks = c._sortBulks([
-                { skillComb: { '攻撃': 3, '斬れ味': 2 }, equips: [ '3,2' ] },
-                { skillComb: { '攻撃': 5, '斬れ味': 0 }, equips: [ '5,0' ] },
-                { skillComb: { '攻撃': 0, '斬れ味': 1 }, equips: [ '0,1' ] },
-                { skillComb: { '攻撃': 0, '斬れ味': 6 }, equips: [ '0,6' ] },
-                { skillComb: { '攻撃': 1, '斬れ味': 3 }, equips: [ '1,3' ] },
-                { skillComb: { '攻撃': 1, '斬れ味': 0 }, equips: [ '1,0' ] },
-                { skillComb: { '攻撃': 4, '斬れ味': 1 }, equips: [ '4,1' ] }
+                { skills: { '攻撃': 3, '斬れ味': 2 }, equips: [ '3,2' ] },
+                { skills: { '攻撃': 5, '斬れ味': 0 }, equips: [ '5,0' ] },
+                { skills: { '攻撃': 0, '斬れ味': 1 }, equips: [ '0,1' ] },
+                { skills: { '攻撃': 0, '斬れ味': 6 }, equips: [ '0,6' ] },
+                { skills: { '攻撃': 1, '斬れ味': 3 }, equips: [ '1,3' ] },
+                { skills: { '攻撃': 1, '斬れ味': 0 }, equips: [ '1,0' ] },
+                { skills: { '攻撃': 4, '斬れ味': 1 }, equips: [ '4,1' ] }
             ]);
             let sp0 = [
-                { skillComb: { '攻撃': 0, '斬れ味': 0 }, equips: [ '0,0' ] }
+                { skills: { '攻撃': 0, '斬れ味': 0 }, equips: [ '0,0' ] }
             ];
             let torsoUp = [
-                { skillComb: { '胴系統倍加': 1 }, equips: [ 'torsoUp' ] }
+                { skills: { '胴系統倍加': 1 }, equips: [ 'torsoUp' ] }
             ];
 
             let bulksSet = {
@@ -63,25 +63,25 @@ describe('equip/combinator/_combineUsedSp0', () => {
         let c = new Combinator(context);
 
         it('should combine', () => {
-            let skillNames = [ '攻撃力UP【大】', '業物' ];
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 4, '斬れ味': 2 }, equips: [ '4,2' ] },
-                    { skillComb: { '攻撃': 0, '斬れ味': 0 }, equips: [ '0,0' ] } ],
+                    { skills: { '攻撃': 4, '斬れ味': 2 }, equips: [ '4,2' ] },
+                    { skills: { '攻撃': 0, '斬れ味': 0 }, equips: [ '0,0' ] } ],
                 body: [
-                    { skillComb: { '攻撃': 8, '斬れ味': 0 }, equips: [ '8,0' ] },
-                    { skillComb: { '攻撃': 6, '斬れ味': 2 }, equips: [ '6,2' ] } ],
+                    { skills: { '攻撃': 8, '斬れ味': 0 }, equips: [ '8,0' ] },
+                    { skills: { '攻撃': 6, '斬れ味': 2 }, equips: [ '6,2' ] } ],
                 arm: [
-                    { skillComb: { '攻撃': 4, '斬れ味': 2 }, equips: [ '4,2' ] },
-                    { skillComb: { '攻撃': 0, '斬れ味': 0 }, equips: [ '0,0' ] } ],
+                    { skills: { '攻撃': 4, '斬れ味': 2 }, equips: [ '4,2' ] },
+                    { skills: { '攻撃': 0, '斬れ味': 0 }, equips: [ '0,0' ] } ],
                 waist: [
-                    { skillComb: { '攻撃': 8, '斬れ味': 0 }, equips: [ '8,0' ] },
-                    { skillComb: { '攻撃': 6, '斬れ味': 2 }, equips: [ '6,2' ] } ],
+                    { skills: { '攻撃': 8, '斬れ味': 0 }, equips: [ '8,0' ] },
+                    { skills: { '攻撃': 6, '斬れ味': 2 }, equips: [ '6,2' ] } ],
                 leg: [
-                    { skillComb: { '攻撃': 4, '斬れ味': 4 }, equips: [ '4,4' ] },
-                    { skillComb: { '攻撃': 5, '斬れ味': 3 }, equips: [ '5,3' ] } ]
+                    { skills: { '攻撃': 4, '斬れ味': 4 }, equips: [ '4,4' ] },
+                    { skills: { '攻撃': 5, '斬れ味': 3 }, equips: [ '5,3' ] } ]
             };
-            let got = c._combineUsedSp0(skillNames, bulksSet);
+            let got = c._combineUsedSp0(skillnames, bulksSet);
             let exp = [
                 {
                     eqcombs: [
@@ -92,9 +92,9 @@ describe('equip/combinator/_combineUsedSp0', () => {
                           leg   : [ '4,4' ],
                           weapon: [],
                           charm : [],
-                          bodySC: { '攻撃': 6, '斬れ味': 2 } }
+                          bodySkills: { '攻撃': 6, '斬れ味': 2 } }
                     ],
-                    sumSC: { '攻撃': 20, '斬れ味': 10 }
+                    sumSkills: { '攻撃': 20, '斬れ味': 10 }
                 }
                 // 先に頭にポイント 0 を使った組み合わせが見つかるので↓は出てこない
                 //{
@@ -106,9 +106,9 @@ describe('equip/combinator/_combineUsedSp0', () => {
                 //          leg   : [ '4,4' ],
                 //          weapon: [],
                 //          charm : [],
-                //          bodySC: { '攻撃': 6, '斬れ味': 2 } }
+                //          bodySkills: { '攻撃': 6, '斬れ味': 2 } }
                 //    ],
-                //    sumSC: { '攻撃': 20, '斬れ味': 10 }
+                //    sumSkills: { '攻撃': 20, '斬れ味': 10 }
                 //}
             ];
             assert.deepEqual(got, exp);

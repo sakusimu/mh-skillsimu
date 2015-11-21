@@ -9,15 +9,15 @@ describe('equip/normalizer/normalize4', () => {
     describe('_normalize4()', () => {
         let n = new Normalizer(context);
 
-        function toString(skillComb) {
-            let skills = Object.keys(skillComb).sort().map(tree => {
-                return tree + ':' + skillComb[tree];
+        function toString(skills) {
+            let list = Object.keys(skills).sort().map(tree => {
+                return tree + ':' + skills[tree];
             });
-            return skills.join(',');
+            return list.join(',');
         }
-        function sorter(actiCombs) {
-            return actiCombs.sort((a, b) => {
-                return toString(a.skillComb) > toString(b.skillComb) ? 1 : -1;
+        function sorter(bulks) {
+            return bulks.sort((a, b) => {
+                return toString(a.skills) > toString(b.skills) ? 1 : -1;
             });
         }
 
@@ -41,20 +41,20 @@ describe('equip/normalizer/normalize4', () => {
             };
             let got = n._normalize4(combs);
             let exp = [
-                { skillComb: { '攻撃': 0, '斬れ味': 0 }, equips: [ 'slot0' ] },
-                { skillComb: { '攻撃': 0, '斬れ味': 2 }, equips: [ 'ジンオウメイル' ] },
-                { skillComb: { '攻撃': 3, '斬れ味': 0 }, equips: [ 'ジャギィＳメイル' ] },
-                { skillComb: { '攻撃': 2, '斬れ味': 1 }, equips: [ 'ジャギィＳメイル' ] },
-                { skillComb: { '攻撃': 1, '斬れ味': 2 }, equips: [ 'slot3' ] },
-                { skillComb: { '攻撃': 3, '斬れ味': 1 }, equips: [ 'slot3' ] },
-                { skillComb: { '攻撃': 0, '斬れ味': 4 }, equips: [ 'slot3' ] },
-                { skillComb: { '攻撃': 2, '斬れ味': 2 }, equips: [ 'シルバーソルメイル' ] },
-                { skillComb: { '攻撃': 1, '斬れ味': 3 }, equips: [ 'シルバーソルメイル' ] },
-                { skillComb: { '攻撃': 4, '斬れ味': 1 },
+                { skills: { '攻撃': 0, '斬れ味': 0 }, equips: [ 'slot0' ] },
+                { skills: { '攻撃': 0, '斬れ味': 2 }, equips: [ 'ジンオウメイル' ] },
+                { skills: { '攻撃': 3, '斬れ味': 0 }, equips: [ 'ジャギィＳメイル' ] },
+                { skills: { '攻撃': 2, '斬れ味': 1 }, equips: [ 'ジャギィＳメイル' ] },
+                { skills: { '攻撃': 1, '斬れ味': 2 }, equips: [ 'slot3' ] },
+                { skills: { '攻撃': 3, '斬れ味': 1 }, equips: [ 'slot3' ] },
+                { skills: { '攻撃': 0, '斬れ味': 4 }, equips: [ 'slot3' ] },
+                { skills: { '攻撃': 2, '斬れ味': 2 }, equips: [ 'シルバーソルメイル' ] },
+                { skills: { '攻撃': 1, '斬れ味': 3 }, equips: [ 'シルバーソルメイル' ] },
+                { skills: { '攻撃': 4, '斬れ味': 1 },
                   equips: [ 'バギィＳメイル', 'シルバーソルメイル' ] },
-                { skillComb: { '攻撃': 3, '斬れ味': 2 }, equips: [ 'バギィＳメイル' ] },
-                { skillComb: { '攻撃': 5, '斬れ味': 0 }, equips: [ 'slot3' ] },
-                { skillComb: { '攻撃': 6, '斬れ味': 0 }, equips: [ 'バギィＳメイル' ] }
+                { skills: { '攻撃': 3, '斬れ味': 2 }, equips: [ 'バギィＳメイル' ] },
+                { skills: { '攻撃': 5, '斬れ味': 0 }, equips: [ 'slot3' ] },
+                { skills: { '攻撃': 6, '斬れ味': 0 }, equips: [ 'バギィＳメイル' ] }
             ];
             assert.deepEqual(sorter(got), sorter(exp));
         });
@@ -74,14 +74,14 @@ describe('equip/normalizer/normalize4', () => {
             };
             let got = n._normalize4(combs);
             let exp = [
-                { skillComb: { '攻撃': 0, '斬れ味': 0 }, equips: [ 'slot0' ] },
-                { skillComb: { '胴系統倍加': 1 }, equips: [ '胴系統倍加' ] },
-                { skillComb: { '攻撃': 5, '斬れ味': 0 }, equips: [ 'ジャギィＳグリーヴ' ] },
-                { skillComb: { '攻撃': 4, '斬れ味': 1 }, equips: [ 'ジャギィＳグリーヴ' ] },
-                { skillComb: { '攻撃': 3, '斬れ味': 4 }, equips: [ 'シルバーソルグリーヴ' ] },
-                { skillComb: { '攻撃': 5, '斬れ味': 3 }, equips: [ 'シルバーソルグリーヴ' ] },
-                { skillComb: { '攻撃': 2, '斬れ味': 6 }, equips: [ 'シルバーソルグリーヴ' ] },
-                { skillComb: { '攻撃': 7, '斬れ味': 2 }, equips: [ 'シルバーソルグリーヴ' ] }
+                { skills: { '攻撃': 0, '斬れ味': 0 }, equips: [ 'slot0' ] },
+                { skills: { '胴系統倍加': 1 }, equips: [ '胴系統倍加' ] },
+                { skills: { '攻撃': 5, '斬れ味': 0 }, equips: [ 'ジャギィＳグリーヴ' ] },
+                { skills: { '攻撃': 4, '斬れ味': 1 }, equips: [ 'ジャギィＳグリーヴ' ] },
+                { skills: { '攻撃': 3, '斬れ味': 4 }, equips: [ 'シルバーソルグリーヴ' ] },
+                { skills: { '攻撃': 5, '斬れ味': 3 }, equips: [ 'シルバーソルグリーヴ' ] },
+                { skills: { '攻撃': 2, '斬れ味': 6 }, equips: [ 'シルバーソルグリーヴ' ] },
+                { skills: { '攻撃': 7, '斬れ味': 2 }, equips: [ 'シルバーソルグリーヴ' ] }
             ];
             assert.deepEqual(sorter(got), sorter(exp));
         });

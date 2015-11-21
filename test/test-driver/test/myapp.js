@@ -41,13 +41,13 @@ describe('test-driver/myapp', () => {
             });
             got = myapp.data.equips.weapon;
             let exp = [
-                { name: 'slot2', slot: 2, skillComb: {} }
+                { name: 'slot2', slot: 2, skills: {} }
             ];
             assert.deepEqual(got, exp);
             got = myapp.data.equips.charm;
             exp = [
                 { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
-                  skillComb: { '匠': 4, '氷耐性': -5 } }
+                  skills: { '匠': 4, '氷耐性': -5 } }
             ];
             assert.deepEqual(got, exp);
         });
@@ -70,7 +70,7 @@ describe('test-driver/myapp', () => {
             let got = MyApp.equip(['レウスヘルム',0,0,3,0,3,5,23,125,2,0,-2,0,-3,'攻撃',3,'火属性攻撃',1,'回復量',-2,null,null,null,null,'火竜の鱗',3,'火竜の甲殻',3,'火竜の翼爪',1,'ドラグ ライト鉱石',3]);
             let exp = {
                 name: 'レウスヘルム', slot: 0,
-                skillComb: { '回復量': -2, '攻撃': 3, '火属性攻撃': 1 }
+                skills: { '回復量': -2, '攻撃': 3, '火属性攻撃': 1 }
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -81,7 +81,7 @@ describe('test-driver/myapp', () => {
             let got = MyApp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ]);
             let exp = {
                 name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
-                skillComb: { '匠': 4, '氷耐性': -5 }
+                skills: { '匠': 4, '氷耐性': -5 }
             };
             assert.deepStrictEqual(got, exp);
         });

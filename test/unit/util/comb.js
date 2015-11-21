@@ -14,89 +14,87 @@ describe('util/comb', () => {
 
     describe('activates()', () => {
         it('should return true if skill activates', () => {
-            let sc   = { a: 20, b: 10 };
-            let goal = { a: 20, b: 10 };
-            assert(util.activates(sc, goal) === true);
+            let skills = { a: 20, b: 10 };
+            let goal   = { a: 20, b: 10 };
+            assert(util.activates(skills, goal) === true);
 
-            sc   = { a: 19, b: 10 };
-            goal = { a: 20, b: 10 };
-            assert(util.activates(sc, goal) === false);
+            skills = { a: 19, b: 10 };
+            goal   = { a: 20, b: 10 };
+            assert(util.activates(skills, goal) === false);
 
-            sc   = { a: 21, b: 10 };
-            goal = { a: 20, b: 10 };
-            assert(util.activates(sc, goal) === true);
+            skills = { a: 21, b: 10 };
+            goal   = { a: 20, b: 10 };
+            assert(util.activates(skills, goal) === true);
 
-            sc   = { a: 20 };
-            goal = { a: 20, b: 10 };
-            assert(util.activates(sc, goal) === false);
+            skills = { a: 20 };
+            goal   = { a: 20, b: 10 };
+            assert(util.activates(skills, goal) === false);
 
-            sc   = { a: 20, b: 10, '胴系統倍加': 1 };
-            goal = { a: 20, b: 10 };
-            assert(util.activates(sc, goal) === true);
+            skills = { a: 20, b: 10, '胴系統倍加': 1 };
+            goal   = { a: 20, b: 10 };
+            assert(util.activates(skills, goal) === true);
         });
 
         it('should return true if already activate', () => {
-            let sc   = {};
-            let goal = { a: 0, b: 0 };
-            let got = util.activates(sc, goal);
+            let skills = {};
+            let goal   = { a: 0, b: 0 };
+            let got = util.activates(skills, goal);
             assert(got === true);
         });
 
         it('should throw exception if goal is null', () => {
-            let sc   = { a: 20, b: 10 };
-            let goal = null;
+            let skills = { a: 20, b: 10 };
             let got;
-            try { util.activates(sc, goal); } catch (e) { got = e.message; }
+            try { util.activates(skills, null); } catch (e) { got = e.message; }
             assert(got === 'goal is required');
         });
     });
 
     describe('justActivates()', () => {
         it('should return true if skill just activates', () => {
-            let sc   = { a: 20, b: 10 };
-            let goal = { a: 20, b: 10 };
-            assert(util.justActivates(sc, goal) === true);
+            let skills = { a: 20, b: 10 };
+            let goal   = { a: 20, b: 10 };
+            assert(util.justActivates(skills, goal) === true);
 
-            sc   = { a: 19, b: 10 };
-            goal = { a: 20, b: 10 };
-            assert(util.justActivates(sc, goal) === false);
+            skills = { a: 19, b: 10 };
+            goal   = { a: 20, b: 10 };
+            assert(util.justActivates(skills, goal) === false);
 
-            sc   = { a: 21, b: 10 };
-            goal = { a: 20, b: 10 };
-            assert(util.justActivates(sc, goal) === false);
+            skills = { a: 21, b: 10 };
+            goal   = { a: 20, b: 10 };
+            assert(util.justActivates(skills, goal) === false);
 
-            sc   = { a: 20 };
-            goal = { a: 20, b: 10 };
-            assert(util.justActivates(sc, goal) === false);
+            skills = { a: 20 };
+            goal   = { a: 20, b: 10 };
+            assert(util.justActivates(skills, goal) === false);
 
-            sc   = { a: 20, b: 10, '胴系統倍加': 1 };
-            goal = { a: 20, b: 10 };
-            assert(util.justActivates(sc, goal) === true);
+            skills = { a: 20, b: 10, '胴系統倍加': 1 };
+            goal   = { a: 20, b: 10 };
+            assert(util.justActivates(skills, goal) === true);
         });
 
         it('should return true if already activate', () => {
-            let sc   = {};
-            let goal = { a: 0, b: 0 };
-            assert(util.justActivates(sc, goal) === true);
+            let skills = {};
+            let goal   = { a: 0, b: 0 };
+            assert(util.justActivates(skills, goal) === true);
         });
 
         it('should return true or false if goal contains minus point', () => {
-            let sc   = { a: 0, b: 10 };
-            let goal = { a: -1, b: 10 };
-            assert(util.justActivates(sc, goal));
-            sc   = { a: -1, b: 10 };
-            goal = { a: -1, b: 10 };
-            assert(util.justActivates(sc, goal));
-            sc   = { a: -2, b: 10 };
-            goal = { a: -1, b: 10 };
-            assert(util.justActivates(sc, goal) === false);
+            let skills = { a: 0, b: 10 };
+            let goal   = { a: -1, b: 10 };
+            assert(util.justActivates(skills, goal));
+            skills = { a: -1, b: 10 };
+            goal   = { a: -1, b: 10 };
+            assert(util.justActivates(skills, goal));
+            skills = { a: -2, b: 10 };
+            goal   = { a: -1, b: 10 };
+            assert(util.justActivates(skills, goal) === false);
         });
 
         it('should throw exception if goal is null', () => {
-            let sc   = { a: 20, b: 10 };
-            let goal = null;
+            let skills = { a: 20, b: 10 };
             let got;
-            try { util.justActivates(sc, goal); } catch (e) { got = e.message; }
+            try { util.justActivates(skills, null); } catch (e) { got = e.message; }
             assert(got === 'goal is required');
         });
     });

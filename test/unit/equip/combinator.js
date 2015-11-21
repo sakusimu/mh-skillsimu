@@ -25,50 +25,50 @@ describe('equip/combinator', () => {
 
         it('should sort', () => {
             let bulks = [
-                { skillComb: { '攻撃': 3, '斬れ味': 2 } },
-                { skillComb: { '攻撃': 0, '斬れ味': 0 } },
-                { skillComb: { '攻撃': 0, '斬れ味': 1 } },
-                { skillComb: { '攻撃': -2, '斬れ味': 2 } },
-                { skillComb: { '攻撃': 0, '斬れ味': 6 } },
-                { skillComb: { '攻撃': 5, '斬れ味': 0 } },
-                { skillComb: { '攻撃': 1, '斬れ味': 3 } },
-                { skillComb: { '攻撃': 6, '斬れ味': 6 } },
-                { skillComb: { '攻撃': 1, '斬れ味': -3 } },
-                { skillComb: { '攻撃': 1, '斬れ味': 0 } },
-                { skillComb: { '攻撃': 4, '斬れ味': 1 } }
+                { skills: { '攻撃': 3, '斬れ味': 2 } },
+                { skills: { '攻撃': 0, '斬れ味': 0 } },
+                { skills: { '攻撃': 0, '斬れ味': 1 } },
+                { skills: { '攻撃': -2, '斬れ味': 2 } },
+                { skills: { '攻撃': 0, '斬れ味': 6 } },
+                { skills: { '攻撃': 5, '斬れ味': 0 } },
+                { skills: { '攻撃': 1, '斬れ味': 3 } },
+                { skills: { '攻撃': 6, '斬れ味': 6 } },
+                { skills: { '攻撃': 1, '斬れ味': -3 } },
+                { skills: { '攻撃': 1, '斬れ味': 0 } },
+                { skills: { '攻撃': 4, '斬れ味': 1 } }
             ];
             let got = c._sortBulks(bulks);
             let exp = [
-                { skillComb: { '攻撃': 6, '斬れ味': 6 } },
-                { skillComb: { '攻撃': 0, '斬れ味': 6 } },
-                { skillComb: { '攻撃': 3, '斬れ味': 2 } },
-                { skillComb: { '攻撃': 5, '斬れ味': 0 } },
-                { skillComb: { '攻撃': 4, '斬れ味': 1 } },
-                { skillComb: { '攻撃': 1, '斬れ味': 3 } },
-                { skillComb: { '攻撃': 0, '斬れ味': 1 } },
-                { skillComb: { '攻撃': 1, '斬れ味': 0 } },
-                { skillComb: { '攻撃': 0, '斬れ味': 0 } },
-                { skillComb: { '攻撃': -2, '斬れ味': 2 } },
-                { skillComb: { '攻撃': 1, '斬れ味': -3 } }
+                { skills: { '攻撃': 6, '斬れ味': 6 } },
+                { skills: { '攻撃': 0, '斬れ味': 6 } },
+                { skills: { '攻撃': 3, '斬れ味': 2 } },
+                { skills: { '攻撃': 5, '斬れ味': 0 } },
+                { skills: { '攻撃': 4, '斬れ味': 1 } },
+                { skills: { '攻撃': 1, '斬れ味': 3 } },
+                { skills: { '攻撃': 0, '斬れ味': 1 } },
+                { skills: { '攻撃': 1, '斬れ味': 0 } },
+                { skills: { '攻撃': 0, '斬れ味': 0 } },
+                { skills: { '攻撃': -2, '斬れ味': 2 } },
+                { skills: { '攻撃': 1, '斬れ味': -3 } }
             ];
             assert.deepEqual(got, exp);
         });
 
         it('should sort if contain torsoUp', () => {
             let bulks = [
-                { skillComb: { '攻撃': 3, '斬れ味': 2 } },
-                { skillComb: { '攻撃': 0, '斬れ味': 0 } },
-                { skillComb: { '攻撃': 1, '斬れ味': 3 } },
-                { skillComb: { '胴系統倍加': 1 } },
-                { skillComb: { '攻撃': 4, '斬れ味': 1 } }
+                { skills: { '攻撃': 3, '斬れ味': 2 } },
+                { skills: { '攻撃': 0, '斬れ味': 0 } },
+                { skills: { '攻撃': 1, '斬れ味': 3 } },
+                { skills: { '胴系統倍加': 1 } },
+                { skills: { '攻撃': 4, '斬れ味': 1 } }
             ];
             let got = c._sortBulks(bulks);
             let exp = [
-                { skillComb: { '胴系統倍加': 1 } },
-                { skillComb: { '攻撃': 3, '斬れ味': 2 } },
-                { skillComb: { '攻撃': 4, '斬れ味': 1 } },
-                { skillComb: { '攻撃': 1, '斬れ味': 3 } },
-                { skillComb: { '攻撃': 0, '斬れ味': 0 } }
+                { skills: { '胴系統倍加': 1 } },
+                { skills: { '攻撃': 3, '斬れ味': 2 } },
+                { skills: { '攻撃': 4, '斬れ味': 1 } },
+                { skills: { '攻撃': 1, '斬れ味': 3 } },
+                { skills: { '攻撃': 0, '斬れ味': 0 } }
             ];
             assert.deepEqual(got, exp);
         });
@@ -88,7 +88,7 @@ describe('equip/combinator', () => {
                           leg   : [ 'leg1' ],
                           weapon: [ 'weapon1' ],
                           charm : [ 'charm1' ],
-                          bodySC: { '攻撃': 1, '斬れ味': 1 } },
+                          bodySkills: { '攻撃': 1, '斬れ味': 1 } },
                         { head  : [ 'head2' ],
                           body  : [ 'body2' ],
                           arm   : [ 'arm2' ],
@@ -96,9 +96,9 @@ describe('equip/combinator', () => {
                           leg   : [ 'leg2' ],
                           //weapon: undefined,
                           charm : null,
-                          bodySC: {} }
+                          bodySkills: {} }
                     ],
-                    sumSC: {}
+                    sumSkills: {}
                 },
                 {
                     eqcombs: [
@@ -109,9 +109,9 @@ describe('equip/combinator', () => {
                           leg   : [ 'leg3' ],
                           weapon: [ 'weapon3' ],
                           charm : [ 'charm3' ],
-                          bodySC: {} }
+                          bodySkills: {} }
                     ],
-                    sumSC: {}
+                    sumSkills: {}
                 }
             ];
             let got = c._brushUp(combs);

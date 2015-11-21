@@ -45,12 +45,12 @@ describe('test-driver/model', () => {
         });
     });
 
-    describe('model.makeSkillComb()', () => {
-        it('should make skillComb', () => {
+    describe('model.makeSkills()', () => {
+        it('should make skills', () => {
             let data = { id: 'ID', name: '名前',
                          skillTree1: 'スキル系統1', skillPt1: 1 };
 
-            let got = model.makeSkillComb(data);
+            let got = model.makeSkills(data);
             let exp = { 'スキル系統1': 1 };
             assert.deepStrictEqual(got, exp);
         });
@@ -235,9 +235,8 @@ describe('test-driver/model', () => {
             let equip = new model.Equip(data);
             let got = equip.simuData();
             let exp = {
-                name: 'ジンオウメイル',
-                slot: 0,
-                skillComb: { '本気': 3, '雷属性攻撃': 1, '気配': -2 }
+                name: 'ジンオウメイル', slot: 0,
+                skills: { '本気': 3, '雷属性攻撃': 1, '気配': -2 }
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -316,9 +315,7 @@ describe('test-driver/model', () => {
             let deco = new model.Deco(data);
             let got = deco.simuData();
             let exp = {
-                name: '攻撃珠【１】',
-                slot: 1,
-                skillComb: { '攻撃': 1, '防御': -1 }
+                name: '攻撃珠【１】', slot: 1, skills: { '攻撃': 1, '防御': -1 }
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -420,9 +417,8 @@ describe('test-driver/model', () => {
             let charm = new model.Charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ]);
             let got = charm.simuData();
             let exp = {
-                name: '龍の護石(スロ3,匠+4,氷耐性-5)',
-                slot: 3,
-                skillComb: { '匠': 4, '氷耐性': -5 }
+                name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
+                skills: { '匠': 4, '氷耐性': -5 }
             };
             assert.deepStrictEqual(got, exp);
         });
@@ -485,9 +481,7 @@ describe('test-driver/model', () => {
             let dig = new model.Dig([ 0, 1, '刀匠', 4 ]);
             let got = dig.simuData();
             let exp = {
-                name: '発掘(刀匠+4)',
-                slot: 0,
-                skillComb: { '刀匠': 4 }
+                name: '発掘(刀匠+4)', slot: 0, skills: { '刀匠': 4 }
             };
             assert.deepStrictEqual(got, exp);
         });

@@ -45,7 +45,7 @@ class MyApp {
 
         if (opts.weaponSlot != null) {
             let wslot  = opts.weaponSlot;
-            let weapon = { name: 'slot' + wslot, slot: wslot, skillComb: {} };
+            let weapon = { name: 'slot' + wslot, slot: wslot, skills: {} };
             equips.weapon = [ weapon ];
         }
 

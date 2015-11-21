@@ -27,18 +27,18 @@ function makeObject(props, values, numProps) {
 }
 model.makeObject = makeObject;
 
-function makeSkillComb(data, num) {
+function makeSkills(data, num) {
     if (data == null) return null;
     num = num || 10;
-    let sc = {};
+    let skills = {};
     for (let i = 1; i <= num; ++i) {
         let tree = data['skillTree' + i], pt = data['skillPt' + i];
         if (tree == null || tree === '') continue;
-        sc[tree] = pt;
+        skills[tree] = pt;
     }
-    return sc;
+    return skills;
 }
-model.makeSkillComb = makeSkillComb;
+model.makeSkills = makeSkills;
 
 /**
  * 装備データのクラス。
@@ -70,7 +70,7 @@ class Equip {
         return {
             name: this.name,
             slot: this.slot,
-            skillComb: makeSkillComb(this, 5)
+            skills: makeSkills(this, 5)
         };
     }
 }
@@ -109,7 +109,7 @@ class Deco {
         return {
             name: this.name,
             slot: this.slot,
-            skillComb: makeSkillComb(this, 2)
+            skills: makeSkills(this, 2)
         };
     }
 }
@@ -169,7 +169,7 @@ class Charm {
         return {
             name: this.toString(),
             slot: this.slot,
-            skillComb: makeSkillComb(this, 2)
+            skills: makeSkills(this, 2)
         };
     }
 }
@@ -204,7 +204,7 @@ class Dig {
         return {
             name: this.name,
             slot: this.slot,
-            skillComb: model.makeSkillComb(this, 1)
+            skills: model.makeSkills(this, 1)
         };
     }
 }

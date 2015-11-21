@@ -29,27 +29,27 @@ describe('deco/combinator', () => {
         let c = new Combinator(context);
 
         it('should combine', () => {
-            let skillNames = [ '攻撃力UP【大】', '業物' ];
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 body: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 } ],
                 arm: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
+                    { skills: { '攻撃': 1, '斬れ味': 0 }, decos: [ '1,0' ], slot: 1 },
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ],
                 waist: [
-                    { skillComb: { '攻撃': 2, '斬れ味': 0 }, decos: [ '2,0' ], slot: 2 },
-                    { skillComb: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
-                    { skillComb: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
-                    { skillComb: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
+                    { skills: { '攻撃': 2, '斬れ味': 0 }, decos: [ '2,0' ], slot: 2 },
+                    { skills: { '攻撃': 3, '斬れ味': 0 }, decos: [ '3,0' ], slot: 2 },
+                    { skills: { '攻撃': 1, '斬れ味': 1 }, decos: [ '1,1' ], slot: 2 },
+                    { skills: { '攻撃': 0, '斬れ味': 2 }, decos: [ '0,2' ], slot: 2 } ],
                 leg: [
-                    { skillComb: { '胴系統倍加': 1 }, decos: [ 'torsoUp' ], slot: 0 } ],
+                    { skills: { '胴系統倍加': 1 }, decos: [ 'torsoUp' ], slot: 0 } ],
                 charm: [
-                    { skillComb: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
+                    { skills: { '攻撃': 0, '斬れ味': 1 }, decos: [ '0,1' ], slot: 1 } ]
             };
-            let equipSC = { '攻撃': 13, '斬れ味': 6 };
-            let borderLine = new BorderLine(context, skillNames, bulksSet, equipSC);
+            let equipSkills = { '攻撃': 13, '斬れ味': 6 };
+            let borderLine = new BorderLine(context, skillnames, bulksSet, equipSkills);
             let comb = {
                 decombs: [
                     { head : bulksSet.head[0],
@@ -61,7 +61,7 @@ describe('deco/combinator', () => {
                       arm  : bulksSet.arm[1],
                       waist: bulksSet.waist[2] }
                 ],
-                sumSC: { '攻撃': 4, '斬れ味': 3 }
+                sumSkills: { '攻撃': 4, '斬れ味': 3 }
             };
             let bulk = bulksSet.leg[0];
             let got = c._combineTorsoUp(comb, bulk, borderLine, 'leg');
@@ -74,7 +74,7 @@ describe('deco/combinator', () => {
                           waist: bulksSet.waist[3],
                           leg  : bulksSet.leg[0] }
                     ],
-                    sumSC: { '攻撃': 7, '斬れ味': 3 }
+                    sumSkills: { '攻撃': 7, '斬れ味': 3 }
                 },
                 {
                     decombs: [
@@ -84,7 +84,7 @@ describe('deco/combinator', () => {
                           waist: bulksSet.waist[2],
                           leg  : bulksSet.leg[0] }
                     ],
-                    sumSC: { '攻撃': 7, '斬れ味': 3 }
+                    sumSkills: { '攻撃': 7, '斬れ味': 3 }
                 }
             ];
             assert.deepEqual(got, exp);
@@ -105,7 +105,7 @@ describe('deco/combinator', () => {
                           leg   : { decos: [ 'b2' ] },
                           weapon: { decos: [ 'b2' ] },
                           charm : { decos: [ 'a3' ] },
-                          bodySC: { 'a': 9, 'b': 4 } },
+                          bodySkills: { 'a': 9, 'b': 4 } },
                         { head  : { decos: [ 'a1' ] },
                           body  : { decos: [ 'a3' ] },
                           arm   : { decos: [ 'a1', 'a1' ] },
@@ -113,9 +113,9 @@ describe('deco/combinator', () => {
                           leg   : { decos: [ 'b2' ] },
                           //weapon: undefined,
                           charm : null,
-                          bodySC: {} }
+                          bodySkills: {} }
                     ],
-                    sumSC: {}
+                    sumSkills: {}
                 },
                 {
                     decombs: [
@@ -127,7 +127,7 @@ describe('deco/combinator', () => {
                           weapon: { decos: [ 'b2' ] },
                           charm : { decos: [ 'a3' ] } }
                     ],
-                    sumSC: {}
+                    sumSkills: {}
                 }
             ];
             let got = c._brushUp(combs);
@@ -144,13 +144,13 @@ describe('deco/combinator', () => {
                   arm   : { decos: [ 'a1', 'a1' ] },
                   waist : { decos: [] },
                   leg   : { decos: [ 'b2' ] },
-                  weapon: { decos: [], slot: 0, skillComb: {} },
-                  charm : { decos: [], slot: 0, skillComb: {} } },
+                  weapon: { decos: [], slot: 0, skills: {} },
+                  charm : { decos: [], slot: 0, skills: {} } },
                 { body  : { decos: [ 'a3' ] },
                   head  : { decos: [ 'a3' ] },
                   arm   : { decos: [ 'b2' ] },
                   waist : { decos: [] },
-                  leg   : { decos: [], slot: 0, skillComb: {} },
+                  leg   : { decos: [], slot: 0, skills: {} },
                   weapon: { decos: [ 'b2' ] },
                   charm : { decos: [ 'a3' ] } }
             ];
@@ -318,29 +318,29 @@ describe('deco/combinator', () => {
             let goal = { '攻撃': 6, '斬れ味': 10 };
             let decombs = [
                 // { '攻撃': 6, '斬れ味': 10 }
-                { body  : { skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  head  : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  arm   : { skillComb: { '攻撃': 2, '斬れ味': 0 } },
-                  waist : { skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  leg   : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
+                { body  : { skills: { '攻撃': 1, '斬れ味': 1 } },
+                  head  : { skills: { '攻撃': 0, '斬れ味': 4 } },
+                  arm   : { skills: { '攻撃': 2, '斬れ味': 0 } },
+                  waist : { skills: { '攻撃': 1, '斬れ味': 1 } },
+                  leg   : { skills: { '攻撃': 0, '斬れ味': 4 } },
                   weapon: null,
-                  charm : { skillComb: { '攻撃': 2, '斬れ味': 0 } } },
+                  charm : { skills: { '攻撃': 2, '斬れ味': 0 } } },
                 // { '攻撃': 6, '斬れ味': 10 }
-                { body : { skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  head : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  arm  : { skillComb: { '攻撃': 2, '斬れ味': 0 } },
-                  waist: { skillComb: { '胴系統倍加': 1 } },
-                  leg  : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
+                { body : { skills: { '攻撃': 1, '斬れ味': 1 } },
+                  head : { skills: { '攻撃': 0, '斬れ味': 4 } },
+                  arm  : { skills: { '攻撃': 2, '斬れ味': 0 } },
+                  waist: { skills: { '胴系統倍加': 1 } },
+                  leg  : { skills: { '攻撃': 0, '斬れ味': 4 } },
                   // weapon がない
-                  charm: { skillComb: { '攻撃': 2, '斬れ味': 0 } } },
+                  charm: { skills: { '攻撃': 2, '斬れ味': 0 } } },
                 // { '攻撃': 7, '斬れ味': 10 }
-                { body  : { skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  head  : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  arm   : { skillComb: { '攻撃': 2, '斬れ味': 0 } },
-                  waist : { skillComb: { '胴系統倍加': 1 } },
-                  leg   : { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  weapon: { skillComb: { '攻撃': 1, '斬れ味': 0 } },
-                  charm : { skillComb: { '攻撃': 2, '斬れ味': 0 } } }
+                { body  : { skills: { '攻撃': 1, '斬れ味': 1 } },
+                  head  : { skills: { '攻撃': 0, '斬れ味': 4 } },
+                  arm   : { skills: { '攻撃': 2, '斬れ味': 0 } },
+                  waist : { skills: { '胴系統倍加': 1 } },
+                  leg   : { skills: { '攻撃': 0, '斬れ味': 4 } },
+                  weapon: { skills: { '攻撃': 1, '斬れ味': 0 } },
+                  charm : { skills: { '攻撃': 2, '斬れ味': 0 } } }
             ];
             let got = c._getJustActivated(decombs, goal);
             let exp = [ decombs[0], decombs[1] ];
@@ -356,13 +356,13 @@ describe('deco/combinator', () => {
             //   龍の護石(スロ3,匠+4,氷耐性-5)
             let goal = { '匠': -1, '聴覚保護': 10 };
             let decombs = [
-                { body  : { skillComb: { '匠': 0, '聴覚保護': 0 } },
-                  head  : { skillComb: { '匠': 0, '聴覚保護': 2 } },
-                  arm   : { skillComb: { '匠': 0, '聴覚保護': 1 } },
-                  waist : { skillComb: { '匠': 0, '聴覚保護': 2 } },
-                  leg   : { skillComb: { '匠': 0, '聴覚保護': 2 } },
+                { body  : { skills: { '匠': 0, '聴覚保護': 0 } },
+                  head  : { skills: { '匠': 0, '聴覚保護': 2 } },
+                  arm   : { skills: { '匠': 0, '聴覚保護': 1 } },
+                  waist : { skills: { '匠': 0, '聴覚保護': 2 } },
+                  leg   : { skills: { '匠': 0, '聴覚保護': 2 } },
                   weapon: null,
-                  charm : { skillComb: { '匠': 0, '聴覚保護': 3 } } }
+                  charm : { skills: { '匠': 0, '聴覚保護': 3 } } }
             ];
             let got = c._getJustActivated(decombs, goal);
             let exp = [ decombs[0] ];
@@ -383,37 +383,37 @@ describe('deco/combinator', () => {
             let goal = { '攻撃': 6, '斬れ味': 10 };
             let decombs = [
                 // スロ13, { '攻撃': 6, '斬れ味': 10 }
-                { body  : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  head  : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  arm   : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  waist : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  leg   : { slot: 0, skillComb: { '攻撃': 0, '斬れ味': 0 } },
+                { body  : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  head  : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  arm   : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  waist : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  leg   : { slot: 0, skills: { '攻撃': 0, '斬れ味': 0 } },
                   weapon: null,
-                  charm : { slot: 3, skillComb: { '攻撃': 4, '斬れ味': 0 } } },
+                  charm : { slot: 3, skills: { '攻撃': 4, '斬れ味': 0 } } },
                 // スロ13, { '攻撃': 7, '斬れ味': 10 }
-                { body  : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  head  : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  arm   : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  waist : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  leg   : { slot: 0, skillComb: { '攻撃': 0, '斬れ味': 0 } },
+                { body  : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  head  : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  arm   : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  waist : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  leg   : { slot: 0, skills: { '攻撃': 0, '斬れ味': 0 } },
                   weapon: null,
-                  charm : { slot: 3, skillComb: { '攻撃': 5, '斬れ味': 0 } } },
+                  charm : { slot: 3, skills: { '攻撃': 5, '斬れ味': 0 } } },
                 // スロ14, { '攻撃': 6, '斬れ味': 10 }
-                { body  : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  head  : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  arm   : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  waist : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  leg   : { slot: 2, skillComb: { '攻撃': 2, '斬れ味': 0 } },
+                { body  : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  head  : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  arm   : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  waist : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  leg   : { slot: 2, skills: { '攻撃': 2, '斬れ味': 0 } },
                   //weapon: undefined,
-                  charm : { slot: 2, skillComb: { '攻撃': 2, '斬れ味': 0 } } },
+                  charm : { slot: 2, skills: { '攻撃': 2, '斬れ味': 0 } } },
                 // スロ14, { '攻撃': 7, '斬れ味': 10 }
-                { body  : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  head  : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  arm   : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  waist : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  leg   : { slot: 2, skillComb: { '攻撃': 2, '斬れ味': 0 } },
+                { body  : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  head  : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  arm   : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  waist : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  leg   : { slot: 2, skills: { '攻撃': 2, '斬れ味': 0 } },
                   weapon: null,
-                  charm : { slot: 2, skillComb: { '攻撃': 3, '斬れ味': 0 } } }
+                  charm : { slot: 2, skills: { '攻撃': 3, '斬れ味': 0 } } }
             ];
             let got = c._removePointOver(decombs, 14, goal);
             let exp = [ decombs[0], decombs[2] ];
@@ -425,11 +425,11 @@ describe('deco/combinator', () => {
             let goal = { '攻撃': 6, '斬れ味': 10 };
             let decombs = [
                 // スロ13, { '攻撃': 7, '斬れ味': 10 }
-                { body  : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  head  : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  arm   : { slot: 2, skillComb: { '攻撃': 1, '斬れ味': 1 } },
-                  waist : { slot: 3, skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                  leg   : { slot: 3, skillComb: { '攻撃': 5, '斬れ味': 0 } } }
+                { body  : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  head  : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  arm   : { slot: 2, skills: { '攻撃': 1, '斬れ味': 1 } },
+                  waist : { slot: 3, skills: { '攻撃': 0, '斬れ味': 4 } },
+                  leg   : { slot: 3, skills: { '攻撃': 5, '斬れ味': 0 } } }
             ];
             let got = c._removePointOver(decombs, 13, goal);
             let exp = [ decombs[0] ];

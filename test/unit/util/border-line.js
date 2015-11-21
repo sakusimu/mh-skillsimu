@@ -67,26 +67,26 @@ describe('util/border-line', () => {
         it('should calc correctly', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: { 'a': 0, 'b': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: { 'a': 0, 'b': 1 } } ],
                 body: [
-                    { skillComb: { 'a': 1, 'b': 1 } } ],
+                    { skills: { 'a': 1, 'b': 1 } } ],
                 arm: [
-                    { skillComb: { 'a': 1           } },
-                    { skillComb: {         'b': 1 } } ],
+                    { skills: { 'a': 1           } },
+                    { skills: {         'b': 1 } } ],
                 waist: [
-                    { skillComb: { 'a': 1         } },
-                    { skillComb: { 'a': 2         } } ],
+                    { skills: { 'a': 1         } },
+                    { skills: { 'a': 2         } } ],
                 leg: [
-                    { skillComb: { 'a': 3, 'b': 2 } },
-                    { skillComb: { 'a': 5         } },
-                    { skillComb: {         'b': 6 } },
-                    { skillComb: { 'a': 1, 'b': 3 } },
-                    { skillComb: { 'a': 4, 'b': 1 } } ],
+                    { skills: { 'a': 3, 'b': 2 } },
+                    { skills: { 'a': 5         } },
+                    { skills: {         'b': 6 } },
+                    { skills: { 'a': 1, 'b': 3 } },
+                    { skills: { 'a': 4, 'b': 1 } } ],
                 weapon: [
-                    { skillComb: { 'a': 1         } } ],
+                    { skills: { 'a': 1         } } ],
                 charm: [
-                    { skillComb: {         'b': 1 } } ]
+                    { skills: {         'b': 1 } } ]
             };
             let got = bl._calcMaxEachSkillPoint(bulksSet);
             let exp = {
@@ -99,15 +99,15 @@ describe('util/border-line', () => {
         it('should calc correctly if contain undefined, null, []', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: { 'a': 0, 'b': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: { 'a': 0, 'b': 1 } } ],
                 body: [
-                    { skillComb: { 'a': 1, 'b': 1 } } ],
+                    { skills: { 'a': 1, 'b': 1 } } ],
                 arm: null,
                 waist: [],
                 //let: undefined
                 weapon: [
-                    { skillComb: { 'c': 1 } } ]
+                    { skills: { 'c': 1 } } ]
             };
             let got = bl._calcMaxEachSkillPoint(bulksSet);
             let exp = {
@@ -121,23 +121,23 @@ describe('util/border-line', () => {
         it('should calc correctly if contain torsoUps', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: { 'a': 0, 'b': 1 } },
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: { 'a': 0, 'b': 1 } },
+                    { skills: { '胴系統倍加': 1 } } ],
                 body: [
-                    { skillComb: { 'a': 2, 'b': 2 } } ],
+                    { skills: { 'a': 2, 'b': 2 } } ],
                 arm: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: {         'b': 2 } },
-                    { skillComb: { 'a': 5, 'b': 0 } },
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: {         'b': 2 } },
+                    { skills: { 'a': 5, 'b': 0 } },
+                    { skills: { '胴系統倍加': 1 } } ],
                 waist: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: {         'b': 3 } },
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: {         'b': 3 } },
                     // ↓胴系統倍加があるので、他のスキルのポイントは無視される
-                    { skillComb: { 'a': 9, 'b': 0, '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 9, 'b': 0, '胴系統倍加': 1 } } ],
                 leg: [
-                    { skillComb: { '胴系統倍加': 1 } } ]
+                    { skills: { '胴系統倍加': 1 } } ]
             };
             let got = bl._calcMaxEachSkillPoint(bulksSet);
             let exp = {
@@ -150,22 +150,22 @@ describe('util/border-line', () => {
         it('should calc correctly if contain torsoUps and null', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: { 'a': 0, 'b': 1 } },
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: { 'a': 0, 'b': 1 } },
+                    { skills: { '胴系統倍加': 1 } } ],
                 body: null,
                 arm: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: {         'b': 2 } },
-                    { skillComb: { 'a': 5, 'b': 0 } },
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: {         'b': 2 } },
+                    { skills: { 'a': 5, 'b': 0 } },
+                    { skills: { '胴系統倍加': 1 } } ],
                 waist: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: {         'b': 3 } },
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: {         'b': 3 } },
                     // ↓胴系統倍加があるので、他のスキルのポイントは無視される
-                    { skillComb: { 'a': 9, 'b': 0, '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 9, 'b': 0, '胴系統倍加': 1 } } ],
                 leg: [
-                    { skillComb: { '胴系統倍加': 1 } } ]
+                    { skills: { '胴系統倍加': 1 } } ]
             };
             let got = bl._calcMaxEachSkillPoint(bulksSet);
             let exp = {
@@ -187,26 +187,26 @@ describe('util/border-line', () => {
         it('should calc correctly', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: { 'a': 0, 'b': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: { 'a': 0, 'b': 1 } } ],
                 body: [
-                    { skillComb: { 'a': 1, 'b': 1 } } ],
+                    { skills: { 'a': 1, 'b': 1 } } ],
                 arm: [
-                    { skillComb: { 'a': 1           } },
-                    { skillComb: {         'b': 1 } } ],
+                    { skills: { 'a': 1           } },
+                    { skills: {         'b': 1 } } ],
                 waist: [
-                    { skillComb: { 'a': 1         } },
-                    { skillComb: { 'a': 2         } } ],
+                    { skills: { 'a': 1         } },
+                    { skills: { 'a': 2         } } ],
                 leg: [
-                    { skillComb: { 'a': 3, 'b': 2 } },
-                    { skillComb: { 'a': 5         } },
-                    { skillComb: {         'b': 6 } },
-                    { skillComb: { 'a': 1, 'b': 3 } },
-                    { skillComb: { 'a': 4, 'b': 1 } } ],
+                    { skills: { 'a': 3, 'b': 2 } },
+                    { skills: { 'a': 5         } },
+                    { skills: {         'b': 6 } },
+                    { skills: { 'a': 1, 'b': 3 } },
+                    { skills: { 'a': 4, 'b': 1 } } ],
                 weapon: [
-                    { skillComb: { 'a': 1         } } ],
+                    { skills: { 'a': 1         } } ],
                 charm: [
-                    { skillComb: {         'b': 1 } } ]
+                    { skills: {         'b': 1 } } ]
             };
             let got = bl._calcMaxSumSkillPoint(bulksSet);
             let exp = { head: 1, body: 2, arm: 1, waist: 2, leg: 6, weapon: 1, charm: 1 };
@@ -216,14 +216,14 @@ describe('util/border-line', () => {
         it('should calc correctly if contain undefined, null, []', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: { 'a': 0, 'b': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: { 'a': 0, 'b': 1 } } ],
                 body: [
-                    { skillComb: { 'a': 1, 'b': 1 } } ],
+                    { skills: { 'a': 1, 'b': 1 } } ],
                 arm: null,
                 waist: [],
                 weapon: [
-                    { skillComb: { 'c': 1 } } ]
+                    { skills: { 'c': 1 } } ]
             };
             let got = bl._calcMaxSumSkillPoint(bulksSet);
             let exp = { head: 1, body: 2, arm: 0, waist: 0, leg: 0, weapon: 1, charm: 0 };
@@ -233,23 +233,23 @@ describe('util/border-line', () => {
         it('should calc correctly if contian torsoUps', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: { 'a': 0, 'b': 1 } },
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: { 'a': 0, 'b': 1 } },
+                    { skills: { '胴系統倍加': 1 } } ],
                 body: [
-                    { skillComb: { 'a': 2, 'b': 2 } } ],
+                    { skills: { 'a': 2, 'b': 2 } } ],
                 arm: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: {         'b': 2 } },
-                    { skillComb: { 'a': 5, 'b': 0 } },
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: {         'b': 2 } },
+                    { skills: { 'a': 5, 'b': 0 } },
+                    { skills: { '胴系統倍加': 1 } } ],
                 waist: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: {         'b': 3 } },
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: {         'b': 3 } },
                     // ↓胴系統倍加があるので、他のスキルのポイントは無視される
-                    { skillComb: { 'a': 9, 'b': 0, '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 9, 'b': 0, '胴系統倍加': 1 } } ],
                 leg: [
-                    { skillComb: { '胴系統倍加': 1 } } ]
+                    { skills: { '胴系統倍加': 1 } } ]
             };
             let got = bl._calcMaxSumSkillPoint(bulksSet);
             let exp = { head: 4, body: 4, arm: 5, waist: 4, leg: 4, weapon: 0, charm: 0 };
@@ -259,22 +259,22 @@ describe('util/border-line', () => {
         it('should calc correctly if contain torsoUps and null', () => {
             let bulksSet = {
                 head: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: { 'a': 0, 'b': 1 } },
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: { 'a': 0, 'b': 1 } },
+                    { skills: { '胴系統倍加': 1 } } ],
                 body: null,
                 arm: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: {         'b': 2 } },
-                    { skillComb: { 'a': 5, 'b': 0 } },
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: {         'b': 2 } },
+                    { skills: { 'a': 5, 'b': 0 } },
+                    { skills: { '胴系統倍加': 1 } } ],
                 waist: [
-                    { skillComb: { 'a': 1, 'b': 0 } },
-                    { skillComb: {         'b': 3 } },
+                    { skills: { 'a': 1, 'b': 0 } },
+                    { skills: {         'b': 3 } },
                     // ↓胴系統倍加があるので、他のスキルのポイントは無視される
-                    { skillComb: { 'a': 9, 'b': 0, '胴系統倍加': 1 } } ],
+                    { skills: { 'a': 9, 'b': 0, '胴系統倍加': 1 } } ],
                 leg: [
-                    { skillComb: { '胴系統倍加': 1 } } ]
+                    { skills: { '胴系統倍加': 1 } } ]
             };
             let got = bl._calcMaxSumSkillPoint(bulksSet);
             let exp = { head: 1, body: 0, arm: 5, waist: 3, leg: 0, weapon: 0, charm: 0 };
@@ -289,189 +289,209 @@ describe('util/border-line', () => {
 
     describe('calcEach() & calcSum()', () => {
         it('should calc correctly', () => {
-            let skillNames = [ '攻撃力UP【大】', '業物' ];
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 5, '斬れ味': 1 } } ],
+                    { skills: { '攻撃': 5, '斬れ味': 1 } } ],
                 body: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 3 } } ],
+                    { skills: { '攻撃': 1, '斬れ味': 3 } } ],
                 arm: [
-                    { skillComb: { '攻撃': 5, '斬れ味': 1 } } ],
+                    { skills: { '攻撃': 5, '斬れ味': 1 } } ],
                 waist: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 3 } } ],
+                    { skills: { '攻撃': 1, '斬れ味': 3 } } ],
                 leg: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 2 } },
-                    { skillComb: { '攻撃': 6, '斬れ味': 0 } },
-                    { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                    { skillComb: { '攻撃': 1, '斬れ味': 3 } },
-                    { skillComb: { '攻撃': 4, '斬れ味': 1 } } ],
+                    { skills: { '攻撃': 3, '斬れ味': 2 } },
+                    { skills: { '攻撃': 6, '斬れ味': 0 } },
+                    { skills: { '攻撃': 0, '斬れ味': 4 } },
+                    { skills: { '攻撃': 1, '斬れ味': 3 } },
+                    { skills: { '攻撃': 4, '斬れ味': 1 } } ],
                 charm: [
-                    { skillComb: { '攻撃': 4, '斬れ味': 0 } },
-                    { skillComb: { '攻撃': 0, '斬れ味': 2 } } ]
+                    { skills: { '攻撃': 4, '斬れ味': 0 } },
+                    { skills: { '攻撃': 0, '斬れ味': 2 } } ]
             };
-            let bl = new BorderLine(context, skillNames, bulksSet);
-            let sc = { '攻撃': 5+1+5, '斬れ味': 1+3+1 };
-            let got = bl.calcEach('waist', sc);
-            // 攻撃: 20 - (5+1+5) - (6+4), 斬れ味: 10 - (1+3+1) - (4+2)
-            let exp = { '攻撃': -1, '斬れ味': -1 };
-            assert.deepEqual(got, exp, 'calcEach: waist');
-            got = bl.calcSum('waist', sc);
-            exp = 4; // 30 - (11 + 5) - 6 - 4
-            assert(got === exp, 'calcSum: waist');
+            let bl = new BorderLine(context, skillnames, bulksSet);
 
-            sc = { '攻撃': 5+1+5+1, '斬れ味': 1+3+1+3 };
-            got = bl.calcEach('leg', sc);
-            // 攻撃: 20 - (5+1+5+1) - (4), 斬れ味: 10 - (1+3+1+3) - (2)
-            exp = { '攻撃': 4, '斬れ味': 0 };
-            assert.deepEqual(got, exp, 'calcEach: leg');
-            got = bl.calcSum('leg', sc);
+            let skills = { '攻撃': 5+1+5, '斬れ味': 1+3+1 };
+            let got = bl.calcEach('waist', skills);
+            let exp = {
+                '攻撃': -1,  // 20 - (5+1+5) - (6+4)
+                '斬れ味': -1 // 10 - (1+3+1) - (4+2)
+            };
+            assert.deepEqual(got, exp);
+            got = bl.calcSum('waist', skills);
+            exp = 4; // 30 - (11 + 5) - 6 - 4
+            assert(got === exp);
+
+            skills = { '攻撃': 5+1+5+1, '斬れ味': 1+3+1+3 };
+            got = bl.calcEach('leg', skills);
+            exp = {
+                '攻撃': 4,  // 20 - (5+1+5+1) - (4)
+                '斬れ味': 0 // 10 - (1+3+1+3) - (2)
+            };
+            assert.deepEqual(got, exp);
+            got = bl.calcSum('leg', skills);
             exp = 6; // 30 - (12 + 8) - 4
-            assert(got === exp, 'calcSum: leg');
+            assert(got === exp);
         });
 
         it('should calc correctly if contain undefined, null, []', () => {
-            let skillNames = [ '攻撃力UP【大】', '業物' ];
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 8, '斬れ味': 4 } } ],
+                    { skills: { '攻撃': 8, '斬れ味': 4 } } ],
                 body: [
-                    { skillComb: { '攻撃': 6, '斬れ味': 6 } } ],
+                    { skills: { '攻撃': 6, '斬れ味': 6 } } ],
                 // arm: undefined
                 waist: [],
                 leg: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 2 } },
-                    { skillComb: { '攻撃': 6, '斬れ味': 0 } },
-                    { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                    { skillComb: { '攻撃': 1, '斬れ味': 3 } },
-                    { skillComb: { '攻撃': 4, '斬れ味': 1 } } ]
+                    { skills: { '攻撃': 3, '斬れ味': 2 } },
+                    { skills: { '攻撃': 6, '斬れ味': 0 } },
+                    { skills: { '攻撃': 0, '斬れ味': 4 } },
+                    { skills: { '攻撃': 1, '斬れ味': 3 } },
+                    { skills: { '攻撃': 4, '斬れ味': 1 } } ]
             };
-            let bl = new BorderLine(context, skillNames, bulksSet);
-            let sc = { '攻撃': (8+6), '斬れ味': (4+6) };
-            let got = bl.calcEach('arm', sc);
-            // 攻撃: 20 - (8+6) - (6), 斬れ味: 10 - (4+6) - (4)
-            let exp = { '攻撃': 0, '斬れ味': -4 };
-            assert.deepEqual(got, exp, 'calcEach');
-            got = bl.calcSum('arm', sc);
+            let bl = new BorderLine(context, skillnames, bulksSet);
+
+            let skills = { '攻撃': (8+6), '斬れ味': (4+6) };
+            let got = bl.calcEach('arm', skills);
+            let exp = {
+                '攻撃': 0,   // 20 - (8+6) - (6)
+                '斬れ味': -4 // 10 - (4+6) - (4)
+            };
+            assert.deepEqual(got, exp);
+            got = bl.calcSum('arm', skills);
             exp = 0; // 30 - (14 + 10) - 6
-            assert(got === exp, 'calcSum');
+            assert(got === exp);
         });
 
         it('should calc correctly if contain torsoUps', () => {
-            let skillNames = [ '攻撃力UP【大】', '業物' ];
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
             let bulksSet = {
                 head: [
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { '胴系統倍加': 1 } } ],
                 body: [
-                    { skillComb: { '攻撃': 4, '斬れ味': 2 } } ],
+                    { skills: { '攻撃': 4, '斬れ味': 2 } } ],
                 arm: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 3 } } ],
+                    { skills: { '攻撃': 3, '斬れ味': 3 } } ],
                 waist: [
-                    { skillComb: { '攻撃': 5, '斬れ味': 1 } },
-                    { skillComb: { '攻撃': 3, '斬れ味': 2 } } ],
+                    { skills: { '攻撃': 5, '斬れ味': 1 } },
+                    { skills: { '攻撃': 3, '斬れ味': 2 } } ],
                 leg: [
-                    { skillComb: { '攻撃': 5, '斬れ味': 0 } },
-                    { skillComb: { '攻撃': 3, '斬れ味': 3 } },
-                    { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                    { skillComb: { '胴系統倍加': 1 } } ]
+                    { skills: { '攻撃': 5, '斬れ味': 0 } },
+                    { skills: { '攻撃': 3, '斬れ味': 3 } },
+                    { skills: { '攻撃': 0, '斬れ味': 4 } },
+                    { skills: { '胴系統倍加': 1 } } ]
             };
-            let bl = new BorderLine(context, skillNames, bulksSet);
-            let sc = { '攻撃': (4+4+3), '斬れ味': (2+2+3) };
-            let got = bl.calcEach('waist', sc);
-            // 攻撃: 20 - (4+4+3) - (5), 斬れ味: 10 - (2+2+3) - (4)
-            let exp = { '攻撃': 4, '斬れ味': -1 };
-            assert.deepEqual(got, exp, 'calcEach');
-            got = bl.calcSum('waist', sc);
-            exp = 6; // 30 - (11 + 7) - 6(胴系統倍加)
-            assert(got === exp, 'calcSum');
+            let bl = new BorderLine(context, skillnames, bulksSet);
+
+            let skills = { '攻撃': (4+4+3), '斬れ味': (2+2+3) };
+            let got = bl.calcEach('waist', skills);
+            let exp = {
+                '攻撃': 4,   // 20 - (4+4+3) - (5)
+                '斬れ味': -1 // 10 - (2+2+3) - (4)
+            };
+            assert.deepEqual(got, exp);
+            got = bl.calcSum('waist', skills);
+            exp = 6; // 30 - (11 + 7) - (6=胴系統倍加)
+            assert(got === exp);
         });
 
         it('should calc correctly if contain torsoUps and null', () => {
-            let skillNames = [ '攻撃力UP【大】', '業物' ];
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
             let bulksSet = {
                 head: [
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { '胴系統倍加': 1 } } ],
                 body: null,
                 arm: [
-                    { skillComb: { '攻撃': 8, '斬れ味': 3 } } ],
+                    { skills: { '攻撃': 8, '斬れ味': 3 } } ],
                 waist: [
-                    { skillComb: { '攻撃': 4, '斬れ味': 2 } } ],
+                    { skills: { '攻撃': 4, '斬れ味': 2 } } ],
                 leg: [
-                    { skillComb: { '攻撃': 5, '斬れ味': 0 } },
-                    { skillComb: { '攻撃': 4, '斬れ味': 2 } },
-                    { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { '攻撃': 5, '斬れ味': 0 } },
+                    { skills: { '攻撃': 4, '斬れ味': 2 } },
+                    { skills: { '攻撃': 0, '斬れ味': 4 } },
+                    { skills: { '胴系統倍加': 1 } } ],
                 charm: [
-                    { skillComb: { '攻撃': 4, '斬れ味': 3 } } ]
+                    { skills: { '攻撃': 4, '斬れ味': 3 } } ]
             };
-            let bl = new BorderLine(context, skillNames, bulksSet);
-            let sc = { '攻撃': (0+0+8), '斬れ味': (0+0+3) };
-            let got = bl.calcEach('waist', sc);
-            // 攻撃: 20 - (8) - (5+4), 斬れ味: 10 - (3) - (4+3)
-            let exp = { '攻撃': 3, '斬れ味': 0 };
-            assert.deepEqual(got, exp, 'calcEach');
-            got = bl.calcSum('waist', sc);
+            let bl = new BorderLine(context, skillnames, bulksSet);
+
+            let skills = { '攻撃': (0+0+8), '斬れ味': (0+0+3) };
+            let got = bl.calcEach('waist', skills);
+            let exp = {
+                '攻撃': 3,  // 20 - (8) - (5+4)
+                '斬れ味': 0 // 斬れ味: 10 - (3) - (4+3)
+            };
+            assert.deepEqual(got, exp);
+            got = bl.calcSum('waist', skills);
             exp = 6; // 30 - (8 + 3) - (6 + 7)
-            assert(got === exp, 'calcSum');
+            assert(got === exp);
         });
 
-        it('should calc correctly if skillComb is null', () => {
-            let skillNames = [ '攻撃力UP【大】', '業物' ];
+        it('should calc correctly if skills is null', () => {
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
             let bulksSet = {
                 head: [
-                    { skillComb: { '攻撃': 5, '斬れ味': 1 } } ],
+                    { skills: { '攻撃': 5, '斬れ味': 1 } } ],
                 body: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 3 } } ],
+                    { skills: { '攻撃': 1, '斬れ味': 3 } } ],
                 arm: [
-                    { skillComb: { '攻撃': 5, '斬れ味': 1 } } ],
+                    { skills: { '攻撃': 5, '斬れ味': 1 } } ],
                 waist: [
-                    { skillComb: { '攻撃': 1, '斬れ味': 3 } } ],
+                    { skills: { '攻撃': 1, '斬れ味': 3 } } ],
                 leg: [
-                    { skillComb: { '攻撃': 3, '斬れ味': 2 } },
-                    { skillComb: { '攻撃': 6, '斬れ味': 0 } },
-                    { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                    { skillComb: { '攻撃': 1, '斬れ味': 3 } },
-                    { skillComb: { '攻撃': 4, '斬れ味': 1 } } ],
+                    { skills: { '攻撃': 3, '斬れ味': 2 } },
+                    { skills: { '攻撃': 6, '斬れ味': 0 } },
+                    { skills: { '攻撃': 0, '斬れ味': 4 } },
+                    { skills: { '攻撃': 1, '斬れ味': 3 } },
+                    { skills: { '攻撃': 4, '斬れ味': 1 } } ],
                 charm: [
-                    { skillComb: { '攻撃': 4, '斬れ味': 0 } },
-                    { skillComb: { '攻撃': 0, '斬れ味': 2 } } ]
+                    { skills: { '攻撃': 4, '斬れ味': 0 } },
+                    { skills: { '攻撃': 0, '斬れ味': 2 } } ]
             };
-            let bl = new BorderLine(context, skillNames, bulksSet);
+            let bl = new BorderLine(context, skillnames, bulksSet);
+
             let got = bl.calcEach('body', null);
-            // 攻撃: 20 - (5+5+1+6+4), 斬れ味: 10 - (1+1+3+4+2)
-            let exp = { '攻撃': -1, '斬れ味': -1 };
-            assert.deepEqual(got, exp, 'calcEach');
+            let exp = {
+                '攻撃': -1,  // 20 - (5+5+1+6+4)
+                '斬れ味': -1 // 10 - (1+1+3+4+2)
+            };
+            assert.deepEqual(got, exp);
             got = bl.calcSum('body', null);
             exp = 4; // 30 - (11 + 5) - 6 - 4
-            assert(got === exp, 'calcSum');
+            assert(got === exp);
         });
 
         it('should calc correctly if specify subtracted', () => {
-            let skillNames = [ '攻撃力UP【大】', '業物' ];
+            let skillnames = [ '攻撃力UP【大】', '業物' ];
             let subtracted = { '攻撃': 3, '斬れ味': 3 };
             let bulksSet = {
                 head: [
-                    { skillComb: { '胴系統倍加': 1 } } ],
+                    { skills: { '胴系統倍加': 1 } } ],
                 body: [
-                    { skillComb: { '攻撃': 4, '斬れ味': 2 } } ],
+                    { skills: { '攻撃': 4, '斬れ味': 2 } } ],
                 arm: null,
                 waist: [
-                    { skillComb: { '攻撃': 5, '斬れ味': 1 } },
-                    { skillComb: { '攻撃': 3, '斬れ味': 2 } } ],
+                    { skills: { '攻撃': 5, '斬れ味': 1 } },
+                    { skills: { '攻撃': 3, '斬れ味': 2 } } ],
                 leg: [
-                    { skillComb: { '攻撃': 5, '斬れ味': 0 } },
-                    { skillComb: { '攻撃': 3, '斬れ味': 3 } },
-                    { skillComb: { '攻撃': 0, '斬れ味': 4 } },
-                    { skillComb: { '胴系統倍加': 1 } } ]
+                    { skills: { '攻撃': 5, '斬れ味': 0 } },
+                    { skills: { '攻撃': 3, '斬れ味': 3 } },
+                    { skills: { '攻撃': 0, '斬れ味': 4 } },
+                    { skills: { '胴系統倍加': 1 } } ]
             };
-            let bl = new BorderLine(context, skillNames, bulksSet, subtracted);
-            let sc = { '攻撃': (4+4+0), '斬れ味': (2+2+0) };
-            let got = bl.calcEach('waist', sc);
-            // 攻撃: (20-3) - (4+4+0) - (5), 斬れ味: (10-3) - (2+2+0) - (4)
-            let exp = { '攻撃': 4, '斬れ味': -1 };
-            assert.deepEqual(got, exp, 'calcEach');
-            got = bl.calcSum('waist', sc);
-            exp = 6; // (30-3-3) - (8 + 4) - 6(胴系統倍加)
-            assert(got === exp, 'calcSum');
+            let bl = new BorderLine(context, skillnames, bulksSet, subtracted);
+
+            let skills = { '攻撃': (4+4+0), '斬れ味': (2+2+0) };
+            let got = bl.calcEach('waist', skills);
+            let exp = {
+                '攻撃': 4,   // (20-3) - (4+4+0) - (5)
+                '斬れ味': -1 // (10-3) - (2+2+0) - (4)
+            };
+            assert.deepEqual(got, exp);
+            got = bl.calcSum('waist', skills);
+            exp = 6; // (30-3-3) - (8 + 4) - (6=胴系統倍加)
+            assert(got === exp);
         });
     });
 });

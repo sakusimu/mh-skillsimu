@@ -5,11 +5,11 @@ const Context = require('../../../../lib/context');
 
 describe('equip/normalizer/normalize1', () => {
     const DECOS = [
-        { name: '攻撃珠【１】', slot: 1, skillComb: { '攻撃': 1, '防御': -1 } },
-        { name: '攻撃珠【２】', slot: 2, skillComb: { '攻撃': 3, '防御': -1 } },
-        { name: '攻撃珠【３】', slot: 3, skillComb: { '攻撃': 5, '防御': -1 } },
-        { name: '斬鉄珠【１】', slot: 1, skillComb: { '斬れ味': 1, '匠': -1 } },
-        { name: '斬鉄珠【３】', slot: 3, skillComb: { '斬れ味': 4, '匠': -2 } }
+        { name: '攻撃珠【１】', slot: 1, skills: { '攻撃': 1, '防御': -1 } },
+        { name: '攻撃珠【２】', slot: 2, skills: { '攻撃': 3, '防御': -1 } },
+        { name: '攻撃珠【３】', slot: 3, skills: { '攻撃': 5, '防御': -1 } },
+        { name: '斬鉄珠【１】', slot: 1, skills: { '斬れ味': 1, '匠': -1 } },
+        { name: '斬鉄珠【３】', slot: 3, skills: { '斬れ味': 4, '匠': -2 } }
     ];
     let context = new Context();
 
@@ -20,13 +20,13 @@ describe('equip/normalizer/normalize1', () => {
 
         it('should do normalize1', () => {
             let equips = [
-                { name: '攻撃+2,スロ1', slot: 1, skillComb: { '攻撃': 2, '研ぎ師': 1 } },
-                { name: '攻撃+3,スロ2', slot: 2, skillComb: { '攻撃': 3, '火耐性': 4 } },
-                { name: '斬れ味+2,スロ0', slot: 0, skillComb: { '斬れ味': 2, '研ぎ師': 1 } },
-                { name: 'スロ0', slot: 0, skillComb: { '採取': 3, '気まぐれ': 2 } },
-                { name: 'スロ3', slot: 3, skillComb: { '防御': 1, 'ガード強化': 1 } },
-                { name: '三眼の首飾り', slot: 3, skillComb: {} },
-                { name: '斬れ味+2,スロ3', slot: 3, skillComb: { '痛撃': 1, '斬れ味': 2 } }
+                { name: '攻撃+2,スロ1', slot: 1, skills: { '攻撃': 2, '研ぎ師': 1 } },
+                { name: '攻撃+3,スロ2', slot: 2, skills: { '攻撃': 3, '火耐性': 4 } },
+                { name: '斬れ味+2,スロ0', slot: 0, skills: { '斬れ味': 2, '研ぎ師': 1 } },
+                { name: 'スロ0', slot: 0, skills: { '採取': 3, '気まぐれ': 2 } },
+                { name: 'スロ3', slot: 3, skills: { '防御': 1, 'ガード強化': 1 } },
+                { name: '三眼の首飾り', slot: 3, skills: {} },
+                { name: '斬れ味+2,スロ3', slot: 3, skills: { '痛撃': 1, '斬れ味': 2 } }
             ];
             let got = n._normalize1(equips, [ '攻撃', '斬れ味' ]);
             let exp = {
@@ -77,14 +77,14 @@ describe('equip/normalizer/normalize1', () => {
             context.decos = []; // 装飾品なし
 
             let equips = [
-                { name: 'slot1', slot: 1, skillComb: {} },
-                { name: 'slot0', slot: 0, skillComb: {} },
-                { name: '攻撃+2,スロ1', slot: 1, skillComb: { '攻撃': 2,'研ぎ師': 1 } },
-                { name: '攻撃+3,スロ2', slot: 2, skillComb: { '攻撃': 3,'火耐性': 4 } },
+                { name: 'slot1', slot: 1, skills: {} },
+                { name: 'slot0', slot: 0, skills: {} },
+                { name: '攻撃+2,スロ1', slot: 1, skills: { '攻撃': 2,'研ぎ師': 1 } },
+                { name: '攻撃+3,スロ2', slot: 2, skills: { '攻撃': 3,'火耐性': 4 } },
                 { name: '攻撃+4,斬れ味+1,スロ0', slot: 0,
-                  skillComb: { '攻撃': 4,'斬れ味': 1,'食事': 4,'腹減り': -2} },
-                { name: 'slot3', slot: 3, skillComb: {} },
-                { name: '斬れ味+2,スロ3', slot: 3, skillComb: { '痛撃': 1, '斬れ味': 2 } }
+                  skills: { '攻撃': 4,'斬れ味': 1,'食事': 4,'腹減り': -2} },
+                { name: 'slot3', slot: 3, skills: {} },
+                { name: '斬れ味+2,スロ3', slot: 3, skills: { '痛撃': 1, '斬れ味': 2 } }
             ];
             let got = n._normalize1(equips, [ '攻撃', '斬れ味' ]);
             let exp = {
@@ -105,7 +105,7 @@ describe('equip/normalizer/normalize1', () => {
 
         it('should do normalize1 if fixed equip', () => {
             let equips = [
-                { name: '三眼の首飾り', slot: 3, skillComb: {} }
+                { name: '三眼の首飾り', slot: 3, skills: {} }
             ];
             let got = n._normalize1(equips, [ '攻撃', '斬れ味' ]);
             let exp = {
@@ -123,7 +123,7 @@ describe('equip/normalizer/normalize1', () => {
 
             // 胴系統倍加
             equips = [
-                { name: 'バンギスコイル', slot: 0, skillComb: { '胴系統倍加': 1 } }
+                { name: 'バンギスコイル', slot: 0, skills: { '胴系統倍加': 1 } }
             ];
             got = n._normalize1(equips, [ '攻撃', '斬れ味' ]);
             exp = { 'バンギスコイル': [ { '胴系統倍加': 1 } ] };
