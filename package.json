@@ -10,6 +10,10 @@
     "testdata": "./tasks/build-testdata.sh",
     "testdata-b": "./tasks/build-browser-testdata.sh"
   },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/sakusimu/mh-skillsimu.git"
+  },
   "author": "sakusimu.net",
   "license": "MIT",
   "engines": {
