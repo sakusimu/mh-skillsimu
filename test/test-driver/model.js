@@ -32,7 +32,7 @@ function makeSkills(data, num) {
     num = num || 10;
     let skills = {};
     for (let i = 1; i <= num; ++i) {
-        let tree = data['skilltree' + i], pt = data['skillPt' + i];
+        let tree = data['skilltree' + i], pt = data['skillpoint' + i];
         if (tree == null || tree === '') continue;
         skills[tree] = pt;
     }
@@ -78,13 +78,13 @@ class Equip {
 // 名前,"性別(0=両,1=男,2=女)","タイプ(0=両方,1=剣士,2=ガンナー)",レア度,スロット数,入手時期／HR（99=集会場入手不可）,入手時期／村☆（99=村入手不可）,初期防御力,最終防御力,火耐性,水耐性,氷耐性,雷耐性,龍耐性,スキル系統1,スキル値1,スキル系統2,スキル値2,スキル系統3,スキル値3,スキル系統4,スキル値4,スキル系統5,スキル値5,生産素材1,個数,生産素材2,個数,生産素材3,個数,生産素材4,個数
 Equip.columns = [ 'name', 'sex', 'type', 'rarity', 'slot',
                   'availableHR', 'availableVS', '','','','','','','',
-                  'skilltree1', 'skillPt1', 'skilltree2', 'skillPt2',
-                  'skilltree3', 'skillPt3', 'skilltree4', 'skillPt4',
-                  'skilltree5', 'skillPt5' ];
+                  'skilltree1', 'skillpoint1', 'skilltree2', 'skillpoint2',
+                  'skilltree3', 'skillpoint3', 'skilltree4', 'skillpoint4',
+                  'skilltree5', 'skillpoint5' ];
 Equip.numColumns = { sex: true, type: true, slot: true,
                      availableHR: true, availableVS: true,
-                     skillPt1: true, skillPt2: true, skillPt3: true,
-                     skillPt4: true, skillPt5: true };
+                     skillpoint1: true, skillpoint2: true, skillpoint3: true,
+                     skillpoint4: true, skillpoint5: true };
 Equip.props = Equip.columns.filter(col => col !== '');
 
 /**
@@ -116,9 +116,9 @@ class Deco {
 
 // 名前,レア度,スロット,入手時期／HR,入手時期／村☆,スキル系統1,スキル値1,スキル系統2,スキル値2,生産素材A1,個数,生産素材A2,個数,生産素材A3,個数,生産素材A4,個数,生産素材B1,個数,生産素材B2,個数,生産素材B3,個数,生産素材B4,個数
 Deco.columns = [ 'name', '', 'slot', 'availableHR', 'availableVS',
-                 'skilltree1', 'skillPt1', 'skilltree2', 'skillPt2' ];
+                 'skilltree1', 'skillpoint1', 'skilltree2', 'skillpoint2' ];
 Deco.numColumns = { slot: true, availableHR: true, availableVS: true,
-                    skillPt1: true, skillPt2: true };
+                    skillpoint1: true, skillpoint2: true };
 Deco.props = Deco.columns.filter(col => col !== '');
 
 /**
@@ -156,8 +156,8 @@ class Charm {
     }
 
     toString() {
-        let skill1 = Charm.skillAsStr(this.skilltree1, this.skillPt1);
-        let skill2 = Charm.skillAsStr(this.skilltree2, this.skillPt2);
+        let skill1 = Charm.skillAsStr(this.skilltree1, this.skillpoint1);
+        let skill2 = Charm.skillAsStr(this.skilltree2, this.skillpoint2);
 
         let summary = [ 'スロ' + this.slot, skill1 ];
         if (skill2 != null) summary.push(skill2);
@@ -175,8 +175,8 @@ class Charm {
 }
 
 // 名前,スロット数,スキル系統1,スキル値1,スキル系統2,スキル値2
-Charm.columns = [ 'name', 'slot', 'skilltree1', 'skillPt1', 'skilltree2', 'skillPt2' ];
-Charm.numColumns = { slot: true, skillPt1: true, skillPt2: true };
+Charm.columns = [ 'name', 'slot', 'skilltree1', 'skillpoint1', 'skilltree2', 'skillpoint2' ];
+Charm.numColumns = { slot: true, skillpoint1: true, skillpoint2: true };
 Charm.props = Charm.columns.filter(col => col !== '');
 
 /**
@@ -186,7 +186,7 @@ class Dig {
     constructor(data) {
         let obj = model.makeObject(Dig.columns, data, Dig.numColumns);
         for (let prop in obj) this[prop] = obj[prop];
-        this.name = '発掘' + '(' + this.skilltree1 + '+' + this.skillPt1 + ')';
+        this.name = '発掘' + '(' + this.skilltree1 + '+' + this.skillpoint1 + ')';
         this.slot = 0;
     }
 
@@ -210,9 +210,9 @@ class Dig {
 }
 
 // "性別(0=両,1=男,2=女)","タイプ(0=両方,1=剣士,2=ガンナー)",スキル系統1,スキル値1
-Dig.columns = [ 'sex', 'type', 'skilltree1', 'skillPt1' ];
-Dig.numColumns = { sex: true, type: true, skillPt1: true };
-Dig.props = [ 'name', 'sex', 'type', 'slot', 'skilltree1', 'skillPt1' ];
+Dig.columns = [ 'sex', 'type', 'skilltree1', 'skillpoint1' ];
+Dig.numColumns = { sex: true, type: true, skillpoint1: true };
+Dig.props = [ 'name', 'sex', 'type', 'slot', 'skilltree1', 'skillpoint1' ];
 
 model.Equip = Equip;
 model.Deco  = Deco;
