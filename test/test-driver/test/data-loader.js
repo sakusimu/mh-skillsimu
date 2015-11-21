@@ -1,6 +1,7 @@
 'use strict';
 const assert = require('power-assert');
 const load = require('../data-loader.js');
+const Module = require('module');
 
 describe('test/data-loader', () => {
     describe('export', () => {
@@ -33,6 +34,47 @@ describe('test/data-loader', () => {
             assert(got === 'series is required');
             try { load('hoge'); } catch (e) { got = e.message; }
             assert(got === 'unknown series: hoge');
+        });
+    });
+
+
+    describe('_load()', () => {
+        const isNode = typeof window === 'undefined';
+        let backup;
+
+        (isNode ? describe : describe.skip)('on Node.js', () => {
+            before(() => { backup = Module.prototype.require; });
+            after(() => { Module.prototype.require = backup; });
+
+            it('should load', () => {
+                Module.prototype.require = path => `require: ${path}`;
+
+                let got = load._load('/path/to/mh4g/equip_head.json');
+                assert(got === 'require: /path/to/mh4g/equip_head.json');
+            });
+        });
+
+        (!isNode ? describe : describe.skip)('on Browser', () => {
+            /* global window */
+            before(() => { backup = window.testdata.mh4g.equip_head; });
+            after(() => { window.testdata.mh4g.equip_head = backup; });
+
+            it('should load', () => {
+                window.testdata.mh4g.equip_head = 'use testdata';
+                let got = load._load('/path/to/mh4g/equip_head.json');
+                assert(got === 'use testdata');
+            });
+        });
+
+        it('should throw exception if not json', () => {
+            let got;
+            try { load._load('/path/to/mh4g/version.txt'); } catch (e) { got = e.message; }
+            assert(got === 'unmatch path: /path/to/mh4g/version.txt');
+        });
+        it('should throw exception if unmatch path', () => {
+            let got;
+            try { load._load('/path/to/hoge/equip_head.json'); } catch (e) { got = e.message; }
+            assert(got === 'unmatch path: /path/to/hoge/equip_head.json');
         });
     });
 });
