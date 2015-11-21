@@ -20,11 +20,4 @@ describe('index', () => {
             assert(got instanceof Simulator);
         });
     });
-
-    (global.document ? describe : describe.skip)('Browser', () => {
-        /* global window:false */
-        it('should have window.mhsimu', () => {
-            assert(window.mhsimu === mhsimu);
-        });
-    });
 });
