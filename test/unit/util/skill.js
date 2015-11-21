@@ -21,7 +21,9 @@ describe('util/skill', () => {
             assert(util.hasTorsoUp({ '胴系統倍加': 1 }));
             assert(util.hasTorsoUp({ '胴系統倍化': 1 }));
 
-            assert(util.hasTorsoUp({ '攻撃': 4 }) === false, '攻撃');
+            assert(util.hasTorsoUp({ '胴系統倍加': 1, '攻撃': 3 }));
+
+            assert(util.hasTorsoUp({ '攻撃': 4 }) === false);
             assert(util.hasTorsoUp({ '': 4 }) === false);
 
             assert(util.hasTorsoUp() === false);
