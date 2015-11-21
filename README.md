@@ -170,6 +170,10 @@ To run a unit test, use:
 
     $ npm test test/unit/~.js
 
+To run all unit tests on Browser (need Chrome), use:
+
+    $ npm run test-browser
+
 See Also
 --------
 * [mh4-skillsimu](https://github.com/sakusimu/mh4-skillsimu)

@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint index.js lib test || exit 0",
     "test": "mocha --require intelli-espower-loader --recursive",
+    "test-browser": "npm run testdata-b && karma start test/support/karma.conf.js",
     "testdata": "./tasks/build-testdata.sh",
     "testdata-b": "./tasks/build-browser-testdata.sh"
   },
