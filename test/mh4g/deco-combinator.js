@@ -4,6 +4,7 @@ const Combinator = require('../../lib/deco/combinator');
 const Context = require('../../lib/context');
 const Normalizer = require('../../lib/deco/normalizer');
 const myapp = require('../test-driver/myapp')('mh4g');
+const simplify = require('../support/util').simplifyDecombs;
 
 describe('mh4g/deco-combinator', () => {
     let context = new Context();
@@ -14,24 +15,6 @@ describe('mh4g/deco-combinator', () => {
         myapp.init();
         context.init(myapp.data);
     });
-
-    // 頑シミュさんの装飾品検索の結果と比較しやすくする
-    function simplify(decombs) {
-        return decombs.map(decomb => {
-            let torsoUp = Object.keys(decomb).map(part => decomb[part]).some(comb => {
-                if (comb == null) return false;
-                return comb.skills['胴系統倍加'] ? true : false;
-            });
-            let names = [];
-            Object.keys(decomb).forEach(part => {
-                let comb = decomb[part];
-                let decos = comb ? comb.decos : [];
-                if (torsoUp && part === 'body') decos = decos.map(deco => deco += '(胴)');
-                names = names.concat(decos);
-            });
-            return names.sort().join(',');
-        });
-    }
 
     describe('combine', () => {
         it('should combine if equips contain torsoUp, weaponSlot, charm', () => {
