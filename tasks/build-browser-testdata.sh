@@ -14,7 +14,7 @@ function build() {
     local work_dir=$data_dir/$series
 
     if [ ! -d $work_dir ]; then
-        echo "$series testdata not found: perhaps you will need to run 'npm run data'"
+        echo "$series testdata not found: perhaps you will need to run 'npm run testdata'"
         exit 2
     fi
 
