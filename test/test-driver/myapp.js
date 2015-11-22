@@ -21,6 +21,8 @@ class MyApp {
         this.rawdata = load(series);
         if (this.rawdata == null) throw new Error(`unknown series: ${series}`);
 
+        this._equipIndexes = MyApp.makeEquipIndexes(this.rawdata.equips);
+
         this.init.apply(this, arguments);
     }
 
@@ -73,6 +75,17 @@ class MyApp {
         };
     }
 
+    static makeEquipIndexes(rawdataEquips) {
+        let indexes = {};
+        Object.keys(rawdataEquips || {}).forEach(part => {
+            let idxs = indexes[part] = {};
+            (rawdataEquips[part] || [])
+                .map(rawdata => new model.Equip(rawdata))
+                .forEach(eq => idxs[genId(eq)] = eq.simudata());
+        });
+        return indexes;
+    }
+
     static equip(rawdata) {
         let eq = new model.Equip(rawdata);
         return eq.simudata();
@@ -86,3 +99,7 @@ class MyApp {
     charm() { return MyApp.charm.apply(MyApp, arguments); }
 }
 exports.MyApp = MyApp;
+
+function genId(equip) {
+    return `${equip.name},${equip.sex},${equip.type}`;
+}

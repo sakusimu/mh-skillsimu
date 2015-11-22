@@ -14,6 +14,10 @@ describe('test-driver/myapp', () => {
         it('should create myapp', () => {
             let myapp = new MyApp('mh4g');
             assert(myapp);
+
+            assert(myapp.rawdata.equips.head.length > 0);
+            let got = Object.keys(myapp._equipIndexes.head).length;
+            assert(got > 0);
         });
 
         it('should throw exception if no arguments', () => {
@@ -61,6 +65,51 @@ describe('test-driver/myapp', () => {
             assert.deepEqual(got, exp);
             got = myapp.data.equips.weapon.filter(tousyo).map(eq => eq.name);
             exp = [ '発掘(刀匠+2)', '発掘(刀匠+3)', '発掘(刀匠+4)' ];
+            assert.deepEqual(got, exp);
+        });
+    });
+
+    describe('MyApp#makeEquipIndexes()', () => {
+        it('should return equip indexes', () => {
+            let rawdata = {
+                head: [
+                    ['レウスヘルム',0,0,3,0,3,5,23,125,2,0,-2,0,-3,'攻撃',3,'火属性攻撃',1,'回復量',-2,null,null,null,null,'火竜の鱗',3,'火竜の甲殻',3,'火竜の翼爪',1,'ドラグライト鉱石',3],
+                    ['レウスキャップ',0,0,3,0,3,5,12,78,3,1,-1,1,-2,'攻撃',4,'火属性攻撃',2,'回復量',-2,null,null,null,null,'火竜の鱗',3,'火竜の甲殻',3,'火竜の翼爪',1,'ドラグライト鉱石',3]
+                ]
+            };
+            let got = MyApp.makeEquipIndexes(rawdata);
+            let exp = {
+                head: {
+                    'レウスヘルム,0,0': {
+                        name: 'レウスヘルム', slot: 0,
+                        skills: { '回復量': -2, '攻撃': 3, '火属性攻撃': 1 }
+                    },
+                    'レウスキャップ,0,0': {
+                        name: 'レウスキャップ', slot: 0,
+                        skills: { '回復量': -2, '攻撃': 4, '火属性攻撃': 2 }
+                    }
+                }
+            };
+            assert.deepStrictEqual(got, exp);
+        });
+
+        it('should generate id correctly', () => {
+            let rawdata = {
+                body: [
+                    ['アークメイル',1,1,3,1,7,6],
+                    ['アークレジスト',1,2,3,1,7,6],
+                    ['フィリアメイル',2,1,3,1,7,6],
+                    ['フィリアレジスト',2,2,3,1,7,6]
+                ]
+            };
+            let index = MyApp.makeEquipIndexes(rawdata);
+            let got = Object.keys(index.body).sort();
+            let exp = [
+                'アークメイル,1,1',
+                'アークレジスト,1,2',
+                'フィリアメイル,2,1',
+                'フィリアレジスト,2,2'
+            ];
             assert.deepEqual(got, exp);
         });
     });
