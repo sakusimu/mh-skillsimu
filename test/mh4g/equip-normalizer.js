@@ -23,7 +23,7 @@ describe('mh4g/equip-normalizer', () => {
         it('should normalize if contain a fixed equip', () => {
             // スキルポイントがマイナスの装備で固定
             myapp.data.equips.body = [
-                myapp.equip('body', 'アカムトウルンテ'), // 斬れ味-2, スロ1
+                myapp.equip('body', 'アカムトウルンテ') // 斬れ味-2, スロ1
             ];
             context.init(myapp.data);
 
@@ -44,7 +44,7 @@ describe('mh4g/equip-normalizer', () => {
             myapp.data.equips.body = [
                 myapp.equip('body', 'ブナハＳスーツ'),   // 攻撃-2, スロ0
                 myapp.equip('body', 'リベリオンメイル'), // 攻撃-4, スロ1
-                myapp.equip('body', 'アカムトウルンテ'), // 斬れ味-2, スロ1
+                myapp.equip('body', 'アカムトウルンテ')  // 斬れ味-2, スロ1
             ];
             context.init(myapp.data);
 

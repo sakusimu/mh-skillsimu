@@ -14,7 +14,7 @@ describe('mh4g/equip-simulator', () => {
         it('should simulate torsoUp', () => {
             myapp.setup({ hunter: { sex: 'w' } });
             myapp.data.equips = {
-                head: [ myapp.equip('head', 'ユクモノカサ・天'), ],
+                head: [ myapp.equip('head', 'ユクモノカサ・天') ],
                 body: [ myapp.equip('body', '三眼の首飾り') ],
                 arm: [ myapp.equip('arm', 'ユクモノコテ・天') ],
                 waist: [
