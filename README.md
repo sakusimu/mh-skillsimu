@@ -174,6 +174,18 @@ To run all unit tests on Browser (need Chrome), use:
 
     $ npm run test-browser
 
+Running Benchmark Scripts
+-------------------------
+To run a benchmark script, use:
+
+    $ node benchmarks/mh4g-equip-simu.js
+
+To run a benchmark script on Browser, use:
+
+    $ npm run build-benchmark-b
+
+and open `benchmarks/html/~.html` on your Browser.
+
 See Also
 --------
 * [mh4-skillsimu](https://github.com/sakusimu/mh4-skillsimu)
