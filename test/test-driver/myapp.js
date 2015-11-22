@@ -86,11 +86,28 @@ class MyApp {
         return indexes;
     }
 
-    static equip(rawdata) {
-        let eq = new model.Equip(rawdata);
-        return eq.simudata();
+    equip(part, name) {
+        if (part == null) throw new Error('part is required');
+        if (name == null) throw new Error('name is required');
+
+        let sex = this.hunter.sex === 'm' ? 1 : 2;
+        let type = this.hunter.type === 'k' ? 1 : 2;
+
+        let equips = this._equipIndexes[part];
+        if (equips == null) return null;
+
+        let id = _genId(name, 0, 0);
+        if (equips[id]) return equips[id];
+        id = _genId(name, 0, type);
+        if (equips[id]) return equips[id];
+
+        id = _genId(name, sex, 0);
+        if (equips[id]) return equips[id];
+        id = _genId(name, sex, type);
+        if (equips[id]) return equips[id];
+
+        return null;
     }
-    equip() { return MyApp.equip.apply(MyApp, arguments); }
 
     static charm(list) {
         let ch = new model.Charm(list);
@@ -101,5 +118,8 @@ class MyApp {
 exports.MyApp = MyApp;
 
 function genId(equip) {
-    return `${equip.name},${equip.sex},${equip.type}`;
+    return _genId(equip.name, equip.sex, equip.type);
+}
+function _genId(name, sex, type) {
+    return `${name},${sex},${type}`;
 }

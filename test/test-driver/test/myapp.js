@@ -114,14 +114,44 @@ describe('test-driver/myapp', () => {
         });
     });
 
-    describe('MyApp#equip()', () => {
+    describe('equip()', () => {
+        let myapp = new MyApp('mh4g');
+
         it('should return equip', () => {
-            let got = MyApp.equip(['レウスヘルム',0,0,3,0,3,5,23,125,2,0,-2,0,-3,'攻撃',3,'火属性攻撃',1,'回復量',-2,null,null,null,null,'火竜の鱗',3,'火竜の甲殻',3,'火竜の翼爪',1,'ドラグ ライト鉱石',3]);
-            let exp = {
-                name: 'レウスヘルム', slot: 0,
-                skills: { '回復量': -2, '攻撃': 3, '火属性攻撃': 1 }
-            };
-            assert.deepStrictEqual(got, exp);
+            let got = myapp.equip('body', 'ハンターメイル').name;
+            assert(got === 'ハンターメイル');
+        });
+
+        it('should return equip by hunter', () => {
+            myapp.setup({ hunter: { sex: 'm', type: 'k' }});
+            let got = myapp.equip('head', 'レウスキャップ').name;
+            assert(got === 'レウスキャップ');
+            got = myapp.equip('body', 'レウスレジスト');
+            assert(got === null);
+
+            myapp.setup({ hunter: { sex: 'w', type: 'g' }});
+            got = myapp.equip('body', 'アークメイル');
+            assert(got === null);
+            got = myapp.equip('body', 'アークレジスト');
+            assert(got === null);
+            got = myapp.equip('body', 'フィリアメイル');
+            assert(got === null);
+            got = myapp.equip('body', 'フィリアレジスト').name;
+            assert(got === 'フィリアレジスト');
+        });
+
+        it('should return null if not found', () => {
+            let got = myapp.equip('body', 'ユクモ');
+            let exp = null;
+            assert(got === exp);
+        });
+
+        it('should throw exception if null or etc', () => {
+            let got;
+            try { myapp.equip(); } catch (e) { got = e.message; }
+            assert(got === 'part is required');
+            try { myapp.equip('body'); } catch (e) { got = e.message; }
+            assert(got === 'name is required');
         });
     });
 
