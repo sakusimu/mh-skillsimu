@@ -32,17 +32,13 @@ describe('mh4g/deco-assembler', () => {
         it('should assemble if equips contain torsoUp, weaponSlot, charm', () => {
             let skillnames = [ '斬れ味レベル+1', '高級耳栓' ];
             let equip = {
-                head  : { name: 'ユクモノカサ・天', slot: 2,
-                          skills: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } },
-                body  : { name: '三眼の首飾り', slot: 3, skills: {} },
-                arm   : { name: 'ユクモノコテ・天', slot: 2,
-                          skills: { '匠': 1, '研ぎ師': 3, '回復量': 2, '加護': 3 } },
-                waist : { name: 'バンギスコイル', slot: 0, skills: { '胴系統倍加': 1 } },
-                leg   : { name: 'ユクモノハカマ・天', slot: 2,
-                          skills: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
+                head  : myapp.equip('head', 'ユクモノカサ・天'),
+                body  : myapp.equip('body', '三眼の首飾り'),
+                arm   : myapp.equip('arm', 'ユクモノコテ・天'),
+                waist : myapp.equip('waist', 'バンギスコイル'),
+                leg   : myapp.equip('leg', 'ユクモノハカマ・天'),
                 weapon: { name: 'slot2', slot: 2, skills: {} },
-                charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
-                          skills: { '匠': 4, '氷耐性': -5 } }
+                charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
             let bulksSet = n.normalize(skillnames, equip);
             let decombs = c.combine(skillnames, bulksSet, equip);
@@ -74,14 +70,13 @@ describe('mh4g/deco-assembler', () => {
             // ALL三眼, 武器スロ3, お守り(匠4,スロ3)
             let skillnames = [ '斬れ味レベル+1', '砥石使用高速化' ];
             let equip = {
-                head  : { name: '三眼のピアス', slot: 3, skills: {} },
-                body  : { name: '三眼の首飾り', slot: 3, skills: {} },
-                arm   : { name: '三眼の腕輪', slot: 3, skills: {} },
-                waist : { name: '三眼の腰飾り', slot: 3, skills: {} },
-                leg   : { name: '三眼の足輪', slot: 3, skills: {} },
+                head  : myapp.equip('head', '三眼のピアス'),
+                body  : myapp.equip('body', '三眼の首飾り'),
+                arm   : myapp.equip('arm', '三眼の腕輪'),
+                waist : myapp.equip('waist', '三眼の腰飾り'),
+                leg   : myapp.equip('leg', '三眼の足輪'),
                 weapon: { name: 'slot3', slot: 3, skills: {} },
-                charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
-                          skills: { '匠': 4, '氷耐性': -5 } }
+                charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
             let bulksSet = n.normalize(skillnames, equip);
             let decombs = c.combine(skillnames, bulksSet, equip);

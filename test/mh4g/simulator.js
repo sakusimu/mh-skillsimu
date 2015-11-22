@@ -34,14 +34,11 @@ describe('mh4g/simulator', () => {
 
             // 装備に胴系統倍加、武器スロ、お守りがある場合
             let equip = {
-                head  : { name: 'ユクモノカサ・天', slot: 2,
-                          skills: { '匠': 2, '研 ぎ師': 3, '回復量': 1, '加護': 1 } },
-                body  : { name: '三眼の首飾り', slot: 3, skills: {} },
-                arm   : { name: 'ユクモノコテ・天', slot: 2,
-                          skills: { '匠': 1, '研ぎ師': 3, '回復量': 2, '加護': 3 } },
-                waist : { name: 'バンギスコイル', slot: 0, skills: { '胴系統倍加': 1 } },
-                leg   : { name: 'ユクモノハカマ・天', slot: 2,
-                          skills: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } },
+                head  : myapp.equip('head', 'ユクモノカサ・天'),
+                body  : myapp.equip('body', '三眼の首飾り'),
+                arm   : myapp.equip('arm', 'ユクモノコテ・天'),
+                waist : myapp.equip('waist', 'バンギスコイル'),
+                leg   : myapp.equip('leg', 'ユクモノハカマ・天'),
                 weapon: { name: 'slot2', slot: 2, skills: {} },
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
