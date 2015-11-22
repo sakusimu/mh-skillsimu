@@ -4,7 +4,7 @@
   "description": "Skill Simulator for MONSTER HUNTER",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js lib test || exit 0",
+    "lint": "eslint index.js lib test examples || exit 0",
     "test": "mocha --require intelli-espower-loader --recursive",
     "test-browser": "npm run testdata-b && karma start test/support/karma.conf.js",
     "testdata": "./tasks/build-testdata.sh",
