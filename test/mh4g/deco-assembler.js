@@ -22,8 +22,8 @@ describe('mh4g/deco-assembler', () => {
             return assems.map(assem => {
                 let sorted = {};
                 Object.keys(assem).forEach(key => {
-                    let decoNames = assem[key];
-                    sorted[key] = decoNames.sort().reverse();
+                    let deconames = assem[key];
+                    sorted[key] = deconames.sort().reverse();
                 });
                 return sorted;
             });
