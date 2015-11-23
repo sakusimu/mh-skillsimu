@@ -1,6 +1,12 @@
 mh-skillsimu ChangeLog
 ======================
 
+## 1.1.0
+
+* improve equip/normalizer performance
+* improve equip/combinator performance
+* improve deco/combinator performance
+
 ## 1.0.0
 
 **Breaking Changes**

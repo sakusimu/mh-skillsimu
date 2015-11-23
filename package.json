@@ -1,6 +1,6 @@
 {
   "name": "mh-skillsimu",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Skill Simulator for MONSTER HUNTER",
   "main": "index.js",
   "scripts": {
