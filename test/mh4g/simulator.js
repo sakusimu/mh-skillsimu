@@ -33,7 +33,7 @@ describe('mh4g/simulator', () => {
             simu.init(myapp.data);
 
             // 装備に胴系統倍加、武器スロ、お守りがある場合
-            let equip = {
+            let equips = {
                 head  : myapp.equip('head', 'ユクモノカサ・天'),
                 body  : myapp.equip('body', '三眼の首飾り'),
                 arm   : myapp.equip('arm', 'ユクモノコテ・天'),
@@ -42,7 +42,7 @@ describe('mh4g/simulator', () => {
                 weapon: { name: 'slot2', slot: 2, skills: {} },
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
-            let got = simu.simulateDeco([ '斬れ味レベル+1', '高級耳栓' ], equip).length;
+            let got = simu.simulateDeco([ '斬れ味レベル+1', '高級耳栓' ], equips).length;
             assert(got === 3);
         });
     });

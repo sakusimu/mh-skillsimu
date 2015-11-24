@@ -170,7 +170,7 @@ describe('deco/normalizer', () => {
         let n = new Normalizer(context);
 
         it('should normalize', () => {
-            let equip = {
+            let equips = {
                 head : { name: 'ユクモノカサ・天', slot: 2,
                          skills: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } },
                 body : { name: '三眼の首飾り', slot: 3, skills: {} },
@@ -180,7 +180,7 @@ describe('deco/normalizer', () => {
                 leg  : { name: 'ユクモノハカマ・天', slot: 2,
                          skills: { '匠': 1, '研ぎ師': 1, '回復量': 2, '加護': 2 } }
             };
-            let got = n.normalize([ '斬れ味レベル+1', '砥石使用高速化' ], equip);
+            let got = n.normalize([ '斬れ味レベル+1', '砥石使用高速化' ], equips);
             let exp = {
                 head: [
                     { decos: [], slot: 0, skills: { '匠': 0, '研ぎ師': 0 } },
@@ -220,7 +220,7 @@ describe('deco/normalizer', () => {
         });
 
         it('should normalize if equips contain slotN, torsoUp, weapon, charm', () => {
-            let equip = {
+            let equips = {
                 head  : { name: 'ユクモノカサ・天', slot: 2,
                           skills: { '匠': 2, '研ぎ師': 3, '回復量': 1, '加護': 1 } },
                 body  : { name: 'slot3', slot: 3, skills: {} },
@@ -232,7 +232,7 @@ describe('deco/normalizer', () => {
                 charm : { name: '龍の護石(スロ3,匠+4,氷耐性-5)', slot: 3,
                           skills: { '匠': 4, '氷耐性': -5 } }
             };
-            let got = n.normalize([ '斬れ味レベル+1', '砥石使用高速化' ], equip);
+            let got = n.normalize([ '斬れ味レベル+1', '砥石使用高速化' ], equips);
             let exp = {
                 head: [
                     { decos: [], slot: 0, skills: { '匠': 0, '研ぎ師': 0 } },

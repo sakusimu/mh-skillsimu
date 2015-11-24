@@ -239,7 +239,7 @@ describe('deco/combinator', () => {
         let c = new Combinator(context);
 
         it('should calc', () => {
-            let equip = {
+            let equips = {
                 body  : { name: 'body', slot: 1 },
                 head  : { name: 'head', slot: 2 },
                 arm   : { name: 'arm', slot: 3 },
@@ -248,7 +248,7 @@ describe('deco/combinator', () => {
                 weapon: null,
                 charm : { name: 'charm', slot: 3 }
             };
-            assert(c._calcTotalSlot(equip) === 11);
+            assert(c._calcTotalSlot(equips) === 11);
         });
     });
 

@@ -25,7 +25,7 @@ describe('mh4g/deco-simulator', () => {
         it('should simulate if contain torsoUp, weaponSlot, charm', () => {
             context.init(myapp.data);
 
-            let equip = {
+            let equips = {
                 head  : myapp.equip('head', 'ユクモノカサ・天'),
                 body  : myapp.equip('body', '三眼の首飾り'),
                 arm   : myapp.equip('arm', 'ユクモノコテ・天'),
@@ -35,7 +35,7 @@ describe('mh4g/deco-simulator', () => {
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
 
-            let assems = simu.simulate([ '斬れ味レベル+1', '高級耳栓' ], equip);
+            let assems = simu.simulate([ '斬れ味レベル+1', '高級耳栓' ], equips);
             let got = sorter(assems);
             let exp = [
                 {
@@ -62,7 +62,7 @@ describe('mh4g/deco-simulator', () => {
             context.init(myapp.data);
 
             // ALL三眼, 武器スロ3, お守り(匠4,スロ3)
-            let equip = {
+            let equips = {
                 head  : myapp.equip('head', '三眼のピアス'),
                 body  : myapp.equip('body', '三眼の首飾り'),
                 arm   : myapp.equip('arm', '三眼の腕輪'),
@@ -72,7 +72,7 @@ describe('mh4g/deco-simulator', () => {
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
 
-            let assems = simu.simulate([ '斬れ味レベル+1', '砥石使用高速化' ], equip);
+            let assems = simu.simulate([ '斬れ味レベル+1', '砥石使用高速化' ], equips);
             let got = sorter(assems);
             let exp = [
                 {
@@ -94,7 +94,7 @@ describe('mh4g/deco-simulator', () => {
             context.init(myapp.data);
 
             let skillnames = [ '斬れ味レベル+1', '攻撃力UP【大】', '耳栓' ];
-            let equip = {
+            let equips = {
                 head  : myapp.equip('head', 'ガララキャップ'),
                 body  : myapp.equip('body', 'レックスメイル'),
                 arm   : myapp.equip('arm', 'ガルルガアーム'),
@@ -104,7 +104,7 @@ describe('mh4g/deco-simulator', () => {
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
 
-            let assems = simu.simulate(skillnames, equip);
+            let assems = simu.simulate(skillnames, equips);
             let got = sorter(assems);
             let exp = [
                 {

@@ -31,7 +31,7 @@ describe('mh4g/deco-assembler', () => {
 
         it('should assemble if equips contain torsoUp, weaponSlot, charm', () => {
             let skillnames = [ '斬れ味レベル+1', '高級耳栓' ];
-            let equip = {
+            let equips = {
                 head  : myapp.equip('head', 'ユクモノカサ・天'),
                 body  : myapp.equip('body', '三眼の首飾り'),
                 arm   : myapp.equip('arm', 'ユクモノコテ・天'),
@@ -40,8 +40,8 @@ describe('mh4g/deco-assembler', () => {
                 weapon: { name: 'slot2', slot: 2, skills: {} },
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
-            let bulksSet = n.normalize(skillnames, equip);
-            let decombs = c.combine(skillnames, bulksSet, equip);
+            let bulksSet = n.normalize(skillnames, equips);
+            let decombs = c.combine(skillnames, bulksSet, equips);
 
             let assems = a.assemble(decombs);
             let got = sorter(assems);
@@ -69,7 +69,7 @@ describe('mh4g/deco-assembler', () => {
         it('should assemble if all equips are slot3', () => {
             // ALL三眼, 武器スロ3, お守り(匠4,スロ3)
             let skillnames = [ '斬れ味レベル+1', '砥石使用高速化' ];
-            let equip = {
+            let equips = {
                 head  : myapp.equip('head', '三眼のピアス'),
                 body  : myapp.equip('body', '三眼の首飾り'),
                 arm   : myapp.equip('arm', '三眼の腕輪'),
@@ -78,8 +78,8 @@ describe('mh4g/deco-assembler', () => {
                 weapon: { name: 'slot3', slot: 3, skills: {} },
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
-            let bulksSet = n.normalize(skillnames, equip);
-            let decombs = c.combine(skillnames, bulksSet, equip);
+            let bulksSet = n.normalize(skillnames, equips);
+            let decombs = c.combine(skillnames, bulksSet, equips);
 
             let assems = a.assemble(decombs);
             let got = sorter(assems);

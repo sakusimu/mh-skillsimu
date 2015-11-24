@@ -19,7 +19,7 @@ describe('mh4g/deco-combinator', () => {
     describe('combine', () => {
         it('should combine if equips contain torsoUp, weaponSlot, charm', () => {
             let skillnames = [ '斬れ味レベル+1', '高級耳栓' ];
-            let equip = {
+            let equips = {
                 head  : myapp.equip('head', 'ユクモノカサ・天'),
                 body  : myapp.equip('body', '三眼の首飾り'),
                 arm   : myapp.equip('arm', 'ユクモノコテ・天'),
@@ -28,9 +28,9 @@ describe('mh4g/deco-combinator', () => {
                 weapon: { name: 'slot2', slot: 2, skills: {} },
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
-            let bulksSet = n.normalize(skillnames, equip);
+            let bulksSet = n.normalize(skillnames, equips);
 
-            let decombs = c.combine(skillnames, bulksSet, equip);
+            let decombs = c.combine(skillnames, bulksSet, equips);
             let got = simplify(decombs);
             let exp = [
                 '匠珠【３】,防音珠【１】,防音珠【１】,防音珠【１】,防音珠【１】,防音珠【１】,防音珠【１】,防音珠【１】,防音珠【３】(胴)',
@@ -43,7 +43,7 @@ describe('mh4g/deco-combinator', () => {
         it('should combine if all equips are slot3', () => {
             // ALL三眼, 武器スロ3, お守り(匠4,スロ3)
             let skillnames = [ '斬れ味レベル+1', '砥石使用高速化' ];
-            let equip = {
+            let equips = {
                 head  : myapp.equip('head', '三眼のピアス'),
                 body  : myapp.equip('body', '三眼の首飾り'),
                 arm   : myapp.equip('arm', '三眼の腕輪'),
@@ -52,9 +52,9 @@ describe('mh4g/deco-combinator', () => {
                 weapon: { name: 'slot3', slot: 3, skills: {} },
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
-            let bulksSet = n.normalize(skillnames, equip);
+            let bulksSet = n.normalize(skillnames, equips);
 
-            let decombs = c.combine(skillnames, bulksSet, equip);
+            let decombs = c.combine(skillnames, bulksSet, equips);
             let got = simplify(decombs);
             let exp = [
                 '匠珠【３】,匠珠【３】,匠珠【３】,研磨珠【１】,研磨珠【１】,研磨珠【１】,研磨珠【１】,研磨珠【１】',
@@ -66,7 +66,7 @@ describe('mh4g/deco-combinator', () => {
         it('should combine if slot3 appear later', () => {
             // 後半にスロ3が出てくるパターン(前半のスロ1は使わないスロとして処理できるか)
             let skillnames = [ '斬れ味レベル+1', '高級耳栓' ];
-            let equip = {
+            let equips = {
                 head : myapp.equip('head', 'ミヅハ【烏帽子】'),
                 body : myapp.equip('body', 'エクスゼロメイル'),
                 arm  : myapp.equip('arm', 'EXレックスアーム'),
@@ -75,9 +75,9 @@ describe('mh4g/deco-combinator', () => {
                 weapon: null,
                 charm: null
             };
-            let bulksSet = n.normalize(skillnames, equip);
+            let bulksSet = n.normalize(skillnames, equips);
 
-            let decombs = c.combine(skillnames, bulksSet, equip);
+            let decombs = c.combine(skillnames, bulksSet, equips);
             let got = simplify(decombs);
             let exp = [
                 '匠珠【２】,匠珠【３】,防音珠【１】,防音珠【３】',
@@ -89,7 +89,7 @@ describe('mh4g/deco-combinator', () => {
         it('should combine if skill already activates', () => {
             // 既にスキルが発動
             let skillnames = [ '斬れ味レベル+1' ];
-            let equip = {
+            let equips = {
                 head  : myapp.equip('head', 'ユクモノカサ・天'),
                 body  : myapp.equip('body', 'ユクモノドウギ・天'),
                 arm   : myapp.equip('arm', 'ユクモノコテ・天'),
@@ -98,9 +98,9 @@ describe('mh4g/deco-combinator', () => {
                 weapon: null,
                 charm : myapp.charm([ '龍の護石',3,'匠',4,'氷耐性',-5 ])
             };
-            let bulksSet = n.normalize(skillnames, equip);
+            let bulksSet = n.normalize(skillnames, equips);
 
-            let decombs = c.combine(skillnames, bulksSet, equip);
+            let decombs = c.combine(skillnames, bulksSet, equips);
             let got = simplify(decombs);
             assert.deepEqual(got, []);
         });
