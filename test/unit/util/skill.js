@@ -304,6 +304,21 @@ describe('util/skill', () => {
             assert.deepEqual(got, exp);
         });
 
+        it('should unify set if 3 torsoUps', () => {
+            let set = {
+                head: { skills: { '胴系統倍加': 1 } },
+                body: { skills: { a: 1, b: 1 } },
+                arm: { skills: { b: 1 } },
+                waist: { skills: { '胴系統倍加': 1 } },
+                leg: { skills: { '胴系統倍加': 1 } },
+                weapon: { skills: { c: 1 } },
+                charm: { skills: { d: 1 } }
+            };
+            let got = util.unify(set);
+            let exp = { a: 4, b: 5, c: 1, d: 1 };
+            assert.deepEqual(got, exp);
+        });
+
         it('should unify list', () => {
             let list = [
                 { skills: { a: 1, b: 1 } },
@@ -331,6 +346,21 @@ describe('util/skill', () => {
             ];
             let got = util.unify(list);
             let exp = { a: 1, b: 1, c: 1 };
+            assert.deepEqual(got, exp);
+        });
+
+        it('should unify list if 3 torsoUps', () => {
+            let list = [
+                { skills: { a: 1, b: 1 } },
+                { skills: { '胴系統倍加': 1 } },
+                { skills: { b: 1 } },
+                { skills: { '胴系統倍加': 1 } },
+                { skills: { '胴系統倍加': 1 } },
+                { skills: { c: 1 } },
+                { skills: { d: 1 } }
+            ];
+            let got = util.unify(list);
+            let exp = { a: 4, b: 5, c: 1, d: 1 };
             assert.deepEqual(got, exp);
         });
     });
