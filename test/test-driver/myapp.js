@@ -16,7 +16,7 @@ exports = module.exports = createMyApp;
  */
 class MyApp {
     constructor(series) {
-        if(series == null) throw new Error(`series is require`);
+        if(series == null) throw new Error('series is require');
 
         this.rawdata = load(series);
         if (this.rawdata == null) throw new Error(`unknown series: ${series}`);
