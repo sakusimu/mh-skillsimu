@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -eu
 root_dir=$(cd $(dirname $0) && cd .. && pwd)
 data_dir=$root_dir/tmp/testdata
